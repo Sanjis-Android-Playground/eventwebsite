@@ -227,6 +227,10 @@
     background: var(--bg-secondary);
 }
 
+body.no-images .event-image-main {
+    min-height: 220px;
+}
+
 .event-image-main img {
     width: 100%;
     height: 100%;

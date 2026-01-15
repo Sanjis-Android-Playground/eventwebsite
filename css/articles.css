@@ -37,6 +37,10 @@
     background: var(--bg-secondary);
 }
 
+body.no-images .article-image {
+    min-height: 180px;
+}
+
 .article-card.featured .article-image {
     width: 50%;
     height: 400px;

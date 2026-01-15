@@ -2,6 +2,15 @@
 // Bangladesh Events Chronicle - Enhanced Script
 // ============================================
 
+// Global test flags
+const URL_PARAMS = new URLSearchParams(window.location.search);
+const NO_IMAGES_MODE = URL_PARAMS.has('noimg');
+
+if (NO_IMAGES_MODE) {
+    document.documentElement.classList.add('no-images');
+    document.body.classList.add('no-images');
+}
+
 // Mobile Navigation Toggle
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
@@ -185,6 +194,7 @@ filterBtns.forEach(btn => {
 });
 
 // Gallery Modal with working stock images
+// If NO_IMAGES_MODE is enabled, we prevent modal image loading.
 const galleryData = [
     {
         image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop&q=80',
@@ -236,6 +246,12 @@ const galleryData = [
 let currentModalIndex = 0;
 
 window.openModal = (index) => {
+    if (NO_IMAGES_MODE) {
+        // In no-images mode, don't load anything
+        alert('NO_IMAGES_MODE is ON (add/remove ?noimg=1). Images are disabled for testing.');
+        return;
+    }
+
     currentModalIndex = index;
     const modal = document.getElementById('imageModal');
     const modalImage = document.getElementById('modalImage');
@@ -386,8 +402,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Lazy Loading Images - browser native, no extra processing needed
-// Images with loading="lazy" attribute handle themselves
+// No-images mode: prevent ALL <img> network requests (debugging broken images / hanging loads)
+if (NO_IMAGES_MODE) {
+    const transparentSvg = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="2" height="2"/>'
+    );
+
+    document.querySelectorAll('img').forEach((img) => {
+        // Remove srcset to stop responsive image fetching
+        img.removeAttribute('srcset');
+        img.removeAttribute('sizes');
+        img.src = transparentSvg;
+        img.loading = 'eager';
+    });
+}
+
+// Lazy Loading Images - browser native
 
 // Last Updated Date
 const updateLastModified = () => {

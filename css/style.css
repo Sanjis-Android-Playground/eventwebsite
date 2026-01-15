@@ -81,6 +81,24 @@ body {
     scroll-padding-top: 80px;
 }
 
+/* Debug mode: disable images */
+body.no-images img {
+    display: none !important;
+}
+
+body.no-images .gallery-image,
+body.no-images .figure-image,
+body.no-images .article-image,
+body.no-images .event-image-main,
+body.no-images .image-grid-item {
+    background: rgba(255,255,255,0.04) !important;
+}
+
+body.no-images .gallery-overlay {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
 /* Selection styling */
 ::selection {
     background: var(--primary);
@@ -361,7 +379,8 @@ body.perf-mode * {
         linear-gradient(rgba(0, 217, 163, 0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0, 217, 163, 0.03) 1px, transparent 1px);
     background-size: 50px 50px;
-    animation: gridMove 30s linear infinite;
+    /* Animations are off by default to prevent constant 100% CPU on some Chrome setups */
+    animation: none;
     will-change: transform;
 }
 
@@ -400,13 +419,13 @@ body.perf-mode * {
 }
 
 .particles-css::before {
-    animation: particleDrift1 55s linear infinite;
+    animation: none;
 }
 
 .particles-css::after {
     opacity: 0.35;
     background-size: 300px 300px;
-    animation: particleDrift2 85s linear infinite;
+    animation: none;
 }
 
 @keyframes particleDrift1 {
@@ -417,6 +436,27 @@ body.perf-mode * {
 @keyframes particleDrift2 {
     from { transform: translate3d(0,0,0); }
     to   { transform: translate3d(60px,60px,0); }
+}
+
+/* FX only when user interacts (class added by js/fx.js) */
+body.fx-on .hero-pattern {
+    animation: gridMove 30s linear infinite;
+}
+
+body.fx-on .particles-css::before {
+    animation: particleDrift1 55s linear infinite;
+}
+
+body.fx-on .particles-css::after {
+    animation: particleDrift2 85s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.fx-on .hero-pattern,
+    body.fx-on .particles-css::before,
+    body.fx-on .particles-css::after {
+        animation: none !important;
+    }
 }
 
 @media (max-width: 768px) {
