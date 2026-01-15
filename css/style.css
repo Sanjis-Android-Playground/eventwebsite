@@ -322,7 +322,15 @@ header.scrolled {
     position: absolute;
     inset: 0;
     z-index: 1;
-    pointer-events: none;
+    pointer-events: auto;
+    cursor: pointer;
+    touch-action: none;
+}
+
+@media (max-width: 768px) {
+    #particles-canvas {
+        touch-action: pan-y;
+    }
 }
 
 @keyframes gridMove {

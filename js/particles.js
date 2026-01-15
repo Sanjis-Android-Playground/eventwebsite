@@ -1,25 +1,78 @@
-// Red Particles Animation - Symbolic of Bangladesh's history and sacrifice
+// Red Particles Animation - Interactive and responsive
 class ParticleSystem {
     constructor(canvas) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.particles = [];
-        this.particleCount = 80;
+        this.mouse = { x: null, y: null, radius: 150 };
+        this.isMobile = this.detectMobile();
+        this.particleCount = this.isMobile ? 40 : 80; // Fewer particles on mobile for performance
         
         this.resize();
         this.init();
-        
-        window.addEventListener('resize', () => this.resize());
+        this.setupEventListeners();
+    }
+    
+    detectMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+            || window.innerWidth < 768;
     }
     
     resize() {
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
+        this.isMobile = this.detectMobile();
+        
+        // Adjust particle count on resize
+        const newCount = this.isMobile ? 40 : 80;
+        if (newCount !== this.particleCount) {
+            this.particleCount = newCount;
+            this.particles = [];
+            this.init();
+        }
+    }
+    
+    setupEventListeners() {
+        window.addEventListener('resize', () => this.resize());
+        
+        // Mouse move for desktop
+        this.canvas.addEventListener('mousemove', (e) => {
+            const rect = this.canvas.getBoundingClientRect();
+            this.mouse.x = e.clientX - rect.left;
+            this.mouse.y = e.clientY - rect.top;
+        });
+        
+        // Mouse leave - reset mouse position
+        this.canvas.addEventListener('mouseleave', () => {
+            this.mouse.x = null;
+            this.mouse.y = null;
+        });
+        
+        // Touch events for mobile
+        this.canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            const rect = this.canvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            this.mouse.x = touch.clientX - rect.left;
+            this.mouse.y = touch.clientY - rect.top;
+        }, { passive: false });
+        
+        this.canvas.addEventListener('touchend', () => {
+            this.mouse.x = null;
+            this.mouse.y = null;
+        });
+        
+        this.canvas.addEventListener('touchstart', (e) => {
+            const rect = this.canvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            this.mouse.x = touch.clientX - rect.left;
+            this.mouse.y = touch.clientY - rect.top;
+        });
     }
     
     init() {
         for (let i = 0; i < this.particleCount; i++) {
-            this.particles.push(new Particle(this.canvas));
+            this.particles.push(new Particle(this.canvas, this.isMobile));
         }
     }
     
@@ -27,7 +80,7 @@ class ParticleSystem {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
         this.particles.forEach(particle => {
-            particle.update();
+            particle.update(this.mouse);
             particle.draw(this.ctx);
         });
         
@@ -36,16 +89,18 @@ class ParticleSystem {
     }
     
     connectParticles() {
+        const maxDistance = this.isMobile ? 100 : 150; // Shorter connections on mobile
+        
         for (let i = 0; i < this.particles.length; i++) {
             for (let j = i + 1; j < this.particles.length; j++) {
                 const dx = this.particles[i].x - this.particles[j].x;
                 const dy = this.particles[i].y - this.particles[j].y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
                 
-                if (distance < 150) {
-                    const opacity = (1 - distance / 150) * 0.3;
+                if (distance < maxDistance) {
+                    const opacity = (1 - distance / maxDistance) * 0.3;
                     this.ctx.strokeStyle = `rgba(244, 42, 65, ${opacity})`;
-                    this.ctx.lineWidth = 1;
+                    this.ctx.lineWidth = this.isMobile ? 0.5 : 1;
                     this.ctx.beginPath();
                     this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
                     this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
@@ -57,17 +112,21 @@ class ParticleSystem {
 }
 
 class Particle {
-    constructor(canvas) {
+    constructor(canvas, isMobile) {
         this.canvas = canvas;
+        this.isMobile = isMobile;
+        this.baseSpeed = isMobile ? 0.3 : 0.5; // Slower on mobile for smoother performance
         this.reset();
     }
     
     reset() {
         this.x = Math.random() * this.canvas.width;
         this.y = Math.random() * this.canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
-        this.radius = Math.random() * 3 + 1;
+        this.vx = (Math.random() - 0.5) * this.baseSpeed;
+        this.vy = (Math.random() - 0.5) * this.baseSpeed;
+        this.radius = Math.random() * (this.isMobile ? 2 : 3) + 1;
+        this.baseX = this.x;
+        this.baseY = this.y;
         
         // Red color variations (Bangladesh flag red)
         const redShades = [
@@ -79,21 +138,45 @@ class Particle {
         this.color = redShades[Math.floor(Math.random() * redShades.length)];
     }
     
-    update() {
+    update(mouse) {
+        // Base movement
         this.x += this.vx;
         this.y += this.vy;
         
-        // Bounce off edges
-        if (this.x < 0 || this.x > this.canvas.width) {
-            this.vx *= -1;
-        }
-        if (this.y < 0 || this.y > this.canvas.height) {
-            this.vy *= -1;
+        // Mouse interaction - particles move away from cursor
+        if (mouse.x !== null && mouse.y !== null) {
+            const dx = this.x - mouse.x;
+            const dy = this.y - mouse.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const forceRadius = this.isMobile ? 100 : mouse.radius;
+            
+            if (distance < forceRadius) {
+                const force = (forceRadius - distance) / forceRadius;
+                const angle = Math.atan2(dy, dx);
+                const moveDistance = force * (this.isMobile ? 3 : 5); // Less movement on mobile
+                
+                this.x += Math.cos(angle) * moveDistance;
+                this.y += Math.sin(angle) * moveDistance;
+            }
         }
         
-        // Keep particles in bounds
-        this.x = Math.max(0, Math.min(this.canvas.width, this.x));
-        this.y = Math.max(0, Math.min(this.canvas.height, this.y));
+        // Bounce off edges with damping
+        if (this.x < 0 || this.x > this.canvas.width) {
+            this.vx *= -0.9;
+            this.x = Math.max(0, Math.min(this.canvas.width, this.x));
+        }
+        if (this.y < 0 || this.y > this.canvas.height) {
+            this.vy *= -0.9;
+            this.y = Math.max(0, Math.min(this.canvas.height, this.y));
+        }
+        
+        // Gradual return to normal speed if slowed
+        if (Math.abs(this.vx) < this.baseSpeed) {
+            this.vx += (Math.random() - 0.5) * 0.05;
+        }
+        if (Math.abs(this.vy) < this.baseSpeed) {
+            this.vy += (Math.random() - 0.5) * 0.05;
+        }
     }
     
     draw(ctx) {
@@ -102,11 +185,13 @@ class Particle {
         ctx.fillStyle = this.color;
         ctx.fill();
         
-        // Add glow effect
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = 'rgba(244, 42, 65, 0.5)';
-        ctx.fill();
-        ctx.shadowBlur = 0;
+        // Add glow effect (reduced on mobile for performance)
+        if (!this.isMobile) {
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = 'rgba(244, 42, 65, 0.5)';
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        }
     }
 }
 
