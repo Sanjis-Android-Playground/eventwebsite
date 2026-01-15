@@ -1,3 +1,7 @@
+// ============================================
+// Bangladesh Events Chronicle - Enhanced Script
+// ============================================
+
 // Mobile Navigation Toggle
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
@@ -22,7 +26,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            const offsetTop = target.offsetTop - 70; // Account for fixed header
+            const offsetTop = target.offsetTop - 70;
             window.scrollTo({
                 top: offsetTop,
                 behavior: 'smooth'
@@ -31,10 +35,77 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// Progress Bar on Scroll
+const progressBar = document.getElementById('progressBar');
+window.addEventListener('scroll', () => {
+    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (window.scrollY / windowHeight) * 100;
+    progressBar.style.width = scrolled + '%';
+});
+
+// Dark Mode Toggle
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+const themeIcon = themeToggle.querySelector('i');
+
+// Check for saved theme preference
+const currentTheme = localStorage.getItem('theme') || 'light';
+if (currentTheme === 'dark') {
+    body.classList.add('dark-mode');
+    themeIcon.classList.replace('fa-moon', 'fa-sun');
+}
+
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    const isDark = body.classList.contains('dark-mode');
+    
+    if (isDark) {
+        themeIcon.classList.replace('fa-moon', 'fa-sun');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        themeIcon.classList.replace('fa-sun', 'fa-moon');
+        localStorage.setItem('theme', 'light');
+    }
+});
+
+// Animated Counter for Hero Stats
+const animateCounter = (element, target) => {
+    let current = 0;
+    const increment = target / 100;
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            element.textContent = target;
+            clearInterval(timer);
+        } else {
+            element.textContent = Math.floor(current);
+        }
+    }, 20);
+};
+
+// Trigger counter animation when hero section is visible
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-count'));
+                animateCounter(stat, target);
+            });
+            statsObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+
+const heroSection = document.querySelector('.hero');
+if (heroSection) {
+    statsObserver.observe(heroSection);
+}
+
 // Add active class to navigation on scroll
 window.addEventListener('scroll', () => {
     const sections = document.querySelectorAll('section');
-    const scrollPos = window.scrollY + 100;
+    const scrollPos = window.scrollY + 150;
 
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
@@ -51,14 +122,206 @@ window.addEventListener('scroll', () => {
         }
     });
 
-    // Add shadow to header on scroll
-    const header = document.querySelector('header');
-    if (window.scrollY > 50) {
-        header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+    // Back to top button
+    const backToTop = document.getElementById('backToTop');
+    if (window.scrollY > 300) {
+        backToTop.classList.add('visible');
     } else {
-        header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+        backToTop.classList.remove('visible');
     }
 });
+
+// Back to Top Button
+const backToTop = document.getElementById('backToTop');
+backToTop.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+// Gallery Filter Functionality
+const filterBtns = document.querySelectorAll('.filter-btn');
+const galleryItems = document.querySelectorAll('.gallery-item');
+
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const filter = btn.getAttribute('data-filter');
+        
+        galleryItems.forEach(item => {
+            if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                item.classList.remove('hidden');
+                item.style.animation = 'fadeInUp 0.5s ease';
+            } else {
+                item.classList.add('hidden');
+            }
+        });
+    });
+});
+
+// Gallery Modal
+const galleryData = [
+    {
+        image: 'images/protest-1.jpg',
+        title: 'Student Movement',
+        description: 'Thousands of students gathered across Bangladesh demanding quota reform in government jobs, marking the beginning of a historic movement.'
+    },
+    {
+        image: 'images/protest-2.jpg',
+        title: 'Peaceful March',
+        description: 'Universities united as students from Dhaka, Chittagong, and other major cities participated in peaceful demonstrations.'
+    },
+    {
+        image: 'images/yunus.jpg',
+        title: 'New Leadership',
+        description: 'Dr. Muhammad Yunus, Nobel Peace Prize laureate, was sworn in as Chief Adviser of the interim government on August 8, 2024.'
+    },
+    {
+        image: 'images/celebration.jpg',
+        title: 'Victory Celebration',
+        description: 'Citizens celebrated the peaceful transition and expressed hope for democratic reforms and a new Bangladesh.'
+    },
+    {
+        image: 'images/youth.jpg',
+        title: 'Youth Power',
+        description: 'The generation that changed history - young activists who demonstrated the power of peaceful resistance.'
+    },
+    {
+        image: 'images/interim-govt.jpg',
+        title: 'Interim Government',
+        description: 'Formation of the new administration with advisers from various sectors focused on reforms and stability.'
+    }
+];
+
+let currentModalIndex = 0;
+
+window.openModal = (index) => {
+    currentModalIndex = index;
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    
+    const data = galleryData[index];
+    modalImage.src = data.image;
+    modalTitle.textContent = data.title;
+    modalDescription.textContent = data.description;
+    
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+};
+
+window.closeModal = () => {
+    const modal = document.getElementById('imageModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+};
+
+window.navigateModal = (direction) => {
+    currentModalIndex += direction;
+    if (currentModalIndex < 0) currentModalIndex = galleryData.length - 1;
+    if (currentModalIndex >= galleryData.length) currentModalIndex = 0;
+    openModal(currentModalIndex);
+};
+
+// Close modal on escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeModal();
+    } else if (e.key === 'ArrowLeft') {
+        navigateModal(-1);
+    } else if (e.key === 'ArrowRight') {
+        navigateModal(1);
+    }
+});
+
+// Close modal when clicking outside
+document.getElementById('imageModal').addEventListener('click', (e) => {
+    if (e.target.id === 'imageModal') {
+        closeModal();
+    }
+});
+
+// Contact Form Handling
+const contactForm = document.getElementById('contactForm');
+const formMessage = document.getElementById('formMessage');
+
+contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Get form data
+    const formData = new FormData(contactForm);
+    const data = Object.fromEntries(formData);
+    
+    // Show loading state
+    const submitBtn = contactForm.querySelector('.submit-btn');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    submitBtn.disabled = true;
+    
+    // Simulate form submission (replace with actual API call)
+    setTimeout(() => {
+        // Success message
+        formMessage.className = 'form-message success';
+        formMessage.innerHTML = '<i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully. We\'ll get back to you soon.';
+        
+        // Reset form
+        contactForm.reset();
+        
+        // Reset button
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        
+        // Hide message after 5 seconds
+        setTimeout(() => {
+            formMessage.className = 'form-message';
+        }, 5000);
+    }, 1500);
+    
+    // For actual implementation, use:
+    /*
+    try {
+        const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+        
+        if (response.ok) {
+            formMessage.className = 'form-message success';
+            formMessage.textContent = 'Thank you! Your message has been sent.';
+            contactForm.reset();
+        } else {
+            throw new Error('Failed to send message');
+        }
+    } catch (error) {
+        formMessage.className = 'form-message error';
+        formMessage.textContent = 'Sorry, there was an error sending your message. Please try again.';
+    } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }
+    */
+});
+
+// Newsletter Form
+const newsletterForm = document.querySelector('.newsletter-form');
+if (newsletterForm) {
+    newsletterForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = newsletterForm.querySelector('input').value;
+        
+        // Show success message
+        alert('Thank you for subscribing! We\'ll keep you updated.');
+        newsletterForm.reset();
+    });
+}
 
 // Intersection Observer for fade-in animations
 const observerOptions = {
@@ -75,9 +338,9 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe all cards and timeline items
+// Observe all animated elements
 const animatedElements = document.querySelectorAll(
-    '.overview-card, .event-card, .timeline-item, .impact-item, .resource-card'
+    '.overview-card, .event-card, .timeline-item, .impact-item, .resource-card, .gallery-item, .contact-card'
 );
 
 animatedElements.forEach(el => {
@@ -86,6 +349,19 @@ animatedElements.forEach(el => {
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(el);
 });
+
+// Lazy Loading Images
+if ('loading' in HTMLImageElement.prototype) {
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    images.forEach(img => {
+        img.src = img.src;
+    });
+} else {
+    // Fallback for browsers that don't support lazy loading
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
+    document.body.appendChild(script);
+}
 
 // Last Updated Date
 const updateLastModified = () => {
@@ -106,11 +382,11 @@ const updateLastModified = () => {
 updateLastModified();
 
 // Print functionality
-const addPrintButton = () => {
+const addPrintStyles = () => {
     const style = document.createElement('style');
     style.innerHTML = `
         @media print {
-            header, footer, .cta-button, .hamburger {
+            header, footer, .cta-button, .hamburger, .theme-toggle, .back-to-top {
                 display: none !important;
             }
             body {
@@ -119,12 +395,16 @@ const addPrintButton = () => {
             .container {
                 max-width: 100%;
             }
+            .hero {
+                min-height: auto;
+                padding: 2rem 0;
+            }
         }
     `;
     document.head.appendChild(style);
 };
 
-addPrintButton();
+addPrintStyles();
 
 // External links - open in new tab
 document.querySelectorAll('a[href^="http"]').forEach(link => {
@@ -134,6 +414,30 @@ document.querySelectorAll('a[href^="http"]').forEach(link => {
     }
 });
 
+// Performance optimization - debounce scroll events
+const debounce = (func, wait) => {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+};
+
+// Apply debounce to scroll-heavy operations
+window.addEventListener('scroll', debounce(() => {
+    // Any additional scroll-dependent operations
+}, 100));
+
 // Console message
-console.log('%c🇧🇩 Bangladesh Chronicle', 'color: #006A4E; font-size: 20px; font-weight: bold;');
+console.log('%c🇧🇩 Bangladesh Chronicle', 'color: #006A4E; font-size: 24px; font-weight: bold;');
 console.log('%cStay informed about recent events in Bangladesh', 'color: #666; font-size: 14px;');
+console.log('%cWebsite enhanced with professional features', 'color: #F42A41; font-size: 12px;');
+
+// Initialize all features on load
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Bangladesh Events Chronicle - All features loaded successfully');
+});

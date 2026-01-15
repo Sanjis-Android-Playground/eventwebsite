@@ -6,24 +6,41 @@
     <meta name="description" content="Stay informed about recent events and developments in Bangladesh - covering political changes, student movements, and social reforms.">
     <meta name="keywords" content="Bangladesh, recent events, news, politics, student protests, interim government">
     <meta name="author" content="Bangladesh Events Chronicle">
+    <meta property="og:title" content="Bangladesh Recent Events - Chronicle of Change">
+    <meta property="og:description" content="Documenting historic changes and developments in Bangladesh">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="images/og-image.jpg">
     <title>Bangladesh Recent Events - Chronicle of Change</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/png" href="favicon.png">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav class="navbar">
             <div class="container">
                 <div class="logo">
-                    <h1>🇧🇩 Bangladesh Chronicle</h1>
+                    <div class="logo-icon">
+                        <img src="images/bd-flag.svg" alt="Bangladesh Flag" class="flag-icon">
+                    </div>
+                    <h1>Bangladesh Chronicle</h1>
                 </div>
                 <ul class="nav-links" id="navLinks">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#timeline">Timeline</a></li>
-                    <li><a href="#events">Key Events</a></li>
-                    <li><a href="#impact">Impact</a></li>
-                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#timeline"><i class="fas fa-clock"></i> Timeline</a></li>
+                    <li><a href="#events"><i class="fas fa-newspaper"></i> Key Events</a></li>
+                    <li><a href="#gallery"><i class="fas fa-images"></i> Gallery</a></li>
+                    <li><a href="#impact"><i class="fas fa-chart-line"></i> Impact</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
                 </ul>
+                <div class="nav-actions">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
                 <div class="hamburger" id="hamburger">
                     <span></span>
                     <span></span>
@@ -31,17 +48,51 @@
                 </div>
             </div>
         </nav>
+        <div class="progress-bar" id="progressBar"></div>
     </header>
 
     <main>
         <!-- Hero Section -->
         <section id="home" class="hero">
+            <div class="hero-background">
+                <div class="hero-overlay"></div>
+                <div class="hero-pattern"></div>
+            </div>
             <div class="container">
                 <div class="hero-content">
+                    <div class="hero-badge">
+                        <i class="fas fa-star"></i>
+                        <span>Historic Events of 2024</span>
+                    </div>
                     <h2 class="hero-title">Chronicle of Recent Events in Bangladesh</h2>
-                    <p class="hero-subtitle">Documenting the historic changes and developments of 2024</p>
-                    <a href="#timeline" class="cta-button">Explore Timeline</a>
+                    <p class="hero-subtitle">Documenting the historic changes, student movements, and democratic transformation that shaped Bangladesh's future</p>
+                    <div class="hero-buttons">
+                        <a href="#timeline" class="cta-button primary">
+                            <i class="fas fa-clock"></i> Explore Timeline
+                        </a>
+                        <a href="#gallery" class="cta-button secondary">
+                            <i class="fas fa-images"></i> View Gallery
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="180">0</div>
+                            <div class="stat-label">Days of Change</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="50">0</div>
+                            <div class="stat-label">Major Events</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="170">0</div>
+                            <div class="stat-label">Million People</div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div class="scroll-indicator">
+                <span>Scroll to explore</span>
+                <i class="fas fa-chevron-down"></i>
             </div>
         </section>
 
@@ -222,69 +273,314 @@
             </div>
         </section>
 
+        <!-- Gallery Section -->
+        <section id="gallery" class="gallery">
+            <div class="container">
+                <h2 class="section-title">Visual Chronicle</h2>
+                <p class="section-subtitle">Moments that defined Bangladesh's transformation</p>
+                
+                <div class="gallery-filters">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-th"></i> All
+                    </button>
+                    <button class="filter-btn" data-filter="protests">
+                        <i class="fas fa-fist-raised"></i> Protests
+                    </button>
+                    <button class="filter-btn" data-filter="leadership">
+                        <i class="fas fa-user-tie"></i> Leadership
+                    </button>
+                    <button class="filter-btn" data-filter="celebration">
+                        <i class="fas fa-flag"></i> Celebration
+                    </button>
+                </div>
+
+                <div class="gallery-grid">
+                    <div class="gallery-item" data-category="protests">
+                        <div class="gallery-image">
+                            <img src="images/protest-1.jpg" alt="Student protests in Dhaka" loading="lazy">
+                            <div class="gallery-overlay">
+                                <h3>Student Movement</h3>
+                                <p>Thousands gather for quota reform</p>
+                                <button class="view-btn" onclick="openModal(0)">
+                                    <i class="fas fa-expand"></i> View
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="protests">
+                        <div class="gallery-image">
+                            <img src="images/protest-2.jpg" alt="University students marching" loading="lazy">
+                            <div class="gallery-overlay">
+                                <h3>Peaceful March</h3>
+                                <p>Universities united for change</p>
+                                <button class="view-btn" onclick="openModal(1)">
+                                    <i class="fas fa-expand"></i> View
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="leadership">
+                        <div class="gallery-image">
+                            <img src="images/yunus.jpg" alt="Dr. Muhammad Yunus" loading="lazy">
+                            <div class="gallery-overlay">
+                                <h3>New Leadership</h3>
+                                <p>Dr. Muhammad Yunus sworn in</p>
+                                <button class="view-btn" onclick="openModal(2)">
+                                    <i class="fas fa-expand"></i> View
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="celebration">
+                        <div class="gallery-image">
+                            <img src="images/celebration.jpg" alt="People celebrating" loading="lazy">
+                            <div class="gallery-overlay">
+                                <h3>Victory Celebration</h3>
+                                <p>Hope for a new Bangladesh</p>
+                                <button class="view-btn" onclick="openModal(3)">
+                                    <i class="fas fa-expand"></i> View
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="protests">
+                        <div class="gallery-image">
+                            <img src="images/youth.jpg" alt="Youth activists" loading="lazy">
+                            <div class="gallery-overlay">
+                                <h3>Youth Power</h3>
+                                <p>The generation that changed history</p>
+                                <button class="view-btn" onclick="openModal(4)">
+                                    <i class="fas fa-expand"></i> View
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="leadership">
+                        <div class="gallery-image">
+                            <img src="images/interim-govt.jpg" alt="Interim government formation" loading="lazy">
+                            <div class="gallery-overlay">
+                                <h3>Interim Government</h3>
+                                <p>Formation of new administration</p>
+                                <button class="view-btn" onclick="openModal(5)">
+                                    <i class="fas fa-expand"></i> View
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Share your story, feedback, or information about recent events</p>
+                
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h3>Email Us</h3>
+                            <p>contact@bangladeshchronicle.org</p>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3>Community</h3>
+                            <p>Join our discussion forums and connect with others</p>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                            <h3>Social Media</h3>
+                            <div class="social-links">
+                                <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form-wrapper">
+                        <form id="contactForm" class="contact-form">
+                            <div class="form-group">
+                                <label for="name">
+                                    <i class="fas fa-user"></i> Full Name *
+                                </label>
+                                <input type="text" id="name" name="name" required placeholder="Enter your name">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">
+                                    <i class="fas fa-envelope"></i> Email Address *
+                                </label>
+                                <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">
+                                    <i class="fas fa-tag"></i> Subject *
+                                </label>
+                                <select id="subject" name="subject" required>
+                                    <option value="">Select a subject</option>
+                                    <option value="feedback">General Feedback</option>
+                                    <option value="story">Share a Story</option>
+                                    <option value="correction">Report Correction</option>
+                                    <option value="collaboration">Collaboration Inquiry</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">
+                                    <i class="fas fa-comment"></i> Message *
+                                </label>
+                                <textarea id="message" name="message" rows="6" required placeholder="Write your message here..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-paper-plane"></i> Send Message
+                            </button>
+                        </form>
+                        <div id="formMessage" class="form-message"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Resources Section -->
         <section id="resources" class="resources">
             <div class="container">
                 <h2 class="section-title">Resources & Further Reading</h2>
                 <div class="resources-grid">
                     <div class="resource-card">
-                        <h3>📰 News Sources</h3>
+                        <div class="resource-icon">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <h3>News Sources</h3>
                         <ul>
-                            <li><a href="https://www.thedailystar.net" target="_blank" rel="noopener">The Daily Star</a></li>
-                            <li><a href="https://www.dhakatribune.com" target="_blank" rel="noopener">Dhaka Tribune</a></li>
-                            <li><a href="https://www.bbc.com/news/topics/cjnwl8q4qdrt" target="_blank" rel="noopener">BBC Bangladesh</a></li>
-                            <li><a href="https://www.aljazeera.com/tag/bangladesh/" target="_blank" rel="noopener">Al Jazeera Bangladesh</a></li>
+                            <li><a href="https://www.thedailystar.net" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> The Daily Star</a></li>
+                            <li><a href="https://www.dhakatribune.com" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Dhaka Tribune</a></li>
+                            <li><a href="https://www.bbc.com/news/topics/cjnwl8q4qdrt" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> BBC Bangladesh</a></li>
+                            <li><a href="https://www.aljazeera.com/tag/bangladesh/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Al Jazeera Bangladesh</a></li>
                         </ul>
                     </div>
                     <div class="resource-card">
-                        <h3>🏛️ Official Sources</h3>
+                        <div class="resource-icon">
+                            <i class="fas fa-landmark"></i>
+                        </div>
+                        <h3>Official Sources</h3>
                         <ul>
-                            <li><a href="https://www.bangladesh.gov.bd" target="_blank" rel="noopener">Bangladesh Government Portal</a></li>
-                            <li><a href="https://pmo.gov.bd" target="_blank" rel="noopener">PMO Bangladesh</a></li>
-                            <li><a href="https://www.mofa.gov.bd" target="_blank" rel="noopener">Ministry of Foreign Affairs</a></li>
+                            <li><a href="https://www.bangladesh.gov.bd" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Bangladesh Government Portal</a></li>
+                            <li><a href="https://pmo.gov.bd" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> PMO Bangladesh</a></li>
+                            <li><a href="https://www.mofa.gov.bd" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Ministry of Foreign Affairs</a></li>
                         </ul>
                     </div>
                     <div class="resource-card">
-                        <h3>🔍 Analysis & Reports</h3>
+                        <div class="resource-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Analysis & Reports</h3>
                         <ul>
-                            <li><a href="https://www.crisisgroup.org" target="_blank" rel="noopener">International Crisis Group</a></li>
-                            <li><a href="https://www.hrw.org/asia/bangladesh" target="_blank" rel="noopener">Human Rights Watch</a></li>
-                            <li><a href="https://www.amnesty.org/en/location/asia-and-the-pacific/south-asia/bangladesh/" target="_blank" rel="noopener">Amnesty International</a></li>
+                            <li><a href="https://www.crisisgroup.org" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> International Crisis Group</a></li>
+                            <li><a href="https://www.hrw.org/asia/bangladesh" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Human Rights Watch</a></li>
+                            <li><a href="https://www.amnesty.org/en/location/asia-and-the-pacific/south-asia/bangladesh/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Amnesty International</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="disclaimer">
+                    <i class="fas fa-info-circle"></i>
                     <p><strong>Disclaimer:</strong> This website provides an overview of recent events in Bangladesh based on publicly available information. For the most current and detailed information, please refer to official sources and reputable news organizations.</p>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <button class="modal-close" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="">
+            <div class="modal-info">
+                <h3 id="modalTitle"></h3>
+                <p id="modalDescription"></p>
+            </div>
+        </div>
+        <button class="modal-nav modal-prev" onclick="navigateModal(-1)">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="modal-nav modal-next" onclick="navigateModal(1)">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>About This Project</h4>
-                    <p>This website documents recent events in Bangladesh for educational and informational purposes.</p>
+                    <div class="footer-logo">
+                        <img src="images/bd-flag.svg" alt="Bangladesh" class="footer-flag">
+                        <h4>Bangladesh Chronicle</h4>
+                    </div>
+                    <p>Documenting historic events and developments in Bangladesh for educational and informational purposes.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
                 </div>
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#timeline">Timeline</a></li>
-                        <li><a href="#events">Events</a></li>
-                        <li><a href="#resources">Resources</a></li>
+                        <li><a href="#home"><i class="fas fa-angle-right"></i> Home</a></li>
+                        <li><a href="#timeline"><i class="fas fa-angle-right"></i> Timeline</a></li>
+                        <li><a href="#events"><i class="fas fa-angle-right"></i> Key Events</a></li>
+                        <li><a href="#gallery"><i class="fas fa-angle-right"></i> Gallery</a></li>
+                        <li><a href="#impact"><i class="fas fa-angle-right"></i> Impact</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Connect</h4>
-                    <p>Stay informed about developments in Bangladesh through reliable news sources.</p>
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#resources"><i class="fas fa-angle-right"></i> News Sources</a></li>
+                        <li><a href="#resources"><i class="fas fa-angle-right"></i> Official Links</a></li>
+                        <li><a href="#resources"><i class="fas fa-angle-right"></i> Analysis</a></li>
+                        <li><a href="#contact"><i class="fas fa-angle-right"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Stay updated with the latest developments</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
                 </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2024-2025 Bangladesh Chronicle. All rights reserved. | Last Updated: January 2025</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <span>•</span>
+                    <a href="#">Terms of Use</a>
+                    <span>•</span>
+                    <a href="#contact">Contact</a>
+                </div>
             </div>
         </div>
+        <button id="backToTop" class="back-to-top" aria-label="Back to top">
+            <i class="fas fa-arrow-up"></i>
+        </button>
     </footer>
 
     <script src="js/script.js"></script>

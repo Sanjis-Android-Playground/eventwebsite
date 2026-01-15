@@ -1,0 +1,78 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      
+      - name: Add VPS to known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+      
+      - name: Deploy to VPS
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          echo "🚀 Starting deployment to VPS..."
+          
+          # Create deployment directory if it doesn't exist
+          ssh $VPS_USER@$VPS_HOST "sudo mkdir -p $DEPLOY_PATH && sudo chown -R $VPS_USER:$VPS_USER $DEPLOY_PATH"
+          
+          # Sync files to VPS
+          rsync -avz --delete \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='node_modules' \
+            --exclude='README.md' \
+            --exclude='QUICK_START.md' \
+            --exclude='DEPLOYMENT_CHECKLIST.md' \
+            --exclude='deploy.sh' \
+            --exclude='nginx.conf' \
+            --exclude='images/placeholder-generator.js' \
+            --exclude='tmp_*' \
+            -e "ssh -o StrictHostKeyChecking=no" \
+            ./ $VPS_USER@$VPS_HOST:$DEPLOY_PATH/
+          
+          # Set proper permissions
+          ssh $VPS_USER@$VPS_HOST "sudo chmod -R 755 $DEPLOY_PATH"
+          
+          # Reload Nginx
+          ssh $VPS_USER@$VPS_HOST "sudo systemctl reload nginx"
+          
+          echo "✅ Deployment completed successfully!"
+      
+      - name: Verify deployment
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+        run: |
+          echo "🔍 Verifying deployment..."
+          ssh $VPS_USER@$VPS_HOST "ls -la ${{ secrets.DEPLOY_PATH }}"
+          echo "✅ Verification complete!"
+      
+      - name: Send notification
+        if: success()
+        run: |
+          echo "🎉 Deployment successful! Website updated at http://${{ secrets.VPS_HOST }}:6969"
+      
+      - name: Deployment failed
+        if: failure()
+        run: |
+          echo "❌ Deployment failed! Please check the logs above."
