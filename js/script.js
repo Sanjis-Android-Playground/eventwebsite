@@ -71,39 +71,48 @@ themeToggle.addEventListener('click', () => {
     }
 });
 
-// Animated Counter for Hero Stats
-const animateCounter = (element, target) => {
-    let current = 0;
-    const increment = target / 100;
-    const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-            element.textContent = target;
-            clearInterval(timer);
-        } else {
-            element.textContent = Math.floor(current);
-        }
-    }, 20);
-};
+// Animated Counter for Hero Stats - DISABLED FOR TESTING
+// const animateCounter = (element, target) => {
+//     let current = 0;
+//     const increment = target / 100;
+//     const timer = setInterval(() => {
+//         current += increment;
+//         if (current >= target) {
+//             element.textContent = target;
+//             clearInterval(timer);
+//         } else {
+//             element.textContent = Math.floor(current);
+//         }
+//     }, 20);
+// };
 
-// Trigger counter animation when hero section is visible
-const statsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const statNumbers = document.querySelectorAll('.stat-number');
-            statNumbers.forEach(stat => {
-                const target = parseInt(stat.getAttribute('data-count'));
-                animateCounter(stat, target);
-            });
-            statsObserver.unobserve(entry.target);
-        }
+// Set stats directly without animation
+document.addEventListener('DOMContentLoaded', () => {
+    const statNumbers = document.querySelectorAll('.stat-number');
+    statNumbers.forEach(stat => {
+        const target = stat.getAttribute('data-count');
+        stat.textContent = target;
     });
-}, { threshold: 0.5 });
+});
 
-const heroSection = document.querySelector('.hero');
-if (heroSection) {
-    statsObserver.observe(heroSection);
-}
+// Trigger counter animation when hero section is visible - DISABLED
+// const statsObserver = new IntersectionObserver((entries) => {
+//     entries.forEach(entry => {
+//         if (entry.isIntersecting) {
+//             const statNumbers = document.querySelectorAll('.stat-number');
+//             statNumbers.forEach(stat => {
+//                 const target = parseInt(stat.getAttribute('data-count'));
+//                 animateCounter(stat, target);
+//             });
+//             statsObserver.unobserve(entry.target);
+//         }
+//     });
+// }, { threshold: 0.5 });
+
+// const heroSection = document.querySelector('.hero');
+// if (heroSection) {
+//     statsObserver.observe(heroSection);
+// }
 
 // Add active class to navigation on scroll
 window.addEventListener('scroll', () => {
