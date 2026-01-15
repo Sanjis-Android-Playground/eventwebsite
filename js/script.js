@@ -43,28 +43,31 @@ window.addEventListener('scroll', () => {
     progressBar.style.width = scrolled + '%';
 });
 
-// Dark Mode Toggle
+// Dark Mode Toggle (Default to dark)
 const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
 const themeIcon = themeToggle.querySelector('i');
 
-// Check for saved theme preference
-const currentTheme = localStorage.getItem('theme') || 'light';
-if (currentTheme === 'dark') {
-    body.classList.add('dark-mode');
+// Check for saved theme preference (default is dark)
+const currentTheme = localStorage.getItem('theme') || 'dark';
+if (currentTheme === 'light') {
+    body.classList.add('light-mode');
     themeIcon.classList.replace('fa-moon', 'fa-sun');
+} else {
+    // Default dark mode
+    themeIcon.classList.replace('fa-moon', 'fa-moon');
 }
 
 themeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    const isDark = body.classList.contains('dark-mode');
+    body.classList.toggle('light-mode');
+    const isLight = body.classList.contains('light-mode');
     
-    if (isDark) {
+    if (isLight) {
         themeIcon.classList.replace('fa-moon', 'fa-sun');
-        localStorage.setItem('theme', 'dark');
+        localStorage.setItem('theme', 'light');
     } else {
         themeIcon.classList.replace('fa-sun', 'fa-moon');
-        localStorage.setItem('theme', 'light');
+        localStorage.setItem('theme', 'dark');
     }
 });
 
@@ -163,35 +166,35 @@ filterBtns.forEach(btn => {
     });
 });
 
-// Gallery Modal
+// Gallery Modal with Unsplash images
 const galleryData = [
     {
-        image: 'images/protest-1.jpg',
+        image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop',
         title: 'Student Movement',
         description: 'Thousands of students gathered across Bangladesh demanding quota reform in government jobs, marking the beginning of a historic movement.'
     },
     {
-        image: 'images/protest-2.jpg',
+        image: 'https://images.unsplash.com/photo-1567982619950-4d9223f2c362?w=800&h=600&fit=crop',
         title: 'Peaceful March',
         description: 'Universities united as students from Dhaka, Chittagong, and other major cities participated in peaceful demonstrations.'
     },
     {
-        image: 'images/yunus.jpg',
+        image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&h=600&fit=crop',
         title: 'New Leadership',
         description: 'Dr. Muhammad Yunus, Nobel Peace Prize laureate, was sworn in as Chief Adviser of the interim government on August 8, 2024.'
     },
     {
-        image: 'images/celebration.jpg',
+        image: 'https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?w=800&h=600&fit=crop',
         title: 'Victory Celebration',
         description: 'Citizens celebrated the peaceful transition and expressed hope for democratic reforms and a new Bangladesh.'
     },
     {
-        image: 'images/youth.jpg',
+        image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&h=600&fit=crop',
         title: 'Youth Power',
         description: 'The generation that changed history - young activists who demonstrated the power of peaceful resistance.'
     },
     {
-        image: 'images/interim-govt.jpg',
+        image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&h=600&fit=crop',
         title: 'Interim Government',
         description: 'Formation of the new administration with advisers from various sectors focused on reforms and stability.'
     }
