@@ -65,7 +65,7 @@ if (currentTheme === 'light') {
 themeToggle.addEventListener('click', () => {
     body.classList.toggle('light-mode');
     const isLight = body.classList.contains('light-mode');
-    
+
     if (isLight) {
         themeIcon.classList.replace('fa-moon', 'fa-sun');
         localStorage.setItem('theme', 'light');
@@ -81,7 +81,7 @@ const animateCounter = (element, target) => {
     const increment = target / 60; // 60 frames for 1 second animation
     const duration = 1000;
     const stepTime = duration / 60;
-    
+
     const timer = setInterval(() => {
         current += increment;
         if (current >= target) {
@@ -120,7 +120,7 @@ const handleScroll = () => {
     const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrolled = (window.scrollY / windowHeight) * 100;
     progressBar.style.width = scrolled + '%';
-    
+
     // Navigation active state
     const sections = document.querySelectorAll('section');
     const scrollPos = window.scrollY + 150;
@@ -129,7 +129,7 @@ const handleScroll = () => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.offsetHeight;
         const sectionId = section.getAttribute('id');
-        
+
         if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
             navItems.forEach(item => {
                 item.classList.remove('active');
@@ -179,9 +179,9 @@ filterBtns.forEach(btn => {
         // Remove active class from all buttons
         filterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        
+
         const filter = btn.getAttribute('data-filter');
-        
+
         galleryItems.forEach(item => {
             if (filter === 'all' || item.getAttribute('data-category') === filter) {
                 item.classList.remove('hidden');
@@ -202,12 +202,12 @@ const galleryData = [
         description: 'Dhaka University students demand quota reform in government jobs, marking the beginning of a historic movement - July 2024.'
     },
     {
-        image: 'images/protest.png',
+        image: 'images/dhaka-uni.png',
         title: 'Massive Turnout',
         description: 'Thousands of students march in Dhaka streets. Universities united as students participated in peaceful demonstrations.'
     },
     {
-        image: 'images/protest.png',
+        image: 'images/rally.png',
         title: 'University Solidarity',
         description: 'Students from Dhaka, Chittagong, Rajshahi, and other universities unite for quota reform and democratic change.'
     },
@@ -222,9 +222,9 @@ const galleryData = [
         description: 'Citizens celebrated the peaceful transition on August 5, 2024, and expressed hope for democratic reforms and a new Bangladesh.'
     },
     {
-        image: 'images/protest.png',
-        title: 'Youth Leading Change',
-        description: 'The generation that changed history - young activists who demonstrated the power of peaceful resistance.'
+        image: 'images/metro-rail.png',
+        title: 'Infrastructure Resumes',
+        description: 'The Metro Rail, a symbol of modern development, resumes operations as the city returns to normalcy under new leadership.'
     },
     {
         image: 'images/protest.png',
@@ -232,7 +232,7 @@ const galleryData = [
         description: 'Historic gathering at Shahbag intersection, a symbolic location for Bangladesh\'s democratic movements.'
     },
     {
-        image: 'images/reform.png',
+        image: 'images/press-conf.png',
         title: 'Interim Government',
         description: 'Formation of the new administration with advisers from various sectors focused on reforms and stability - August 8, 2024.'
     },
@@ -257,12 +257,12 @@ window.openModal = (index) => {
     const modalImage = document.getElementById('modalImage');
     const modalTitle = document.getElementById('modalTitle');
     const modalDescription = document.getElementById('modalDescription');
-    
+
     const data = galleryData[index];
     modalImage.src = data.image;
     modalTitle.textContent = data.title;
     modalDescription.textContent = data.description;
-    
+
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
 };
@@ -304,36 +304,36 @@ const formMessage = document.getElementById('formMessage');
 
 contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     // Get form data
     const formData = new FormData(contactForm);
     const data = Object.fromEntries(formData);
-    
+
     // Show loading state
     const submitBtn = contactForm.querySelector('.submit-btn');
     const originalText = submitBtn.innerHTML;
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
     submitBtn.disabled = true;
-    
+
     // Simulate form submission (replace with actual API call)
     setTimeout(() => {
         // Success message
         formMessage.className = 'form-message success';
         formMessage.innerHTML = '<i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully. We\'ll get back to you soon.';
-        
+
         // Reset form
         contactForm.reset();
-        
+
         // Reset button
         submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
-        
+
         // Hide message after 5 seconds
         setTimeout(() => {
             formMessage.className = 'form-message';
         }, 5000);
     }, 1500);
-    
+
     // For actual implementation, use:
     /*
     try {
@@ -368,7 +368,7 @@ if (newsletterForm) {
     newsletterForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const email = newsletterForm.querySelector('input').value;
-        
+
         // Show success message
         alert('Thank you for subscribing! We\'ll keep you updated.');
         newsletterForm.reset();
@@ -425,7 +425,7 @@ const updateLastModified = () => {
         year: 'numeric',
         month: 'long'
     });
-    
+
     const footerText = document.querySelector('.footer-bottom p');
     if (footerText) {
         footerText.innerHTML = footerText.innerHTML.replace(
