@@ -564,6 +564,11 @@ section {
     gap: 2rem;
 }
 
+.overview-card-link {
+    text-decoration: none;
+    display: block;
+}
+
 .overview-card {
     background: var(--bg-card);
     padding: 2.5rem;
@@ -706,6 +711,22 @@ section {
 .timeline-content p {
     color: var(--text-secondary);
     line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.timeline-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    transition: var(--transition);
+}
+
+.timeline-link:hover {
+    gap: 0.5rem;
+    transform: translateX(4px);
 }
 
 /* Events Section */
@@ -809,6 +830,35 @@ section {
     color: var(--primary);
     font-weight: bold;
     font-size: 1.125rem;
+}
+
+.event-read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: var(--bg-primary);
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.event-read-more:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md), var(--glow-primary);
+}
+
+.event-read-more i {
+    transition: var(--transition);
+}
+
+.event-read-more:hover i {
+    transform: translateX(4px);
 }
 
 /* Impact Section */
