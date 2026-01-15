@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Articles & Analysis | Bangladesh Chronicle</title>
+
+    <!-- NO-IMAGES MODE: add ?noimg=1 to URL -->
+    <script>
+      (function(){
+        try {
+          var p = new URLSearchParams(window.location.search);
+          if (p.has('noimg')) {
+            document.documentElement.classList.add('no-images');
+          }
+        } catch(e) {}
+      })();
+    </script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/event-detail.css">
     <link rel="stylesheet" href="css/articles.css">
@@ -60,7 +72,7 @@
                     <!-- Feature Article -->
                     <article class="article-card featured">
                         <div class="article-image">
-                            <img src="images/student-protest-1.jpg" alt="Bangladesh protests" onerror="this.src='https://via.placeholder.com/800x400/006A4E/FFFFFF?text=Feature+Article'">
+                            <img src="images/ph-protest.svg" alt="Feature article (placeholder)" loading="lazy" decoding="async">
                             <span class="article-badge featured-badge">Featured</span>
                         </div>
                         <div class="article-content">
@@ -80,7 +92,7 @@
                     <!-- Regular Articles -->
                     <article class="article-card">
                         <div class="article-image">
-                            <img src="images/yunus-leadership.jpg" alt="Dr. Yunus" onerror="this.src='https://via.placeholder.com/400x250/0066cc/FFFFFF?text=Article'">
+                            <img src="images/ph-leadership.svg" alt="Article image (placeholder)" loading="lazy" decoding="async">
                         </div>
                         <div class="article-content">
                             <div class="article-meta">
@@ -98,7 +110,7 @@
 
                     <article class="article-card">
                         <div class="article-image">
-                            <img src="images/shahbag-protests.jpg" alt="Shahbag" onerror="this.src='https://via.placeholder.com/400x250/006A4E/FFFFFF?text=Article'">
+                            <img src="images/ph-protest.svg" alt="Article image (placeholder)" loading="lazy" decoding="async">
                         </div>
                         <div class="article-content">
                             <div class="article-meta">
@@ -116,7 +128,7 @@
 
                     <article class="article-card">
                         <div class="article-image">
-                            <img src="images/celebration-august.jpg" alt="Celebration" onerror="this.src='https://via.placeholder.com/400x250/F42A41/FFFFFF?text=Article'">
+                            <img src="images/ph-celebration.svg" alt="Article image (placeholder)" loading="lazy" decoding="async">
                         </div>
                         <div class="article-content">
                             <div class="article-meta">
@@ -134,7 +146,7 @@
 
                     <article class="article-card">
                         <div class="article-image">
-                            <img src="images/youth-power.jpg" alt="Youth" onerror="this.src='https://via.placeholder.com/400x250/006A4E/FFFFFF?text=Article'">
+                            <img src="images/ph-protest.svg" alt="Article image (placeholder)" loading="lazy" decoding="async">
                         </div>
                         <div class="article-content">
                             <div class="article-meta">
@@ -152,7 +164,7 @@
 
                     <article class="article-card">
                         <div class="article-image">
-                            <img src="images/interim-government.jpg" alt="Government" onerror="this.src='https://via.placeholder.com/400x250/0066cc/FFFFFF?text=Article'">
+                            <img src="images/ph-leadership.svg" alt="Article image (placeholder)" loading="lazy" decoding="async">
                         </div>
                         <div class="article-content">
                             <div class="article-meta">
@@ -170,7 +182,7 @@
 
                     <article class="article-card">
                         <div class="article-image">
-                            <img src="images/flag-celebration.jpg" alt="Economy" onerror="this.src='https://via.placeholder.com/400x250/F42A41/FFFFFF?text=Article'">
+                            <img src="images/ph-celebration.svg" alt="Article image (placeholder)" loading="lazy" decoding="async">
                         </div>
                         <div class="article-content">
                             <div class="article-meta">
@@ -188,7 +200,7 @@
 
                     <article class="article-card">
                         <div class="article-image">
-                            <img src="images/university-solidarity.jpg" alt="Democracy" onerror="this.src='https://via.placeholder.com/400x250/006A4E/FFFFFF?text=Article'">
+                            <img src="images/ph-protest.svg" alt="Article image (placeholder)" loading="lazy" decoding="async">
                         </div>
                         <div class="article-content">
                             <div class="article-meta">

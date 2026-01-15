@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A0E27"/>
+      <stop offset="1" stop-color="#151932"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="35%" r="70%">
+      <stop offset="0" stop-color="rgba(99,102,241,0.35)"/>
+      <stop offset="1" stop-color="rgba(99,102,241,0)"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg)"/>
+  <rect width="1200" height="750" fill="url(#glow)"/>
+  <text x="60" y="110" fill="#F8FAFC" font-family="Inter, system-ui, -apple-system" font-size="44" font-weight="800">Leadership</text>
+  <text x="60" y="165" fill="#94A3B8" font-family="Inter, system-ui, -apple-system" font-size="22" font-weight="500">Interim Government • August 2024</text>
+  <circle cx="980" cy="200" r="70" fill="rgba(99,102,241,0.15)"/>
+  <circle cx="980" cy="200" r="35" fill="rgba(99,102,241,0.25)"/>
+  <rect x="860" y="320" width="240" height="14" rx="7" fill="rgba(0,217,163,0.25)"/>
+  <rect x="830" y="360" width="300" height="14" rx="7" fill="rgba(0,217,163,0.18)"/>
+  <rect x="880" y="400" width="200" height="14" rx="7" fill="rgba(0,217,163,0.12)"/>
+  <text x="60" y="690" fill="#64748B" font-family="Inter, system-ui, -apple-system" font-size="16">Local placeholder image (replace with real photos later)</text>
+</svg>

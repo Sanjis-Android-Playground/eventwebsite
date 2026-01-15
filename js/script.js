@@ -197,47 +197,47 @@ filterBtns.forEach(btn => {
 // If NO_IMAGES_MODE is enabled, we prevent modal image loading.
 const galleryData = [
     {
-        image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop&q=80',
+        image: 'images/ph-protest.svg',
         title: 'Student Movement Begins',
         description: 'Dhaka University students demand quota reform in government jobs, marking the beginning of a historic movement - July 2024.'
     },
     {
-        image: 'https://images.unsplash.com/photo-1567982619950-4d9223f2c362?w=800&h=600&fit=crop&q=80',
+        image: 'images/ph-protest.svg',
         title: 'Massive Turnout',
         description: 'Thousands of students march in Dhaka streets. Universities united as students participated in peaceful demonstrations.'
     },
     {
-        image: 'https://images.unsplash.com/photo-1573495612937-f0e3d9e16d11?w=800&h=600&fit=crop&q=80',
+        image: 'images/ph-protest.svg',
         title: 'University Solidarity',
         description: 'Students from Dhaka, Chittagong, Rajshahi, and other universities unite for quota reform and democratic change.'
     },
     {
-        image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&h=600&fit=crop&q=80',
+        image: 'images/ph-leadership.svg',
         title: 'Dr. Muhammad Yunus',
         description: 'Dr. Muhammad Yunus, Nobel Peace Prize laureate, was sworn in as Chief Adviser of the interim government on August 8, 2024.'
     },
     {
-        image: 'https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?w=800&h=600&fit=crop&q=80',
+        image: 'images/ph-celebration.svg',
         title: 'Victory Celebration',
         description: 'Citizens celebrated the peaceful transition on August 5, 2024, and expressed hope for democratic reforms and a new Bangladesh.'
     },
     {
-        image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&h=600&fit=crop&q=80',
+        image: 'images/ph-protest.svg',
         title: 'Youth Leading Change',
         description: 'The generation that changed history - young activists who demonstrated the power of peaceful resistance.'
     },
     {
-        image: 'https://images.unsplash.com/photo-2182975/pexels-photo-2182975.jpeg?w=800&h=600&fit=crop&q=80',
+        image: 'images/ph-protest.svg',
         title: 'Shahbag Square Protests',
         description: 'Historic gathering at Shahbag intersection, a symbolic location for Bangladesh\'s democratic movements.'
     },
     {
-        image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&h=600&fit=crop&q=80',
+        image: 'images/ph-leadership.svg',
         title: 'Interim Government',
         description: 'Formation of the new administration with advisers from various sectors focused on reforms and stability - August 8, 2024.'
     },
     {
-        image: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&h=600&fit=crop&q=80',
+        image: 'images/ph-celebration.svg',
         title: 'National Pride',
         description: 'Citizens wave Bangladesh flag celebrating the peaceful democratic transition and hope for the future.'
     }
