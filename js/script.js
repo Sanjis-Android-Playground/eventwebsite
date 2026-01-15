@@ -390,18 +390,8 @@ if (newsletterForm) {
 //     observer.observe(el);
 // });
 
-// Lazy Loading Images
-if ('loading' in HTMLImageElement.prototype) {
-    const images = document.querySelectorAll('img[loading="lazy"]');
-    images.forEach(img => {
-        img.src = img.src;
-    });
-} else {
-    // Fallback for browsers that don't support lazy loading
-    const script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
-    document.body.appendChild(script);
-}
+// Lazy Loading Images - browser native, no extra processing needed
+// Images with loading="lazy" attribute handle themselves
 
 // Last Updated Date
 const updateLastModified = () => {
