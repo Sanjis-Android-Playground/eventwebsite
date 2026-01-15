@@ -166,37 +166,53 @@ filterBtns.forEach(btn => {
     });
 });
 
-// Gallery Modal with Unsplash images
+// Gallery Modal - UPDATE THESE PATHS WITH YOUR REAL IMAGES
+// After downloading real Bangladesh protest images, update these paths
 const galleryData = [
     {
-        image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop',
-        title: 'Student Movement',
-        description: 'Thousands of students gathered across Bangladesh demanding quota reform in government jobs, marking the beginning of a historic movement.'
+        image: 'images/student-protest-1.jpg', // Replace with real image path
+        title: 'Student Movement Begins',
+        description: 'Dhaka University students demand quota reform in government jobs, marking the beginning of a historic movement - July 2024.'
     },
     {
-        image: 'https://images.unsplash.com/photo-1567982619950-4d9223f2c362?w=800&h=600&fit=crop',
-        title: 'Peaceful March',
-        description: 'Universities united as students from Dhaka, Chittagong, and other major cities participated in peaceful demonstrations.'
+        image: 'images/student-protest-2.jpg', // Replace with real image path
+        title: 'Massive Turnout',
+        description: 'Thousands of students march in Dhaka streets. Universities united as students participated in peaceful demonstrations.'
     },
     {
-        image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&h=600&fit=crop',
-        title: 'New Leadership',
+        image: 'images/university-solidarity.jpg', // Replace with real image path
+        title: 'University Solidarity',
+        description: 'Students from Dhaka, Chittagong, Rajshahi, and other universities unite for quota reform and democratic change.'
+    },
+    {
+        image: 'images/yunus-leadership.jpg', // Replace with real image path
+        title: 'Dr. Muhammad Yunus',
         description: 'Dr. Muhammad Yunus, Nobel Peace Prize laureate, was sworn in as Chief Adviser of the interim government on August 8, 2024.'
     },
     {
-        image: 'https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?w=800&h=600&fit=crop',
+        image: 'images/celebration-august.jpg', // Replace with real image path
         title: 'Victory Celebration',
-        description: 'Citizens celebrated the peaceful transition and expressed hope for democratic reforms and a new Bangladesh.'
+        description: 'Citizens celebrated the peaceful transition on August 5, 2024, and expressed hope for democratic reforms and a new Bangladesh.'
     },
     {
-        image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&h=600&fit=crop',
-        title: 'Youth Power',
+        image: 'images/youth-power.jpg', // Replace with real image path
+        title: 'Youth Leading Change',
         description: 'The generation that changed history - young activists who demonstrated the power of peaceful resistance.'
     },
     {
-        image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&h=600&fit=crop',
+        image: 'images/shahbag-protests.jpg', // Replace with real image path
+        title: 'Shahbag Square Protests',
+        description: 'Historic gathering at Shahbag intersection, a symbolic location for Bangladesh\'s democratic movements.'
+    },
+    {
+        image: 'images/interim-government.jpg', // Replace with real image path
         title: 'Interim Government',
-        description: 'Formation of the new administration with advisers from various sectors focused on reforms and stability.'
+        description: 'Formation of the new administration with advisers from various sectors focused on reforms and stability - August 8, 2024.'
+    },
+    {
+        image: 'images/flag-celebration.jpg', // Replace with real image path
+        title: 'National Pride',
+        description: 'Citizens wave Bangladesh flag celebrating the peaceful democratic transition and hope for the future.'
     }
 ];
 

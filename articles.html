@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles & Analysis | Bangladesh Chronicle</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/event-detail.css">
+    <link rel="stylesheet" href="css/articles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <img src="images/bd-flag.svg" alt="Bangladesh Flag" class="flag-icon">
+                    </div>
+                    <h1><a href="index.html">Bangladesh Chronicle</a></h1>
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="index.html#timeline"><i class="fas fa-clock"></i> Timeline</a></li>
+                    <li><a href="index.html#events"><i class="fas fa-newspaper"></i> Events</a></li>
+                    <li><a href="articles.html" class="active"><i class="fas fa-book-open"></i> Articles</a></li>
+                    <li><a href="index.html#gallery"><i class="fas fa-images"></i> Gallery</a></li>
+                    <li><a href="index.html#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+        <div class="progress-bar" id="progressBar"></div>
+    </header>
+
+    <main>
+        <section class="event-hero">
+            <div class="container">
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+                <h1 class="event-hero-title">Articles & In-Depth Analysis</h1>
+                <p class="hero-subtitle">Comprehensive coverage and analysis of Bangladesh's historic transformation</p>
+            </div>
+        </section>
+
+        <section class="event-content">
+            <div class="container">
+                <div class="articles-grid">
+                    <!-- Feature Article -->
+                    <article class="article-card featured">
+                        <div class="article-image">
+                            <img src="images/student-protest-1.jpg" alt="Bangladesh protests" onerror="this.src='https://via.placeholder.com/800x400/006A4E/FFFFFF?text=Feature+Article'">
+                            <span class="article-badge featured-badge">Featured</span>
+                        </div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category political">Political Analysis</span>
+                                <span class="article-date"><i class="fas fa-calendar"></i> August 15, 2024</span>
+                                <span class="article-read-time"><i class="fas fa-clock"></i> 12 min read</span>
+                            </div>
+                            <h2><a href="article-student-power.html">How Student Power Reshaped Bangladesh's Political Landscape</a></h2>
+                            <p>An in-depth analysis of how a student-led movement against quota reform evolved into a historic political transformation that ended 15 years of government and ushered in a new era of democratic hope.</p>
+                            <a href="article-student-power.html" class="read-more-link">
+                                Read Full Article <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Regular Articles -->
+                    <article class="article-card">
+                        <div class="article-image">
+                            <img src="images/yunus-leadership.jpg" alt="Dr. Yunus" onerror="this.src='https://via.placeholder.com/400x250/0066cc/FFFFFF?text=Article'">
+                        </div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category governance">Governance</span>
+                                <span class="article-date"><i class="fas fa-calendar"></i> August 10, 2024</span>
+                                <span class="article-read-time"><i class="fas fa-clock"></i> 8 min read</span>
+                            </div>
+                            <h3><a href="article-yunus-challenge.html">Dr. Yunus's Challenge: Leading Bangladesh Through Transition</a></h3>
+                            <p>The Nobel laureate faces the daunting task of balancing stakeholder expectations, implementing reforms, and preparing for democratic elections.</p>
+                            <a href="article-yunus-challenge.html" class="read-more-link">
+                                Read Article <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-image">
+                            <img src="images/shahbag-protests.jpg" alt="Shahbag" onerror="this.src='https://via.placeholder.com/400x250/006A4E/FFFFFF?text=Article'">
+                        </div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category social">Social Movement</span>
+                                <span class="article-date"><i class="fas fa-calendar"></i> July 25, 2024</span>
+                                <span class="article-read-time"><i class="fas fa-clock"></i> 10 min read</span>
+                            </div>
+                            <h3><a href="article-quota-history.html">The Quota System: A Historical Perspective</a></h3>
+                            <p>Understanding the origins, purpose, and controversies surrounding Bangladesh's civil service quota system that sparked nationwide protests.</p>
+                            <a href="article-quota-history.html" class="read-more-link">
+                                Read Article <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-image">
+                            <img src="images/celebration-august.jpg" alt="Celebration" onerror="this.src='https://via.placeholder.com/400x250/F42A41/FFFFFF?text=Article'">
+                        </div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category reform">Reform</span>
+                                <span class="article-date"><i class="fas fa-calendar"></i> August 20, 2024</span>
+                                <span class="article-read-time"><i class="fas fa-clock"></i> 15 min read</span>
+                            </div>
+                            <h3><a href="article-reform-roadmap.html">The Reform Roadmap: What's Next for Bangladesh</a></h3>
+                            <p>A comprehensive look at the interim government's reform agenda covering judiciary, elections, civil service, and anti-corruption measures.</p>
+                            <a href="article-reform-roadmap.html" class="read-more-link">
+                                Read Article <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-image">
+                            <img src="images/youth-power.jpg" alt="Youth" onerror="this.src='https://via.placeholder.com/400x250/006A4E/FFFFFF?text=Article'">
+                        </div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category social">Youth Movement</span>
+                                <span class="article-date"><i class="fas fa-calendar"></i> July 30, 2024</span>
+                                <span class="article-read-time"><i class="fas fa-clock"></i> 9 min read</span>
+                            </div>
+                            <h3><a href="article-gen-z-activism.html">Gen Z Activism in Bangladesh: A New Political Force</a></h3>
+                            <p>How Bangladesh's youth leveraged social media, organization, and peaceful resistance to drive political change.</p>
+                            <a href="article-gen-z-activism.html" class="read-more-link">
+                                Read Article <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-image">
+                            <img src="images/interim-government.jpg" alt="Government" onerror="this.src='https://via.placeholder.com/400x250/0066cc/FFFFFF?text=Article'">
+                        </div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category governance">International</span>
+                                <span class="article-date"><i class="fas fa-calendar"></i> August 12, 2024</span>
+                                <span class="article-read-time"><i class="fas fa-clock"></i> 11 min read</span>
+                            </div>
+                            <h3><a href="article-international-response.html">Global Reactions: How the World Responded to Bangladesh's Transition</a></h3>
+                            <p>Analysis of international community's response to Bangladesh's political transition and what it means for regional stability.</p>
+                            <a href="article-international-response.html" class="read-more-link">
+                                Read Article <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-image">
+                            <img src="images/flag-celebration.jpg" alt="Economy" onerror="this.src='https://via.placeholder.com/400x250/F42A41/FFFFFF?text=Article'">
+                        </div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category reform">Economy</span>
+                                <span class="article-date"><i class="fas fa-calendar"></i> August 18, 2024</span>
+                                <span class="article-read-time"><i class="fas fa-clock"></i> 13 min read</span>
+                            </div>
+                            <h3><a href="article-economic-impact.html">Economic Implications of Political Transition in Bangladesh</a></h3>
+                            <p>Examining how the political changes affect Bangladesh's economy, foreign investment, and development trajectory.</p>
+                            <a href="article-economic-impact.html" class="read-more-link">
+                                Read Article <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-image">
+                            <img src="images/university-solidarity.jpg" alt="Democracy" onerror="this.src='https://via.placeholder.com/400x250/006A4E/FFFFFF?text=Article'">
+                        </div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category political">Democracy</span>
+                                <span class="article-date"><i class="fas fa-calendar"></i> August 22, 2024</span>
+                                <span class="article-read-time"><i class="fas fa-clock"></i> 10 min read</span>
+                            </div>
+                            <h3><a href="article-democracy-future.html">Bangladesh's Democratic Future: Challenges and Opportunities</a></h3>
+                            <p>What the transition means for Bangladesh's democratic institutions and the path forward to free elections.</p>
+                            <a href="article-democracy-future.html" class="read-more-link">
+                                Read Article <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024-2025 Bangladesh Chronicle. <a href="index.html">Back to Home</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <button id="backToTop" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
