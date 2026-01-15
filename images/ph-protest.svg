@@ -16,7 +16,14 @@
   <circle cx="860" cy="210" r="5" fill="rgba(244,42,65,0.45)"/>
   <circle cx="980" cy="520" r="4" fill="rgba(244,42,65,0.35)"/>
   <circle cx="320" cy="560" r="5" fill="rgba(244,42,65,0.4)"/>
-  <text x="60" y="110" fill="#F8FAFC" font-family="Inter, system-ui, -apple-system" font-size="44" font-weight="800">Student Protests</text>
-  <text x="60" y="165" fill="#94A3B8" font-family="Inter, system-ui, -apple-system" font-size="22" font-weight="500">Bangladesh • July 2024</text>
-  <text x="60" y="690" fill="#64748B" font-family="Inter, system-ui, -apple-system" font-size="16">Local placeholder image (replace with real photos later)</text>
+  <!-- subtle label pill -->
+  <rect x="60" y="60" width="220" height="44" rx="22" fill="rgba(244,42,65,0.16)" stroke="rgba(244,42,65,0.35)" />
+  <text x="82" y="90" fill="#F8FAFC" font-family="Inter, system-ui, -apple-system" font-size="16" font-weight="700">PROTESTS</text>
+  
+  <!-- abstract shapes -->
+  <path d="M140 520 C 260 420, 380 610, 520 500 C 640 410, 760 610, 910 520" fill="none" stroke="rgba(244,42,65,0.30)" stroke-width="10" stroke-linecap="round"/>
+  <path d="M180 570 C 320 470, 420 640, 560 540 C 690 450, 820 650, 980 560" fill="none" stroke="rgba(244,42,65,0.18)" stroke-width="12" stroke-linecap="round"/>
+  
+  <!-- tiny caption (optional) -->
+  <text x="60" y="690" fill="#64748B" font-family="Inter, system-ui, -apple-system" font-size="14">Placeholder artwork</text>
 </svg>
