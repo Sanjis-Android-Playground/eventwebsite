@@ -904,15 +904,30 @@ section {
 
 .figure-image {
     width: 100%;
-    height: 300px;
+    height: 350px;
     overflow: hidden;
+    background: var(--bg-secondary);
 }
 
 .figure-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
     transition: var(--transition-slow);
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .figure-image {
+        height: 280px;
+    }
+}
+
+@media (max-width: 480px) {
+    .figure-image {
+        height: 250px;
+    }
 }
 
 .figure-card:hover .figure-image img {
@@ -1182,8 +1197,22 @@ section {
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
 }
 
 .gallery-item {
@@ -1199,7 +1228,8 @@ section {
     position: relative;
     overflow: hidden;
     border-radius: 20px;
-    aspect-ratio: 16/10;
+    width: 100%;
+    height: 300px;
     background: var(--bg-card);
     border: 1px solid rgba(0, 217, 163, 0.1);
     cursor: pointer;
@@ -1216,11 +1246,25 @@ section {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
     transition: var(--transition-slow);
+    display: block;
 }
 
 .gallery-image:hover img {
     transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .gallery-image {
+        height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-image {
+        height: 200px;
+    }
 }
 
 .gallery-overlay {
@@ -1896,14 +1940,36 @@ footer {
     }
 }
 
-/* Responsive Design */
+/* Enhanced Responsive Design */
+.container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
 @media (max-width: 1024px) {
     .contact-container {
         grid-template-columns: 1fr;
     }
+    
+    .container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+    
+    section {
+        padding: 5rem 0;
+    }
 }
 
 @media (max-width: 768px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    section {
+        padding: 4rem 0;
+    }
     .hero {
         min-height: auto;
         padding: 100px 0 60px;
@@ -2031,34 +2097,60 @@ footer {
 }
 
 @media (max-width: 480px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
     .hero {
-        padding: 80px 0 50px;
+        padding: 100px 0 50px;
+        min-height: auto;
     }
 
     .hero-title {
-        font-size: 1.8rem;
+        font-size: 1.75rem;
+        line-height: 1.2;
     }
 
     .hero-subtitle {
-        font-size: 1rem;
+        font-size: 0.9375rem;
+        line-height: 1.6;
     }
 
     .hero-stats {
-        flex-direction: column;
-        gap: 1.5rem;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .stat-item {
+        padding: 1rem;
     }
 
     section {
-        padding: 50px 0;
+        padding: 3rem 0;
     }
 
     .section-title {
-        font-size: 1.8rem;
+        font-size: 1.75rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1rem;
     }
 
     .cta-button {
-        padding: 12px 24px;
-        font-size: 0.95rem;
+        padding: 0.875rem 1.75rem;
+        font-size: 0.9375rem;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .hero-buttons {
+        width: 100%;
+    }
+    
+    .hero-buttons .cta-button {
+        width: 100%;
     }
 
     .overview-card,
@@ -2066,24 +2158,59 @@ footer {
     .resource-card {
         padding: 1.5rem;
     }
+    
+    .overview-grid,
+    .events-grid {
+        gap: 1.5rem;
+    }
 
     .contact-form-wrapper {
         padding: 1.5rem;
     }
+    
+    .contact-container {
+        gap: 2rem;
+    }
 
     .back-to-top {
-        bottom: 20px;
-        right: 20px;
+        bottom: 1rem;
+        right: 1rem;
         width: 45px;
         height: 45px;
     }
 
     .gallery-filters {
         gap: 0.5rem;
+        padding: 0 0.5rem;
     }
 
     .filter-btn {
-        padding: 8px 16px;
-        font-size: 0.9rem;
+        padding: 0.625rem 1rem;
+        font-size: 0.875rem;
+    }
+    
+    .timeline-content {
+        padding: 1.25rem;
+    }
+    
+    .impact-item {
+        padding: 1.5rem;
+    }
+    
+    .footer-content {
+        gap: 2rem;
+    }
+    
+    .navbar {
+        padding: 0.75rem 0;
+    }
+    
+    .logo h1 {
+        font-size: 1.125rem;
+    }
+    
+    .nav-links {
+        top: 60px;
+        padding: 1.5rem 0;
     }
 }

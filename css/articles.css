@@ -34,6 +34,7 @@
     position: relative;
     overflow: hidden;
     height: 250px;
+    background: var(--bg-secondary);
 }
 
 .article-card.featured .article-image {
@@ -45,7 +46,29 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
     transition: var(--transition-slow);
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .article-image {
+        height: 200px;
+    }
+    
+    .article-card.featured .article-image {
+        height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .article-image {
+        height: 180px;
+    }
+    
+    .article-card.featured .article-image {
+        height: 200px;
+    }
 }
 
 .article-card:hover .article-image img {
