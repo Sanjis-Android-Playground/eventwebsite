@@ -35,13 +35,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Progress Bar on Scroll
+// Progress Bar on Scroll - OPTIMIZED with debounce
 const progressBar = document.getElementById('progressBar');
-window.addEventListener('scroll', () => {
-    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (window.scrollY / windowHeight) * 100;
-    progressBar.style.width = scrolled + '%';
-});
 
 // Dark Mode Toggle (Default to dark)
 const themeToggle = document.getElementById('themeToggle');
@@ -114,8 +109,14 @@ document.addEventListener('DOMContentLoaded', () => {
 //     statsObserver.observe(heroSection);
 // }
 
-// Add active class to navigation on scroll
-window.addEventListener('scroll', () => {
+// Optimized scroll handler - COMBINED & DEBOUNCED
+const handleScroll = () => {
+    // Progress bar
+    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (window.scrollY / windowHeight) * 100;
+    progressBar.style.width = scrolled + '%';
+    
+    // Navigation active state
     const sections = document.querySelectorAll('section');
     const scrollPos = window.scrollY + 150;
 
@@ -141,7 +142,19 @@ window.addEventListener('scroll', () => {
     } else {
         backToTop.classList.remove('visible');
     }
-});
+};
+
+// Use requestAnimationFrame for scroll - much more efficient
+let ticking = false;
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            handleScroll();
+            ticking = false;
+        });
+        ticking = true;
+    }
+}, { passive: true });
 
 // Back to Top Button
 const backToTop = document.getElementById('backToTop');
@@ -350,32 +363,32 @@ if (newsletterForm) {
     });
 }
 
-// Intersection Observer for fade-in animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
+// Intersection Observer for fade-in animations - DISABLED FOR TESTING
+// const observerOptions = {
+//     threshold: 0.1,
+//     rootMargin: '0px 0px -50px 0px'
+// };
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
+// const observer = new IntersectionObserver((entries) => {
+//     entries.forEach(entry => {
+//         if (entry.isIntersecting) {
+//             entry.target.style.opacity = '1';
+//             entry.target.style.transform = 'translateY(0)';
+//         }
+//     });
+// }, observerOptions);
 
-// Observe all animated elements
-const animatedElements = document.querySelectorAll(
-    '.overview-card, .event-card, .timeline-item, .impact-item, .resource-card, .gallery-item, .contact-card'
-);
+// Observe all animated elements - DISABLED
+// const animatedElements = document.querySelectorAll(
+//     '.overview-card, .event-card, .timeline-item, .impact-item, .resource-card, .gallery-item, .contact-card'
+// );
 
-animatedElements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
-});
+// animatedElements.forEach(el => {
+//     el.style.opacity = '0';
+//     el.style.transform = 'translateY(30px)';
+//     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+//     observer.observe(el);
+// });
 
 // Lazy Loading Images
 if ('loading' in HTMLImageElement.prototype) {
@@ -441,7 +454,7 @@ document.querySelectorAll('a[href^="http"]').forEach(link => {
     }
 });
 
-// Performance optimization - debounce scroll events
+// Debounce function (kept for future use if needed)
 const debounce = (func, wait) => {
     let timeout;
     return function executedFunction(...args) {
@@ -453,11 +466,6 @@ const debounce = (func, wait) => {
         timeout = setTimeout(later, wait);
     };
 };
-
-// Apply debounce to scroll-heavy operations
-window.addEventListener('scroll', debounce(() => {
-    // Any additional scroll-dependent operations
-}, 100));
 
 // Console message
 console.log('%c🇧🇩 Bangladesh Chronicle', 'color: #006A4E; font-size: 24px; font-weight: bold;');
