@@ -66,48 +66,44 @@ themeToggle.addEventListener('click', () => {
     }
 });
 
-// Animated Counter for Hero Stats - DISABLED FOR TESTING
-// const animateCounter = (element, target) => {
-//     let current = 0;
-//     const increment = target / 100;
-//     const timer = setInterval(() => {
-//         current += increment;
-//         if (current >= target) {
-//             element.textContent = target;
-//             clearInterval(timer);
-//         } else {
-//             element.textContent = Math.floor(current);
-//         }
-//     }, 20);
-// };
+// Optimized Animated Counter for Hero Stats
+const animateCounter = (element, target) => {
+    let current = 0;
+    const increment = target / 60; // 60 frames for 1 second animation
+    const duration = 1000;
+    const stepTime = duration / 60;
+    
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            element.textContent = target;
+            clearInterval(timer);
+        } else {
+            element.textContent = Math.floor(current);
+        }
+    }, stepTime);
+};
 
-// Set stats directly without animation
-document.addEventListener('DOMContentLoaded', () => {
-    const statNumbers = document.querySelectorAll('.stat-number');
-    statNumbers.forEach(stat => {
-        const target = stat.getAttribute('data-count');
-        stat.textContent = target;
+// Trigger counter animation when hero section is visible
+let statsAnimated = false;
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting && !statsAnimated) {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-count'));
+                animateCounter(stat, target);
+            });
+            statsAnimated = true;
+            statsObserver.unobserve(entry.target);
+        }
     });
-});
+}, { threshold: 0.3 });
 
-// Trigger counter animation when hero section is visible - DISABLED
-// const statsObserver = new IntersectionObserver((entries) => {
-//     entries.forEach(entry => {
-//         if (entry.isIntersecting) {
-//             const statNumbers = document.querySelectorAll('.stat-number');
-//             statNumbers.forEach(stat => {
-//                 const target = parseInt(stat.getAttribute('data-count'));
-//                 animateCounter(stat, target);
-//             });
-//             statsObserver.unobserve(entry.target);
-//         }
-//     });
-// }, { threshold: 0.5 });
-
-// const heroSection = document.querySelector('.hero');
-// if (heroSection) {
-//     statsObserver.observe(heroSection);
-// }
+const heroSection = document.querySelector('.hero');
+if (heroSection) {
+    statsObserver.observe(heroSection);
+}
 
 // Optimized scroll handler - COMBINED & DEBOUNCED
 const handleScroll = () => {
@@ -363,32 +359,32 @@ if (newsletterForm) {
     });
 }
 
-// Intersection Observer for fade-in animations - DISABLED FOR TESTING
-// const observerOptions = {
-//     threshold: 0.1,
-//     rootMargin: '0px 0px -50px 0px'
-// };
+// Optimized Intersection Observer for fade-in animations
+const observerOptions = {
+    threshold: 0.15,
+    rootMargin: '0px 0px -100px 0px'
+};
 
-// const observer = new IntersectionObserver((entries) => {
-//     entries.forEach(entry => {
-//         if (entry.isIntersecting) {
-//             entry.target.style.opacity = '1';
-//             entry.target.style.transform = 'translateY(0)';
-//         }
-//     });
-// }, observerOptions);
+const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in-visible');
+            fadeObserver.unobserve(entry.target); // Stop observing once animated
+        }
+    });
+}, observerOptions);
 
-// Observe all animated elements - DISABLED
-// const animatedElements = document.querySelectorAll(
-//     '.overview-card, .event-card, .timeline-item, .impact-item, .resource-card, .gallery-item, .contact-card'
-// );
+// Observe elements for fade-in (only once per element)
+document.addEventListener('DOMContentLoaded', () => {
+    const animatedElements = document.querySelectorAll(
+        '.overview-card, .event-card, .timeline-item, .impact-item, .resource-card, .gallery-item, .contact-card, .figure-card, .quick-link-card'
+    );
 
-// animatedElements.forEach(el => {
-//     el.style.opacity = '0';
-//     el.style.transform = 'translateY(30px)';
-//     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-//     observer.observe(el);
-// });
+    animatedElements.forEach(el => {
+        el.classList.add('fade-in-element');
+        fadeObserver.observe(el);
+    });
+});
 
 // Lazy Loading Images - browser native, no extra processing needed
 // Images with loading="lazy" attribute handle themselves
@@ -456,6 +452,21 @@ const debounce = (func, wait) => {
         timeout = setTimeout(later, wait);
     };
 };
+
+// Enable automatic performance mode for low-end devices / save-data
+(() => {
+    try {
+        const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const saveData = navigator.connection && navigator.connection.saveData;
+        const lowCores = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+
+        if (prefersReduced || saveData || lowCores) {
+            document.body.classList.add('perf-mode');
+        }
+    } catch (e) {
+        // ignore
+    }
+})();
 
 // Console message
 console.log('%c🇧🇩 Bangladesh Chronicle', 'color: #006A4E; font-size: 24px; font-weight: bold;');

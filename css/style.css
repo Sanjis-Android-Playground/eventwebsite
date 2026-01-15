@@ -57,6 +57,19 @@ html {
     font-size: 16px;
 }
 
+/* Fade-in animation system */
+.fade-in-element {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-in-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif;
     line-height: 1.6;
@@ -65,6 +78,18 @@ body {
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scroll-padding-top: 80px;
+}
+
+/* Selection styling */
+::selection {
+    background: var(--primary);
+    color: var(--bg-primary);
+}
+
+::-moz-selection {
+    background: var(--primary);
+    color: var(--bg-primary);
 }
 
 .container {
@@ -86,21 +111,42 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(10, 14, 39, 0.8);
-    backdrop-filter: blur(20px) saturate(180%);
+    background: rgba(10, 14, 39, 0.92);
+    /* backdrop-filter removed (high CPU on some Chrome/GPUs) */
     border-bottom: 1px solid rgba(0, 217, 163, 0.1);
     z-index: 1000;
     transition: var(--transition);
 }
 
 body.light-mode header {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.95);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 header.scrolled {
     box-shadow: var(--shadow-lg);
     border-bottom-color: rgba(0, 217, 163, 0.3);
+} 
+
+/* Performance mode: disable costly effects */
+body.perf-mode header {
+    background: rgba(10, 14, 39, 0.98);
+}
+
+body.perf-mode .hero-pattern {
+    animation: none !important;
+}
+
+body.perf-mode * {
+    scroll-behavior: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 .progress-bar {
@@ -324,7 +370,9 @@ header.scrolled {
     100% { transform: translate(50px, 50px); }
 }
 
-/* Optimized CSS particles - Smooth & Lightweight */
+/* Particles (PERFORMANCE): SVG-tile + transform only
+   Avoids animating many radial-gradients (CPU heavy in Chrome).
+*/
 .particles-css {
     position: absolute;
     inset: 0;
@@ -333,58 +381,59 @@ header.scrolled {
     pointer-events: none;
 }
 
-/* Layer 1 - Slow floating particles */
-.particles-css::before {
-    content: '';
-    position: absolute;
-    inset: -50%;
-    background-image: 
-        radial-gradient(circle at 20% 30%, rgba(244, 42, 65, 0.2) 3px, transparent 3px),
-        radial-gradient(circle at 60% 70%, rgba(220, 38, 58, 0.15) 2px, transparent 2px),
-        radial-gradient(circle at 40% 50%, rgba(255, 60, 80, 0.18) 2.5px, transparent 2.5px),
-        radial-gradient(circle at 80% 20%, rgba(244, 42, 65, 0.16) 2.2px, transparent 2.2px),
-        radial-gradient(circle at 15% 80%, rgba(200, 30, 50, 0.14) 2.8px, transparent 2.8px);
-    background-size: 300px 300px, 250px 250px, 350px 350px, 280px 280px, 320px 320px;
-    background-position: 0 0, 50px 80px, 120px 30px, 180px 120px, 40px 160px;
-    animation: particleFloat1 60s linear infinite;
-    will-change: transform;
-    opacity: 0.8;
+/* Tiny SVG dot tile encoded as data URI (fast to render) */
+:root {
+    --particle-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ccircle cx='20' cy='25' r='2.2' fill='rgba(244,42,65,0.45)'/%3E%3Ccircle cx='75' cy='40' r='1.8' fill='rgba(244,42,65,0.35)'/%3E%3Ccircle cx='55' cy='85' r='2.6' fill='rgba(244,42,65,0.28)'/%3E%3Ccircle cx='105' cy='70' r='2.1' fill='rgba(244,42,65,0.32)'/%3E%3Ccircle cx='35' cy='110' r='1.7' fill='rgba(244,42,65,0.25)'/%3E%3C/svg%3E");
 }
 
-/* Layer 2 - Medium speed particles */
+.particles-css::before,
 .particles-css::after {
     content: '';
     position: absolute;
-    inset: -50%;
-    background-image: 
-        radial-gradient(circle at 35% 45%, rgba(244, 42, 65, 0.18) 2.5px, transparent 2.5px),
-        radial-gradient(circle at 75% 25%, rgba(220, 38, 58, 0.14) 2px, transparent 2px),
-        radial-gradient(circle at 55% 85%, rgba(255, 60, 80, 0.16) 3px, transparent 3px),
-        radial-gradient(circle at 25% 65%, rgba(200, 30, 50, 0.15) 2.3px, transparent 2.3px),
-        radial-gradient(circle at 85% 55%, rgba(244, 42, 65, 0.17) 2.7px, transparent 2.7px);
-    background-size: 280px 280px, 310px 310px, 260px 260px, 340px 340px, 290px 290px;
-    background-position: 100px 50px, 20px 140px, 160px 90px, 70px 20px, 140px 150px;
-    animation: particleFloat2 80s linear infinite;
+    inset: -40%;
+    background-image: var(--particle-tile);
+    background-repeat: repeat;
+    background-size: 220px 220px;
+    opacity: 0.55;
     will-change: transform;
-    opacity: 0.7;
+    transform: translate3d(0,0,0);
 }
 
-@keyframes particleFloat1 {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-50px, -50px); }
+.particles-css::before {
+    animation: particleDrift1 55s linear infinite;
 }
 
-@keyframes particleFloat2 {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(50px, 50px); }
+.particles-css::after {
+    opacity: 0.35;
+    background-size: 300px 300px;
+    animation: particleDrift2 85s linear infinite;
 }
 
-/* Mobile optimization */
+@keyframes particleDrift1 {
+    from { transform: translate3d(0,0,0); }
+    to   { transform: translate3d(-60px,-60px,0); }
+}
+
+@keyframes particleDrift2 {
+    from { transform: translate3d(0,0,0); }
+    to   { transform: translate3d(60px,60px,0); }
+}
+
 @media (max-width: 768px) {
     .particles-css::before,
     .particles-css::after {
-        animation-duration: 40s; /* Faster on mobile */
-        opacity: 0.5;
+        opacity: 0.28;
+        animation-duration: 45s;
+    }
+}
+
+/* Automatic performance mode: disables particles & background motion entirely */
+body.perf-mode .particles-css::before,
+body.perf-mode .particles-css::after,
+@media (prefers-reduced-motion: reduce) {
+    .particles-css::before,
+    .particles-css::after {
+        animation: none !important;
     }
 }
 
@@ -1402,12 +1451,13 @@ section {
 }
 
 .modal-info {
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    background-color: rgba(10, 14, 39, 0.85);
+    /* backdrop-filter removed (high CPU on some Chrome/GPUs) */
     padding: 1.5rem;
-    border-radius: 10px;
+    border-radius: 12px;
     margin-top: 1rem;
-    color: var(--white);
+    color: var(--text-primary);
+    border: 1px solid rgba(0, 217, 163, 0.15);
 }
 
 .modal-info h3 {
