@@ -197,47 +197,47 @@ filterBtns.forEach(btn => {
 // If NO_IMAGES_MODE is enabled, we prevent modal image loading.
 const galleryData = [
     {
-        image: 'images/ph-protest.svg',
+        image: 'images/protest.png',
         title: 'Student Movement Begins',
         description: 'Dhaka University students demand quota reform in government jobs, marking the beginning of a historic movement - July 2024.'
     },
     {
-        image: 'images/ph-protest.svg',
+        image: 'images/protest.png',
         title: 'Massive Turnout',
         description: 'Thousands of students march in Dhaka streets. Universities united as students participated in peaceful demonstrations.'
     },
     {
-        image: 'images/ph-protest.svg',
+        image: 'images/protest.png',
         title: 'University Solidarity',
         description: 'Students from Dhaka, Chittagong, Rajshahi, and other universities unite for quota reform and democratic change.'
     },
     {
-        image: 'images/ph-leadership.svg',
+        image: 'images/reform.png',
         title: 'Dr. Muhammad Yunus',
         description: 'Dr. Muhammad Yunus, Nobel Peace Prize laureate, was sworn in as Chief Adviser of the interim government on August 8, 2024.'
     },
     {
-        image: 'images/ph-celebration.svg',
+        image: 'images/celebration.png',
         title: 'Victory Celebration',
         description: 'Citizens celebrated the peaceful transition on August 5, 2024, and expressed hope for democratic reforms and a new Bangladesh.'
     },
     {
-        image: 'images/ph-protest.svg',
+        image: 'images/protest.png',
         title: 'Youth Leading Change',
         description: 'The generation that changed history - young activists who demonstrated the power of peaceful resistance.'
     },
     {
-        image: 'images/ph-protest.svg',
+        image: 'images/protest.png',
         title: 'Shahbag Square Protests',
         description: 'Historic gathering at Shahbag intersection, a symbolic location for Bangladesh\'s democratic movements.'
     },
     {
-        image: 'images/ph-leadership.svg',
+        image: 'images/reform.png',
         title: 'Interim Government',
         description: 'Formation of the new administration with advisers from various sectors focused on reforms and stability - August 8, 2024.'
     },
     {
-        image: 'images/ph-celebration.svg',
+        image: 'images/celebration.png',
         title: 'National Pride',
         description: 'Citizens wave Bangladesh flag celebrating the peaceful democratic transition and hope for the future.'
     }

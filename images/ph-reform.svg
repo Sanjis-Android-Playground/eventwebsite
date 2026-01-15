@@ -11,10 +11,15 @@
   </defs>
   <rect width="1200" height="750" fill="url(#bg)"/>
   <rect width="1200" height="750" fill="url(#glow)"/>
-  <text x="60" y="110" fill="#F8FAFC" font-family="Inter, system-ui, -apple-system" font-size="44" font-weight="800">Reforms</text>
-  <text x="60" y="165" fill="#94A3B8" font-family="Inter, system-ui, -apple-system" font-size="22" font-weight="500">Institutions • Elections • Judiciary</text>
-  <rect x="60" y="240" width="520" height="18" rx="9" fill="rgba(0,217,163,0.25)"/>
-  <rect x="60" y="280" width="460" height="18" rx="9" fill="rgba(0,217,163,0.18)"/>
-  <rect x="60" y="320" width="400" height="18" rx="9" fill="rgba(0,217,163,0.12)"/>
-  <text x="60" y="690" fill="#64748B" font-family="Inter, system-ui, -apple-system" font-size="16">Local placeholder image (replace with real photos later)</text>
+  <!-- subtle label pill -->
+  <rect x="60" y="60" width="220" height="44" rx="22" fill="rgba(0,217,163,0.16)" stroke="rgba(0,217,163,0.35)" />
+  <text x="82" y="90" fill="#F8FAFC" font-family="Inter, system-ui, -apple-system" font-size="16" font-weight="700">REFORMS</text>
+
+  <!-- abstract bars -->
+  <rect x="60" y="260" width="620" height="18" rx="9" fill="rgba(0,217,163,0.22)"/>
+  <rect x="60" y="305" width="540" height="18" rx="9" fill="rgba(0,217,163,0.16)"/>
+  <rect x="60" y="350" width="460" height="18" rx="9" fill="rgba(0,217,163,0.11)"/>
+  <rect x="60" y="395" width="380" height="18" rx="9" fill="rgba(0,217,163,0.08)"/>
+
+  <text x="60" y="690" fill="#64748B" font-family="Inter, system-ui, -apple-system" font-size="14">Placeholder artwork</text>
 </svg>

@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Stay informed about recent events and developments in Bangladesh - covering political changes, student movements, and social reforms.">
+    <meta name="description"
+        content="Stay informed about recent events and developments in Bangladesh - covering political changes, student movements, and social reforms.">
     <meta name="keywords" content="Bangladesh, recent events, news, politics, student protests, interim government">
     <meta name="author" content="Bangladesh Events Chronicle">
 
     <!-- NO-IMAGES MODE: add ?noimg=1 to URL -->
     <script>
-      (function(){
-        try {
-          var p = new URLSearchParams(window.location.search);
-          if (p.has('noimg')) {
-            document.documentElement.classList.add('no-images');
-          }
-        } catch(e) {}
-      })();
+        (function () {
+            try {
+                var p = new URLSearchParams(window.location.search);
+                if (p.has('noimg')) {
+                    document.documentElement.classList.add('no-images');
+                }
+            } catch (e) { }
+        })();
     </script>
 
     <meta property="og:title" content="Bangladesh Recent Events - Chronicle of Change">
@@ -30,7 +32,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="js/i18n.js"></script>
 </head>
+
 <body>
     <header>
         <nav class="navbar">
@@ -42,15 +46,20 @@
                     <h1>Bangladesh Chronicle</h1>
                 </div>
                 <ul class="nav-links" id="navLinks">
-                    <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="#timeline"><i class="fas fa-clock"></i> Timeline</a></li>
-                    <li><a href="#events"><i class="fas fa-newspaper"></i> Events</a></li>
-                    <li><a href="articles.html"><i class="fas fa-book-open"></i> Articles</a></li>
-                    <li><a href="#gallery"><i class="fas fa-images"></i> Gallery</a></li>
-                    <li><a href="#impact"><i class="fas fa-chart-line"></i> Impact</a></li>
-                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="#home" data-i18n="nav.home"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#timeline" data-i18n="nav.timeline"><i class="fas fa-clock"></i> Timeline</a></li>
+                    <li><a href="#events" data-i18n="nav.events"><i class="fas fa-newspaper"></i> Events</a></li>
+                    <li><a href="articles.html" data-i18n="nav.articles"><i class="fas fa-book-open"></i> Articles</a>
+                    </li>
+                    <li><a href="#gallery" data-i18n="nav.gallery"><i class="fas fa-images"></i> Gallery</a></li>
+                    <li><a href="#impact" data-i18n="nav.impact"><i class="fas fa-chart-line"></i> Impact</a></li>
+                    <li><a href="#contact" data-i18n="nav.contact"><i class="fas fa-envelope"></i> Contact</a></li>
                 </ul>
                 <div class="nav-actions">
+                    <button class="lang-toggle" id="langToggle" aria-label="Toggle language">
+                        <i class="fas fa-language"></i>
+                        <span>EN</span>
+                    </button>
                     <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                         <i class="fas fa-moon"></i>
                     </button>
@@ -65,6 +74,24 @@
         <div class="progress-bar" id="progressBar"></div>
     </header>
 
+    <!-- News Ticker -->
+    <div class="news-ticker-container">
+        <div class="ticker-label">
+            <span class="pulse-red">●</span> <span data-i18n="news.label">BREAKING</span>
+        </div>
+        <div class="ticker-wrap">
+            <div class="ticker-move">
+                <div class="ticker-item" data-i18n="news.item1">Interim Government announces new commission for banking
+                    sector reform.</div>
+                <div class="ticker-item" data-i18n="news.item2">Dhaka University resumes classes after 3 months of
+                    closure.</div>
+                <div class="ticker-item" data-i18n="news.item3">Metro Rail service fully operational again.</div>
+                <div class="ticker-item" data-i18n="news.item4">International community pledges support for Bangladesh's
+                    democratic transition.</div>
+            </div>
+        </div>
+    </div>
+
     <main>
         <!-- Hero Section -->
         <section id="home" class="hero">
@@ -77,30 +104,32 @@
                 <div class="hero-content">
                     <div class="hero-badge">
                         <i class="fas fa-star"></i>
-                        <span>Historic Events of 2024</span>
+                        <span data-i18n="hero.badge">Historic Events of 2024</span>
                     </div>
-                    <h2 class="hero-title">Chronicle of Recent Events in Bangladesh</h2>
-                    <p class="hero-subtitle">Documenting the historic changes, student movements, and democratic transformation that shaped Bangladesh's future</p>
+                    <h2 class="hero-title" data-i18n="hero.title">Chronicle of Recent Events in Bangladesh</h2>
+                    <p class="hero-subtitle" data-i18n="hero.subtitle">Documenting the historic changes, student
+                        movements, and democratic
+                        transformation that shaped Bangladesh's future</p>
                     <div class="hero-buttons">
                         <a href="#timeline" class="cta-button primary">
-                            <i class="fas fa-clock"></i> Explore Timeline
+                            <i class="fas fa-clock"></i> <span data-i18n="hero.cta.timeline">Explore Timeline</span>
                         </a>
                         <a href="#gallery" class="cta-button secondary">
-                            <i class="fas fa-images"></i> View Gallery
+                            <i class="fas fa-images"></i> <span data-i18n="hero.cta.gallery">View Gallery</span>
                         </a>
                     </div>
                     <div class="hero-stats">
                         <div class="stat-item">
                             <div class="stat-number" data-count="180">0</div>
-                            <div class="stat-label">Days of Change</div>
+                            <div class="stat-label" data-i18n="hero.stat.days">Days of Change</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-number" data-count="50">0</div>
-                            <div class="stat-label">Major Events</div>
+                            <div class="stat-label" data-i18n="hero.stat.events">Major Events</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-number" data-count="170">0</div>
-                            <div class="stat-label">Million People</div>
+                            <div class="stat-label" data-i18n="hero.stat.people">Million People</div>
                         </div>
                     </div>
                 </div>
@@ -114,34 +143,34 @@
         <!-- Overview Section -->
         <section class="overview">
             <div class="container">
-                <h2 class="section-title">Overview</h2>
+                <h2 class="section-title" data-i18n="section.overview">Overview</h2>
                 <div class="overview-grid">
                     <a href="event-student-protests.html" class="overview-card-link">
                         <div class="overview-card">
                             <div class="icon">📅</div>
-                            <h3>July-August 2024</h3>
-                            <p>Student-led protests and political transformation</p>
+                            <h3 data-i18n="card.jul_aug">July-August 2024</h3>
+                            <p data-i18n="card.jul_aug_desc">Student-led protests and political transformation</p>
                         </div>
                     </a>
                     <a href="event-student-protests.html" class="overview-card-link">
                         <div class="overview-card">
                             <div class="icon">👥</div>
-                            <h3>Youth Movement</h3>
-                            <p>Students demand reform and change</p>
+                            <h3 data-i18n="card.youth">Youth Movement</h3>
+                            <p data-i18n="card.youth_desc">Students demand reform and change</p>
                         </div>
                     </a>
                     <a href="event-interim-government.html" class="overview-card-link">
                         <div class="overview-card">
                             <div class="icon">🏛️</div>
-                            <h3>Interim Government</h3>
-                            <p>Formation of new leadership structure</p>
+                            <h3 data-i18n="card.interim">Interim Government</h3>
+                            <p data-i18n="card.interim_desc">Formation of new leadership structure</p>
                         </div>
                     </a>
                     <a href="event-reforms.html" class="overview-card-link">
                         <div class="overview-card">
                             <div class="icon">🔄</div>
-                            <h3>Reform Process</h3>
-                            <p>Ongoing institutional and social reforms</p>
+                            <h3 data-i18n="card.reform">Reform Process</h3>
+                            <p data-i18n="card.reform_desc">Ongoing institutional and social reforms</p>
                         </div>
                     </a>
                 </div>
@@ -154,10 +183,13 @@
                 <h2 class="section-title">Timeline of Events</h2>
                 <div class="timeline-container">
                     <div class="timeline-item">
-                        <div class="timeline-date">July 2024</div>
+                        <div class="timeline-date" data-i18n="timeline.1.date">July 2024</div>
                         <div class="timeline-content">
-                            <h3>Student Protests Begin</h3>
-                            <p>Students across Bangladesh initiate protests demanding quota reform in government jobs. The movement gains momentum rapidly with students from various universities participating.</p>
+                            <h3 data-i18n="timeline.1.title">Student Protests Begin</h3>
+                            <p data-i18n="timeline.1.desc">Students across Bangladesh initiate protests demanding quota
+                                reform in government jobs.
+                                The movement gains momentum rapidly with students from various universities
+                                participating.</p>
                             <a href="event-student-protests.html" class="timeline-link">Learn more →</a>
                         </div>
                     </div>
@@ -165,22 +197,27 @@
                         <div class="timeline-date">Late July 2024</div>
                         <div class="timeline-content">
                             <h3>Protests Intensify</h3>
-                            <p>The movement expands beyond quota reform to address broader governance issues. Demonstrations spread across major cities including Dhaka, Chittagong, and Sylhet.</p>
+                            <p>The movement expands beyond quota reform to address broader governance issues.
+                                Demonstrations spread across major cities including Dhaka, Chittagong, and Sylhet.</p>
                         </div>
                     </div>
                     <div class="timeline-item">
-                        <div class="timeline-date">August 5, 2024</div>
+                        <div class="timeline-date" data-i18n="timeline.3.date">August 5, 2024</div>
                         <div class="timeline-content">
-                            <h3>Political Transition</h3>
-                            <p>Following weeks of intense protests, Prime Minister Sheikh Hasina resigns and leaves the country on August 5, 2024, marking a historic political shift.</p>
+                            <h3 data-i18n="timeline.3.title">Political Transition</h3>
+                            <p data-i18n="timeline.3.desc">Following weeks of intense protests, Prime Minister Sheikh
+                                Hasina resigns and leaves the
+                                country on August 5, 2024, marking a historic political shift.</p>
                             <a href="event-government-transition.html" class="timeline-link">Learn more →</a>
                         </div>
                     </div>
                     <div class="timeline-item">
-                        <div class="timeline-date">August 8, 2024</div>
+                        <div class="timeline-date" data-i18n="timeline.4.date">August 8, 2024</div>
                         <div class="timeline-content">
-                            <h3>Interim Government Formed</h3>
-                            <p>Dr. Muhammad Yunus, Nobel Peace Prize laureate, is sworn in as Chief Adviser of the interim government, leading a team of advisers to steer the country toward reforms.</p>
+                            <h3 data-i18n="timeline.4.title">Interim Government Formed</h3>
+                            <p data-i18n="timeline.4.desc">Dr. Muhammad Yunus, Nobel Peace Prize laureate, is sworn in
+                                as Chief Adviser of the
+                                interim government, leading a team of advisers to steer the country toward reforms.</p>
                             <a href="event-interim-government.html" class="timeline-link">Learn more →</a>
                         </div>
                     </div>
@@ -188,14 +225,16 @@
                         <div class="timeline-date">August-December 2024</div>
                         <div class="timeline-content">
                             <h3>Reform Initiatives</h3>
-                            <p>The interim government initiates various reforms including judicial reform, electoral system improvements, and addressing governance issues raised during the protests.</p>
+                            <p>The interim government initiates various reforms including judicial reform, electoral
+                                system improvements, and addressing governance issues raised during the protests.</p>
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-date">January 2025</div>
                         <div class="timeline-content">
                             <h3>Ongoing Developments</h3>
-                            <p>Continued efforts to stabilize the political situation, implement reforms, and prepare for eventual democratic elections while addressing economic challenges.</p>
+                            <p>Continued efforts to stabilize the political situation, implement reforms, and prepare
+                                for eventual democratic elections while addressing economic challenges.</p>
                         </div>
                     </div>
                 </div>
@@ -213,7 +252,9 @@
                             <span class="event-date">July 2024</span>
                         </div>
                         <h3>Student-Led Movement</h3>
-                        <p>What began as a quota reform movement evolved into a broader call for political change. Students demonstrated remarkable organization and peaceful resistance, becoming a catalyst for historic transformation.</p>
+                        <p>What began as a quota reform movement evolved into a broader call for political change.
+                            Students demonstrated remarkable organization and peaceful resistance, becoming a catalyst
+                            for historic transformation.</p>
                         <ul class="event-highlights">
                             <li>Nationwide university participation</li>
                             <li>Peaceful demonstrations and civil resistance</li>
@@ -230,7 +271,8 @@
                             <span class="event-date">August 5, 2024</span>
                         </div>
                         <h3>Government Transition</h3>
-                        <p>After weeks of protests, Prime Minister Sheikh Hasina resigned on August 5, 2024, marking the end of 15 years in power and beginning a peaceful transition to an interim government.</p>
+                        <p>After weeks of protests, Prime Minister Sheikh Hasina resigned on August 5, 2024, marking the
+                            end of 15 years in power and beginning a peaceful transition to an interim government.</p>
                         <ul class="event-highlights">
                             <li>Historic peaceful transition</li>
                             <li>15 years of leadership concluded</li>
@@ -247,7 +289,9 @@
                             <span class="event-date">August 8, 2024</span>
                         </div>
                         <h3>Interim Government Formation</h3>
-                        <p>Dr. Muhammad Yunus assumed leadership as Chief Adviser, bringing his international credibility and reform vision. The interim administration includes advisers from various backgrounds focused on stabilization and reform.</p>
+                        <p>Dr. Muhammad Yunus assumed leadership as Chief Adviser, bringing his international
+                            credibility and reform vision. The interim administration includes advisers from various
+                            backgrounds focused on stabilization and reform.</p>
                         <ul class="event-highlights">
                             <li>Nobel laureate leadership</li>
                             <li>Multi-sector advisory team</li>
@@ -264,7 +308,9 @@
                             <span class="event-date">Ongoing</span>
                         </div>
                         <h3>Reform Initiatives</h3>
-                        <p>The interim government has initiated comprehensive reforms targeting the judiciary, electoral system, and civil service to address long-standing governance concerns and ensure institutional independence.</p>
+                        <p>The interim government has initiated comprehensive reforms targeting the judiciary, electoral
+                            system, and civil service to address long-standing governance concerns and ensure
+                            institutional independence.</p>
                         <ul class="event-highlights">
                             <li>Judicial independence initiatives</li>
                             <li>Electoral commission restructuring</li>
@@ -283,16 +329,17 @@
             <div class="container">
                 <h2 class="section-title">Key Figures</h2>
                 <p class="section-subtitle">The individuals who shaped Bangladesh's historic transformation</p>
-                
+
                 <div class="figures-grid">
                     <div class="figure-card">
                         <div class="figure-image">
-                            <img src="images/ph-leadership.svg" alt="Dr. Muhammad Yunus (placeholder)" loading="lazy" decoding="async">
+                            <img src="images/reform.png" alt="Dr. Muhammad Yunus" loading="lazy" decoding="async">
                         </div>
                         <div class="figure-info">
                             <h3>Dr. Muhammad Yunus</h3>
                             <span class="figure-role">Chief Adviser, Interim Government</span>
-                            <p>Nobel Peace Prize laureate (2006) and founder of Grameen Bank. Known as the "banker to the poor" for pioneering microfinance.</p>
+                            <p>Nobel Peace Prize laureate (2006) and founder of Grameen Bank. Known as the "banker to
+                                the poor" for pioneering microfinance.</p>
                             <a href="event-interim-government.html" class="figure-link">
                                 Read More <i class="fas fa-arrow-right"></i>
                             </a>
@@ -301,12 +348,14 @@
 
                     <div class="figure-card">
                         <div class="figure-image">
-                            <img src="images/ph-protest.svg" alt="Student leaders (placeholder)" loading="lazy" decoding="async">
+                            <img src="images/protest.png" alt="Student leaders" loading="lazy" decoding="async">
                         </div>
                         <div class="figure-info">
-                            <h3>Student Coordinators</h3>
-                            <span class="figure-role">Movement Organizers</span>
-                            <p>The brave students from Dhaka University, BUET, and other institutions who organized and led the peaceful protests.</p>
+                            <h3 data-i18n="figure.students.title">Student Coordinators</h3>
+                            <span class="figure-role" data-i18n="figure.students.role">Movement Organizers</span>
+                            <p data-i18n="figure.students.desc">The brave students from Dhaka University, BUET, and
+                                other institutions who organized and
+                                led the peaceful protests.</p>
                             <a href="event-student-protests.html" class="figure-link">
                                 Read More <i class="fas fa-arrow-right"></i>
                             </a>
@@ -315,12 +364,13 @@
 
                     <div class="figure-card">
                         <div class="figure-image">
-                            <img src="images/ph-leadership.svg" alt="Advisory council (placeholder)" loading="lazy" decoding="async">
+                            <img src="images/reform.png" alt="Advisory council" loading="lazy" decoding="async">
                         </div>
                         <div class="figure-info">
                             <h3>Advisory Council</h3>
                             <span class="figure-role">Interim Government Ministers</span>
-                            <p>17 advisers from diverse backgrounds including legal experts, economists, and civil society leaders.</p>
+                            <p>17 advisers from diverse backgrounds including legal experts, economists, and civil
+                                society leaders.</p>
                             <a href="event-interim-government.html" class="figure-link">
                                 Read More <i class="fas fa-arrow-right"></i>
                             </a>
@@ -377,32 +427,46 @@
         <!-- Impact Section -->
         <section id="impact" class="impact">
             <div class="container">
-                <h2 class="section-title">Impact & Significance</h2>
+                <h2 class="section-title" data-i18n="section.impact">Impact & Significance</h2>
                 <div class="impact-content">
                     <div class="impact-text">
-                        <h3>A Historic Moment for Bangladesh</h3>
-                        <p>The events of 2024 represent a pivotal moment in Bangladesh's history. The student-led movement demonstrated the power of youth activism and civic engagement in shaping the nation's future.</p>
-                        
+                        <h3 data-i18n="impact.title">A Historic Moment for Bangladesh</h3>
+                        <p data-i18n="impact.p1">The events of 2024 represent a pivotal moment in Bangladesh's history.
+                            The student-led
+                            movement demonstrated the power of youth activism and civic engagement in shaping the
+                            nation's future.</p>
+
                         <h4>Key Areas of Impact:</h4>
                         <div class="impact-areas">
                             <div class="impact-item">
-                                <strong>🎓 Youth Empowerment</strong>
-                                <p>Students and young people emerged as key stakeholders in national political discourse, showcasing their ability to mobilize for change.</p>
+                                <strong data-i18n="impact.item1">🎓 Youth Empowerment</strong>
+                                <p>Students and young people emerged as key stakeholders in national political
+                                    discourse, showcasing their ability to mobilize for change.</p>
                             </div>
                             <div class="impact-item">
-                                <strong>🏛️ Institutional Reform</strong>
-                                <p>Focus on reforming key institutions including the judiciary, electoral commission, and civil service to ensure transparency and fairness.</p>
+                                <strong data-i18n="impact.item2">🏛️ Institutional Reform</strong>
+                                <p>Focus on reforming key institutions including the judiciary, electoral commission,
+                                    and civil service to ensure transparency and fairness.</p>
                             </div>
                             <div class="impact-item">
-                                <strong>🌍 International Attention</strong>
-                                <p>Global attention on Bangladesh's peaceful transition and the role of civil society in democratic processes.</p>
+                                <strong data-i18n="impact.item3">🌍 International Attention</strong>
+                                <p>Global attention on Bangladesh's peaceful transition and the role of civil society in
+                                    democratic processes.</p>
                             </div>
                             <div class="impact-item">
                                 <strong>💼 Economic Considerations</strong>
-                                <p>Balancing political transformation with economic stability remains a critical challenge for the interim government.</p>
+                                <p>Balancing political transformation with economic stability remains a critical
+                                    challenge for the interim government.</p>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <!-- Interactive Map Section -->
+                <div class="map-section-container">
+                    <h3 class="map-title" data-i18n="map.title">Nationwide Movement</h3>
+                    <p class="map-subtitle" data-i18n="map.subtitle">Hover over key cities to see their contribution</p>
+                    <div id="impactMap" class="impact-map-wrapper"></div>
                 </div>
             </div>
         </section>
@@ -412,7 +476,7 @@
             <div class="container">
                 <h2 class="section-title">Visual Chronicle</h2>
                 <p class="section-subtitle">Moments that defined Bangladesh's transformation</p>
-                
+
                 <div class="gallery-filters">
                     <button class="filter-btn active" data-filter="all">
                         <i class="fas fa-th"></i> All
@@ -431,7 +495,8 @@
                 <div class="gallery-grid">
                     <div class="gallery-item" data-category="protests">
                         <div class="gallery-image">
-                            <img src="images/ph-protest.svg" alt="Student protests (placeholder)" loading="lazy" decoding="async" fetchpriority="low">
+                            <img src="images/protest.png" alt="Student protests" loading="lazy" decoding="async"
+                                fetchpriority="low">
                             <div class="gallery-overlay">
                                 <h3>Student Movement Begins</h3>
                                 <p>Dhaka University students demand quota reform - July 2024</p>
@@ -443,7 +508,8 @@
                     </div>
                     <div class="gallery-item" data-category="protests">
                         <div class="gallery-image">
-                            <img src="images/ph-protest.svg" alt="Mass demonstrations (placeholder)" loading="lazy" decoding="async" fetchpriority="low">
+                            <img src="images/protest.png" alt="Mass demonstrations" loading="lazy" decoding="async"
+                                fetchpriority="low">
                             <div class="gallery-overlay">
                                 <h3>Massive Turnout</h3>
                                 <p>Thousands of students march in Dhaka streets</p>
@@ -455,7 +521,8 @@
                     </div>
                     <div class="gallery-item" data-category="protests">
                         <div class="gallery-image">
-                            <img src="images/ph-protest.svg" alt="University solidarity (placeholder)" loading="lazy" decoding="async" fetchpriority="low">
+                            <img src="images/protest.png" alt="University solidarity" loading="lazy" decoding="async"
+                                fetchpriority="low">
                             <div class="gallery-overlay">
                                 <h3>University Solidarity</h3>
                                 <p>Students from multiple universities unite</p>
@@ -467,7 +534,8 @@
                     </div>
                     <div class="gallery-item" data-category="leadership">
                         <div class="gallery-image">
-                            <img src="images/ph-leadership.svg" alt="Leadership (placeholder)" loading="lazy" decoding="async" fetchpriority="low">
+                            <img src="images/reform.png" alt="Leadership" loading="lazy" decoding="async"
+                                fetchpriority="low">
                             <div class="gallery-overlay">
                                 <h3>Dr. Muhammad Yunus</h3>
                                 <p>Nobel laureate becomes Chief Adviser</p>
@@ -479,7 +547,8 @@
                     </div>
                     <div class="gallery-item" data-category="celebration">
                         <div class="gallery-image">
-                            <img src="images/ph-celebration.svg" alt="Celebration (placeholder)" loading="lazy" decoding="async" fetchpriority="low">
+                            <img src="images/celebration.png" alt="Celebration" loading="lazy" decoding="async"
+                                fetchpriority="low">
                             <div class="gallery-overlay">
                                 <h3>Victory Celebration</h3>
                                 <p>Citizens celebrate political transition - August 5, 2024</p>
@@ -491,7 +560,8 @@
                     </div>
                     <div class="gallery-item" data-category="protests">
                         <div class="gallery-image">
-                            <img src="images/ph-protest.svg" alt="Youth power (placeholder)" loading="lazy" decoding="async" fetchpriority="low">
+                            <img src="images/protest.png" alt="Youth power" loading="lazy" decoding="async"
+                                fetchpriority="low">
                             <div class="gallery-overlay">
                                 <h3>Youth Leading Change</h3>
                                 <p>The generation that transformed Bangladesh</p>
@@ -503,7 +573,8 @@
                     </div>
                     <div class="gallery-item" data-category="protests">
                         <div class="gallery-image">
-                            <img src="images/ph-protest.svg" alt="Public gathering (placeholder)" loading="lazy" decoding="async" fetchpriority="low">
+                            <img src="images/protest.png" alt="Public gathering" loading="lazy" decoding="async"
+                                fetchpriority="low">
                             <div class="gallery-overlay">
                                 <h3>Shahbag Square Protests</h3>
                                 <p>Historic gathering at Shahbag intersection</p>
@@ -515,7 +586,8 @@
                     </div>
                     <div class="gallery-item" data-category="leadership">
                         <div class="gallery-image">
-                            <img src="images/ph-leadership.svg" alt="Government formation (placeholder)" loading="lazy" decoding="async" fetchpriority="low">
+                            <img src="images/reform.png" alt="Government formation" loading="lazy" decoding="async"
+                                fetchpriority="low">
                             <div class="gallery-overlay">
                                 <h3>Interim Government</h3>
                                 <p>New administration sworn in - August 8, 2024</p>
@@ -527,7 +599,8 @@
                     </div>
                     <div class="gallery-item" data-category="celebration">
                         <div class="gallery-image">
-                            <img src="images/ph-celebration.svg" alt="National pride (placeholder)" loading="lazy" decoding="async" fetchpriority="low">
+                            <img src="images/celebration.png" alt="National pride" loading="lazy" decoding="async"
+                                fetchpriority="low">
                             <div class="gallery-overlay">
                                 <h3>National Pride</h3>
                                 <p>Citizens wave Bangladesh flag in celebration</p>
@@ -546,7 +619,7 @@
             <div class="container">
                 <h2 class="section-title">Get In Touch</h2>
                 <p class="section-subtitle">Share your story, feedback, or information about recent events</p>
-                
+
                 <div class="contact-container">
                     <div class="contact-info">
                         <div class="contact-card">
@@ -576,7 +649,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="contact-form-wrapper">
                         <form id="contactForm" class="contact-form">
                             <div class="form-group">
@@ -585,14 +658,15 @@
                                 </label>
                                 <input type="text" id="name" name="name" required placeholder="Enter your name">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="email">
                                     <i class="fas fa-envelope"></i> Email Address *
                                 </label>
-                                <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                                <input type="email" id="email" name="email" required
+                                    placeholder="your.email@example.com">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="subject">
                                     <i class="fas fa-tag"></i> Subject *
@@ -606,14 +680,15 @@
                                     <option value="other">Other</option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="message">
                                     <i class="fas fa-comment"></i> Message *
                                 </label>
-                                <textarea id="message" name="message" rows="6" required placeholder="Write your message here..."></textarea>
+                                <textarea id="message" name="message" rows="6" required
+                                    placeholder="Write your message here..."></textarea>
                             </div>
-                            
+
                             <button type="submit" class="submit-btn">
                                 <i class="fas fa-paper-plane"></i> Send Message
                             </button>
@@ -635,10 +710,14 @@
                         </div>
                         <h3>News Sources</h3>
                         <ul>
-                            <li><a href="https://www.thedailystar.net" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> The Daily Star</a></li>
-                            <li><a href="https://www.dhakatribune.com" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Dhaka Tribune</a></li>
-                            <li><a href="https://www.bbc.com/news/topics/cjnwl8q4qdrt" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> BBC Bangladesh</a></li>
-                            <li><a href="https://www.aljazeera.com/tag/bangladesh/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Al Jazeera Bangladesh</a></li>
+                            <li><a href="https://www.thedailystar.net" target="_blank" rel="noopener"><i
+                                        class="fas fa-external-link-alt"></i> The Daily Star</a></li>
+                            <li><a href="https://www.dhakatribune.com" target="_blank" rel="noopener"><i
+                                        class="fas fa-external-link-alt"></i> Dhaka Tribune</a></li>
+                            <li><a href="https://www.bbc.com/news/topics/cjnwl8q4qdrt" target="_blank" rel="noopener"><i
+                                        class="fas fa-external-link-alt"></i> BBC Bangladesh</a></li>
+                            <li><a href="https://www.aljazeera.com/tag/bangladesh/" target="_blank" rel="noopener"><i
+                                        class="fas fa-external-link-alt"></i> Al Jazeera Bangladesh</a></li>
                         </ul>
                     </div>
                     <div class="resource-card">
@@ -647,9 +726,12 @@
                         </div>
                         <h3>Official Sources</h3>
                         <ul>
-                            <li><a href="https://www.bangladesh.gov.bd" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Bangladesh Government Portal</a></li>
-                            <li><a href="https://pmo.gov.bd" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> PMO Bangladesh</a></li>
-                            <li><a href="https://www.mofa.gov.bd" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Ministry of Foreign Affairs</a></li>
+                            <li><a href="https://www.bangladesh.gov.bd" target="_blank" rel="noopener"><i
+                                        class="fas fa-external-link-alt"></i> Bangladesh Government Portal</a></li>
+                            <li><a href="https://pmo.gov.bd" target="_blank" rel="noopener"><i
+                                        class="fas fa-external-link-alt"></i> PMO Bangladesh</a></li>
+                            <li><a href="https://www.mofa.gov.bd" target="_blank" rel="noopener"><i
+                                        class="fas fa-external-link-alt"></i> Ministry of Foreign Affairs</a></li>
                         </ul>
                     </div>
                     <div class="resource-card">
@@ -658,15 +740,21 @@
                         </div>
                         <h3>Analysis & Reports</h3>
                         <ul>
-                            <li><a href="https://www.crisisgroup.org" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> International Crisis Group</a></li>
-                            <li><a href="https://www.hrw.org/asia/bangladesh" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Human Rights Watch</a></li>
-                            <li><a href="https://www.amnesty.org/en/location/asia-and-the-pacific/south-asia/bangladesh/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Amnesty International</a></li>
+                            <li><a href="https://www.crisisgroup.org" target="_blank" rel="noopener"><i
+                                        class="fas fa-external-link-alt"></i> International Crisis Group</a></li>
+                            <li><a href="https://www.hrw.org/asia/bangladesh" target="_blank" rel="noopener"><i
+                                        class="fas fa-external-link-alt"></i> Human Rights Watch</a></li>
+                            <li><a href="https://www.amnesty.org/en/location/asia-and-the-pacific/south-asia/bangladesh/"
+                                    target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Amnesty
+                                    International</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="disclaimer">
                     <i class="fas fa-info-circle"></i>
-                    <p><strong>Disclaimer:</strong> This website provides an overview of recent events in Bangladesh based on publicly available information. For the most current and detailed information, please refer to official sources and reputable news organizations.</p>
+                    <p><strong>Disclaimer:</strong> This website provides an overview of recent events in Bangladesh
+                        based on publicly available information. For the most current and detailed information, please
+                        refer to official sources and reputable news organizations.</p>
                 </div>
             </div>
         </section>
@@ -700,7 +788,9 @@
                         <img src="images/bd-flag.svg" alt="Bangladesh" class="footer-flag">
                         <h4>Bangladesh Chronicle</h4>
                     </div>
-                    <p>Documenting historic events and developments in Bangladesh for educational and informational purposes.</p>
+                    <p data-i18n="footer.desc">Documenting historic events and developments in Bangladesh for
+                        educational and informational
+                        purposes.</p>
                     <div class="footer-social">
                         <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
                         <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
@@ -755,5 +845,7 @@
 
     <script src="js/script.js"></script>
     <script src="js/fx.js"></script>
+    <script src="js/map.js"></script>
 </body>
+
 </html>
