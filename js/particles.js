@@ -1,4 +1,4 @@
-// Red Particles Animation - Interactive and responsive
+// Red Particles Animation - Optimized for low CPU usage
 class ParticleSystem {
     constructor(canvas) {
         this.canvas = canvas;
@@ -6,11 +6,17 @@ class ParticleSystem {
         this.particles = [];
         this.mouse = { x: null, y: null, radius: 150 };
         this.isMobile = this.detectMobile();
-        this.particleCount = this.isMobile ? 40 : 80; // Fewer particles on mobile for performance
+        this.particleCount = this.isMobile ? 25 : 50; // Reduced from 40/80
+        this.animationId = null;
+        this.isVisible = true;
+        this.fps = 30; // Limit to 30fps instead of 60fps
+        this.fpsInterval = 1000 / this.fps;
+        this.then = Date.now();
         
         this.resize();
         this.init();
         this.setupEventListeners();
+        this.setupVisibilityCheck();
     }
     
     detectMobile() {
@@ -35,11 +41,16 @@ class ParticleSystem {
     setupEventListeners() {
         window.addEventListener('resize', () => this.resize());
         
-        // Mouse move for desktop
+        // Throttled mouse move for desktop (only update every 50ms)
+        let mouseTimeout;
         this.canvas.addEventListener('mousemove', (e) => {
-            const rect = this.canvas.getBoundingClientRect();
-            this.mouse.x = e.clientX - rect.left;
-            this.mouse.y = e.clientY - rect.top;
+            if (mouseTimeout) return;
+            mouseTimeout = setTimeout(() => {
+                const rect = this.canvas.getBoundingClientRect();
+                this.mouse.x = e.clientX - rect.left;
+                this.mouse.y = e.clientY - rect.top;
+                mouseTimeout = null;
+            }, 50);
         });
         
         // Mouse leave - reset mouse position
@@ -48,14 +59,20 @@ class ParticleSystem {
             this.mouse.y = null;
         });
         
-        // Touch events for mobile
+        // Throttled touch events for mobile
+        let touchTimeout;
         this.canvas.addEventListener('touchmove', (e) => {
-            e.preventDefault();
-            const rect = this.canvas.getBoundingClientRect();
-            const touch = e.touches[0];
-            this.mouse.x = touch.clientX - rect.left;
-            this.mouse.y = touch.clientY - rect.top;
-        }, { passive: false });
+            if (touchTimeout) return;
+            touchTimeout = setTimeout(() => {
+                const rect = this.canvas.getBoundingClientRect();
+                const touch = e.touches[0];
+                if (touch) {
+                    this.mouse.x = touch.clientX - rect.left;
+                    this.mouse.y = touch.clientY - rect.top;
+                }
+                touchTimeout = null;
+            }, 50);
+        }, { passive: true });
         
         this.canvas.addEventListener('touchend', () => {
             this.mouse.x = null;
@@ -65,9 +82,48 @@ class ParticleSystem {
         this.canvas.addEventListener('touchstart', (e) => {
             const rect = this.canvas.getBoundingClientRect();
             const touch = e.touches[0];
-            this.mouse.x = touch.clientX - rect.left;
-            this.mouse.y = touch.clientY - rect.top;
+            if (touch) {
+                this.mouse.x = touch.clientX - rect.left;
+                this.mouse.y = touch.clientY - rect.top;
+            }
         });
+    }
+    
+    setupVisibilityCheck() {
+        // Pause animation when tab is not visible
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                this.isVisible = false;
+                if (this.animationId) {
+                    cancelAnimationFrame(this.animationId);
+                    this.animationId = null;
+                }
+            } else {
+                this.isVisible = true;
+                this.animate();
+            }
+        });
+        
+        // Pause animation when hero section is not in viewport
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (!this.animationId && this.isVisible) {
+                        this.animate();
+                    }
+                } else {
+                    if (this.animationId) {
+                        cancelAnimationFrame(this.animationId);
+                        this.animationId = null;
+                    }
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        const heroSection = document.querySelector('.hero');
+        if (heroSection) {
+            observer.observe(heroSection);
+        }
     }
     
     init() {
@@ -77,6 +133,19 @@ class ParticleSystem {
     }
     
     animate() {
+        this.animationId = requestAnimationFrame(() => this.animate());
+        
+        // Limit to 30fps
+        const now = Date.now();
+        const elapsed = now - this.then;
+        
+        if (elapsed < this.fpsInterval) {
+            return;
+        }
+        
+        this.then = now - (elapsed % this.fpsInterval);
+        
+        // Clear and draw
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
         this.particles.forEach(particle => {
@@ -85,7 +154,13 @@ class ParticleSystem {
         });
         
         this.connectParticles();
-        requestAnimationFrame(() => this.animate());
+    }
+    
+    destroy() {
+        if (this.animationId) {
+            cancelAnimationFrame(this.animationId);
+            this.animationId = null;
+        }
     }
     
     connectParticles() {
