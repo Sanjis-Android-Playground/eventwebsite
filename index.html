@@ -6,6 +6,19 @@
     <meta name="description" content="Stay informed about recent events and developments in Bangladesh - covering political changes, student movements, and social reforms.">
     <meta name="keywords" content="Bangladesh, recent events, news, politics, student protests, interim government">
     <meta name="author" content="Bangladesh Events Chronicle">
+
+    <!-- NO-IMAGES MODE: add ?noimg=1 to URL -->
+    <script>
+      (function(){
+        try {
+          var p = new URLSearchParams(window.location.search);
+          if (p.has('noimg')) {
+            document.documentElement.classList.add('no-images');
+          }
+        } catch(e) {}
+      })();
+    </script>
+
     <meta property="og:title" content="Bangladesh Recent Events - Chronicle of Change">
     <meta property="og:description" content="Documenting historic changes and developments in Bangladesh">
     <meta property="og:type" content="website">

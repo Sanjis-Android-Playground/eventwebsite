@@ -82,6 +82,7 @@ body {
 }
 
 /* Debug mode: disable images */
+html.no-images img,
 body.no-images img {
     display: none !important;
 }
