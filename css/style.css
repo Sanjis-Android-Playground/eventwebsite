@@ -13,6 +13,11 @@
     --accent: #F59E0B;
     --danger: #EF4444;
 
+    /* Legacy variable aliases (for backwards compatibility) */
+    --primary-color: #00D9A3;
+    --secondary-color: #6366F1;
+    --white: #FFFFFF;
+
     /* Neutral Colors */
     --bg-primary: #0A0E27;
     --bg-secondary: #151932;
@@ -2431,18 +2436,7 @@ footer {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* Animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+/* Animations - fadeInUp already defined earlier in the file */
 
 /* Enhanced Responsive Design */
 .container {
@@ -2583,16 +2577,36 @@ footer {
     /* News Ticker optimization for mobile */
     .news-ticker-container {
         height: 36px;
+        top: 60px;
+        /* Adjust for smaller mobile header */
     }
 
     .ticker-label {
-        padding: 0 1rem;
-        font-size: 0.75rem;
+        padding: 0 0.75rem;
+        font-size: 0.7rem;
+        white-space: nowrap;
+        flex-shrink: 0;
     }
 
     .ticker-item {
-        font-size: 0.85rem;
-        padding: 0 1.5rem;
+        font-size: 0.8rem;
+        padding: 0 1rem;
+    }
+
+    .ticker-item::after {
+        margin-left: 1rem;
+    }
+
+    /* Adjust hero section padding for header + ticker on mobile */
+    .hero {
+        padding-top: 110px;
+        /* header (60px) + ticker (36px) + gap (14px) */
+    }
+
+    /* Adjust main content offset for fixed elements */
+    main {
+        padding-top: 96px;
+        /* header + ticker */
     }
 
     /* Disable heavy animations on mobile for performance */
@@ -2957,16 +2971,33 @@ footer {
     /* News ticker */
     .news-ticker-container {
         height: 32px;
+        top: 54px;
+        /* Smaller header on very small screens */
     }
 
     .ticker-label {
-        padding: 0 0.75rem;
-        font-size: 0.7rem;
+        padding: 0 0.5rem;
+        font-size: 0.65rem;
     }
 
     .ticker-item {
-        font-size: 0.8rem;
-        padding: 0 1rem;
+        font-size: 0.75rem;
+        padding: 0 0.75rem;
+    }
+
+    .ticker-item::after {
+        margin-left: 0.75rem;
+    }
+
+    /* Hero adjustment for small screens */
+    .hero {
+        padding-top: 100px;
+        /* header (54px) + ticker (32px) + gap (14px) */
+    }
+
+    main {
+        padding-top: 86px;
+        /* header + ticker */
     }
 
     /* Scroll indicator - hide on small screens */
