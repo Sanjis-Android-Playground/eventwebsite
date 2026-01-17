@@ -2577,8 +2577,8 @@ footer {
     /* News Ticker optimization for mobile */
     .news-ticker-container {
         height: 36px;
-        top: 60px;
-        /* Adjust for smaller mobile header */
+        top: 77px;
+        /* Match actual header height on mobile */
     }
 
     .ticker-label {
@@ -2599,14 +2599,14 @@ footer {
 
     /* Adjust hero section padding for header + ticker on mobile */
     .hero {
-        padding-top: 110px;
-        /* header (60px) + ticker (36px) + gap (14px) */
+        padding-top: 130px;
+        /* header (77px) + ticker (36px) + gap (17px) */
     }
 
     /* Adjust main content offset for fixed elements */
     main {
-        padding-top: 96px;
-        /* header + ticker */
+        padding-top: 113px;
+        /* header (77px) + ticker (36px) */
     }
 
     /* Disable heavy animations on mobile for performance */
@@ -2971,8 +2971,8 @@ footer {
     /* News ticker */
     .news-ticker-container {
         height: 32px;
-        top: 54px;
-        /* Smaller header on very small screens */
+        top: 60px;
+        /* Match nav-links position at this breakpoint */
     }
 
     .ticker-label {
@@ -2991,13 +2991,13 @@ footer {
 
     /* Hero adjustment for small screens */
     .hero {
-        padding-top: 100px;
-        /* header (54px) + ticker (32px) + gap (14px) */
+        padding-top: 110px;
+        /* header (60px) + ticker (32px) + gap (18px) */
     }
 
     main {
-        padding-top: 86px;
-        /* header + ticker */
+        padding-top: 92px;
+        /* header (60px) + ticker (32px) */
     }
 
     /* Scroll indicator - hide on small screens */
