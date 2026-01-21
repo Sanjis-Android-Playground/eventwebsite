@@ -111,111 +111,139 @@ function initCharts() {
 }
 
 // --- PROFILE SYSTEM ---
-function initProfile() {
-    const btn = document.getElementById('profileBtn'); // New Nav Button
-    const modal = document.getElementById('profileModal');
-    const closeBtn = modal?.querySelector('.modal-close');
-    
-    // Open Profile
-    if(btn) btn.onclick = () => {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    };
+const ProfileManager = {
+    user: null,
 
-    // Close Functions
-    window.closeProfile = () => {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-        document.getElementById('avatarSelection').classList.remove('active');
-    };
+    init() {
+        // Load Data
+        this.user = JSON.parse(localStorage.getItem('bdUser')) || {
+            name: 'Guest User',
+            xp: 0,
+            level: 1,
+            badges: [],
+            avatar: null
+        };
 
-    if(closeBtn) closeBtn.onclick = window.closeProfile;
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) window.closeProfile();
-    });
-    
-    // Load Data
-    const user = JSON.parse(localStorage.getItem('bdUser')) || {
-        name: 'Guest User',
-        xp: 0,
-        level: 1,
-        badges: [],
-        avatar: null // Store avatar URL or 'type'
-    };
-    
-    updateProfileUI(user);
+        this.setupEventListeners();
+        this.updateUI();
+    },
 
-    window.toggleAvatarSelect = () => {
-        document.getElementById('avatarSelection').classList.toggle('active');
-    };
+    setupEventListeners() {
+        const btn = document.getElementById('profileBtn');
+        const modal = document.getElementById('profileModal');
+        const closeBtn = modal?.querySelector('.modal-close');
+        
+        // Open Profile
+        if(btn) btn.onclick = () => {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            this.updateUI(); // Refresh on open
+        };
 
-    window.selectAvatar = (img) => {
-        user.avatar = img.src;
-        saveUser(user);
-        updateProfileUI(user);
-        document.getElementById('avatarSelection').classList.remove('active');
-    };
+        // Close Functions
+        window.closeProfile = () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            document.getElementById('avatarSelection').classList.remove('active');
+        };
 
-    window.handleAvatarUpload = (input) => {
-        const file = input.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                user.avatar = e.target.result;
-                saveUser(user);
-                updateProfileUI(user);
-                document.getElementById('avatarSelection').classList.remove('active');
-            };
-            reader.readAsDataURL(file);
+        if(closeBtn) closeBtn.onclick = window.closeProfile;
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) window.closeProfile();
+        });
+
+        // Global functions for HTML access
+        window.toggleAvatarSelect = () => {
+            document.getElementById('avatarSelection').classList.toggle('active');
+        };
+
+        window.selectAvatar = (img) => {
+            this.user.avatar = img.src;
+            this.save();
+            this.updateUI();
+            document.getElementById('avatarSelection').classList.remove('active');
+        };
+
+        window.handleAvatarUpload = (input) => {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.user.avatar = e.target.result;
+                    this.save();
+                    this.updateUI();
+                    document.getElementById('avatarSelection').classList.remove('active');
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+        window.updateProfile = () => {
+            const newName = document.getElementById('usernameInput').value;
+            if(newName) {
+                this.user.name = newName;
+                this.save();
+                this.updateUI();
+                alert("Profile Saved!");
+            }
+        };
+    },
+
+    save() {
+        localStorage.setItem('bdUser', JSON.stringify(this.user));
+    },
+
+    updateUI() {
+        const user = this.user;
+        document.getElementById('userName').innerText = user.name;
+        
+        // Rank Logic
+        const ranks = ["Novice", "Observer", "Activist", "Leader", "Freedom Fighter", "Legend"];
+        const rankIndex = Math.min(Math.floor(user.level / 5), ranks.length - 1);
+        document.getElementById('userRank').innerText = `Level ${user.level} - ${ranks[rankIndex]}`;
+        
+        document.getElementById('userXP').style.width = `${(user.xp % 100)}%`;
+        document.getElementById('totalScore').innerText = user.xp; 
+        
+        // Avatar
+        const avatarEl = document.getElementById('currentAvatar');
+        if (user.avatar && user.avatar !== "undefined" && user.avatar !== "") {
+            // Check if it's an image element or string
+            avatarEl.innerHTML = '';
+            const img = document.createElement('img');
+            img.src = user.avatar;
+            img.alt = "Profile Avatar";
+            avatarEl.appendChild(img);
+        } else {
+            avatarEl.innerHTML = `<i class="fas fa-user-astronaut"></i>`;
         }
-    };
+    },
 
-    window.updateProfile = () => {
-        const newName = document.getElementById('usernameInput').value;
-        if(newName) {
-            user.name = newName;
-            saveUser(user);
-            updateProfileUI(user);
-            alert("Profile Saved!");
-        }
-    };
-}
-
-function updateProfileUI(user) {
-    document.getElementById('userName').innerText = user.name;
-    
-    // Rank Logic
-    const ranks = ["Novice", "Observer", "Activist", "Leader", "Freedom Fighter", "Legend"];
-    const rankIndex = Math.min(Math.floor(user.level / 5), ranks.length - 1);
-    document.getElementById('userRank').innerText = `Level ${user.level} - ${ranks[rankIndex]}`;
-    
-    document.getElementById('userXP').style.width = `${(user.xp % 100)}%`;
-    document.getElementById('totalScore').innerText = user.xp; 
-    
-    // Avatar
-    const avatarEl = document.getElementById('currentAvatar');
-    if (user.avatar) {
-        avatarEl.innerHTML = `<img src="${user.avatar}" alt="Avatar">`;
-    } else {
-        avatarEl.innerHTML = `<i class="fas fa-user-astronaut"></i>`;
+    addXP(amount) {
+        this.user.xp += amount;
+        if(this.user.xp > this.user.level * 100) this.user.level++;
+        this.save();
+        
+        // Show toast
+        const toast = document.createElement('div');
+        toast.className = 'xp-toast';
+        toast.innerHTML = `+${amount} XP`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 2000);
     }
-}
-
-function saveUser(user) {
-    localStorage.setItem('bdUser', JSON.stringify(user));
-}
-
-// Global helper to add XP
-window.addXP = (amount) => {
-    const user = JSON.parse(localStorage.getItem('bdUser')) || { name: 'Guest', xp: 0, level: 1, badges: [] };
-    user.xp += amount;
-    if(user.xp > user.level * 100) user.level++;
-    saveUser(user);
-    
-    // Show toast
-    const toast = document.createElement('div');
-    toast.className = 'xp-toast';
-    toast.innerHTML = `+${amount} XP`;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 2000);
 };
+
+function initProfile() {
+    ProfileManager.init();
+}
+
+// Global helper to add XP (Proxies to manager)
+window.addXP = (amount) => {
+    // Reload user state if needed or direct call
+    const user = JSON.parse(localStorage.getItem('bdUser'));
+    if(user) {
+        ProfileManager.user = user;
+        ProfileManager.addXP(amount);
+    }
+};
+
