@@ -23,11 +23,11 @@ const translations = {
         "timer.minutes": "Minutes",
         "timer.seconds": "Seconds",
 
-        "news.label": "BREAKING",
-        "news.item1": "Reform Commissions submit preliminary reports on Constitution and Electoral System.",
-        "news.item2": "International Crimes Tribunal begins hearings on July uprising casualties.",
-        "news.item3": "Search Committee formed to reconstitute the Election Commission.",
-        "news.item4": "Economy shows signs of recovery as remittance inflows hit record high.",
+        "news.label": "LATEST UPDATES",
+        "news.item1": "Constitution Reform Commission proposes two-term limit for Prime Minister to prevent authoritarianism.",
+        "news.item2": "ICT prosecutors initiate legal steps to bring back former PM Sheikh Hasina from India.",
+        "news.item3": "Search Committee calls for names to appoint new Chief Election Commissioner within 10 days.",
+        "news.item4": "IMF approves $1.1B loan tranche as foreign reserves stabilize above $20 billion.",
 
         "section.overview": "Overview",
         "card.jul_aug": "July-August 2024",
@@ -96,11 +96,11 @@ const translations = {
         "timer.minutes": "মিনিট",
         "timer.seconds": "সেকেন্ড",
 
-        "news.label": "ব্রেকিং নিউজ",
-        "news.item1": "সংবিধান ও নির্বাচন ব্যবস্থা সংস্কার কমিশন প্রাথমিক প্রতিবেদন জমা দিয়েছে।",
-        "news.item2": "জুলাই অভ্যুত্থানের হতাহতের ঘটনায় আন্তর্জাতিক অপরাধ ট্রাইব্যুনালে শুনানি শুরু।",
-        "news.item3": "নির্বাচন কমিশন পুনর্গঠনে অনুসন্ধান কমিটি গঠন।",
-        "news.item4": "রেমিট্যান্স প্রবাহে রেকর্ড, অর্থনীতি পুনরুদ্ধারের লক্ষণ।",
+        "news.label": "সর্বশেষ সংবাদ",
+        "news.item1": "স্বৈরতন্ত্র রোধে প্রধানমন্ত্রীর জন্য দুই মেয়াদের সময়সীমা প্রস্তাব করেছে সংবিধান সংস্কার কমিশন।",
+        "news.item2": "সাবেক প্রধানমন্ত্রী শেখ হাসিনাকে ভারত থেকে ফিরিয়ে আনতে আইনি পদক্ষেপ শুরু করেছে আইসিটি।",
+        "news.item3": "নতুন প্রধান নির্বাচন কমিশনার নিয়োগের জন্য ১০ দিনের মধ্যে নাম প্রস্তাবের আহ্বান অনুসন্ধান কমিটির।",
+        "news.item4": "বৈদেশিক মুদ্রার রিজার্ভ ২০ বিলিয়ন ডলার ছাড়ালো, ১.১ বিলিয়ন ডলার ঋণ অনুমোদন আইএমএফ-এর।",
 
         "section.overview": "একনজরে",
         "card.jul_aug": "জুলাই-আগস্ট ২০২৪",
