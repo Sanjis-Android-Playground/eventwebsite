@@ -1,0 +1,138 @@
+/* Profile Floating Button */
+.profile-float-btn {
+    position: fixed;
+    top: 20px;
+    right: 80px; /* Left of Theme toggle if possible, or adjust z-index */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 2000;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s;
+}
+.profile-float-btn:hover {
+    background: var(--primary);
+    transform: scale(1.1);
+}
+
+/* Profile Modal */
+.profile-content {
+    background: linear-gradient(145deg, #1a1f3a, #0f1123);
+    color: white;
+    max-width: 400px;
+    border: 1px solid rgba(0,217,163,0.3);
+}
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    border: 3px solid rgba(255,255,255,0.2);
+}
+.profile-info h2 { margin: 0; font-size: 1.5rem; }
+.user-level { color: #aaa; font-size: 0.9rem; }
+.xp-bar-container {
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+.xp-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    width: 0%;
+    transition: width 0.5s ease;
+}
+.profile-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    background: rgba(0,0,0,0.2);
+    padding: 1rem;
+    border-radius: 12px;
+}
+.p-stat { text-align: center; }
+.p-val { display: block; font-size: 1.2rem; font-weight: bold; color: var(--primary); }
+.p-label { font-size: 0.75rem; color: #aaa; text-transform: uppercase; }
+.profile-actions { display: flex; gap: 10px; }
+.profile-actions input {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 8px;
+    border-radius: 6px;
+    color: white;
+}
+.profile-actions button {
+    background: var(--primary);
+    border: none;
+    padding: 0 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Charts Grid */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+.chart-card {
+    background: var(--bg-card);
+    padding: 1.5rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+.chart-card h3 { margin-bottom: 1rem; color: var(--text-secondary); font-size: 1rem; }
+
+/* Map Styles */
+.impact-map-wrapper {
+    height: 400px;
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(0,217,163,0.2);
+    margin-top: 1.5rem;
+    z-index: 1; /* Keep below search dropdown */
+}
+.map-marker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* XP Toast */
+.xp-toast {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: var(--primary);
+    color: black;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: bold;
+    animation: slideInRight 0.3s ease;
+    z-index: 9999;
+    box-shadow: 0 5px 15px rgba(0,217,163,0.4);
+}

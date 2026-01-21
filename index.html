@@ -15,12 +15,15 @@
     <meta property="og:image" content="images/hero-bg.png">
     <title>Bangladesh Recent Events - Chronicle of Change</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
     <link rel="icon" type="image/svg+xml" href="images/bd-flag.svg">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/wiki.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="js/i18n.js"></script>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#00D9A3">
@@ -28,6 +31,53 @@
 </head>
 
 <body>
+    <!-- User Profile Button -->
+    <button id="profileBtn" class="profile-float-btn" aria-label="User Profile">
+        <i class="fas fa-user-circle"></i>
+    </button>
+
+    <!-- User Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content profile-content">
+            <button class="modal-close" onclick="closeProfile()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user-astronaut"></i>
+                </div>
+                <div class="profile-info">
+                    <h2 id="userName">Guest User</h2>
+                    <span class="user-level">Level <span id="userLevel">1</span> Citizen</span>
+                    <div class="xp-bar-container">
+                        <div class="xp-bar" id="userXP" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-stats">
+                <div class="p-stat">
+                    <span class="p-val" id="totalScore">0</span>
+                    <span class="p-label">Arcade Score</span>
+                </div>
+                <div class="p-stat">
+                    <span class="p-val" id="articlesRead">0</span>
+                    <span class="p-label">Articles Read</span>
+                </div>
+                <div class="p-stat">
+                    <span class="p-val" id="badgesCount">0</span>
+                    <span class="p-label">Badges</span>
+                </div>
+            </div>
+            <div class="profile-badges" id="badgeContainer">
+                <!-- Badges injected here -->
+            </div>
+            <div class="profile-actions">
+                <input type="text" id="usernameInput" placeholder="Set Username">
+                <button onclick="updateProfile()">Save Profile</button>
+            </div>
+        </div>
+    </div>
+
     <!-- UI Switcher Button -->
     <button id="uiToggle" onclick="toggleUIMode()">Switch to Wiki Mode</button>
 
@@ -841,9 +891,11 @@
         </button>
     </footer>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/script.js"></script>
     <script src="js/fx.js"></script>
-    <script src="js/map.js"></script>
+    <script src="js/dashboard.js"></script>
     <script src="js/games.js"></script>
     <script src="js/pwa.js"></script>
 </body>
