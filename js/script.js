@@ -16,8 +16,9 @@ const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
 
 hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
+    const isActive = hamburger.classList.toggle('active');
     navLinks.classList.toggle('active');
+    hamburger.setAttribute('aria-expanded', isActive);
 });
 
 // Close mobile menu when clicking on a link
@@ -113,6 +114,34 @@ const heroSection = document.querySelector('.hero');
 if (heroSection) {
     statsObserver.observe(heroSection);
 }
+
+// Freedom Timer Logic
+const updateFreedomTimer = () => {
+    const freedomDate = new Date('August 5, 2024 14:30:00').getTime(); // Approx time of resignation
+    const now = new Date().getTime();
+    const difference = now - freedomDate;
+
+    if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        const daysEl = document.getElementById('timerDays');
+        const hoursEl = document.getElementById('timerHours');
+        const minutesEl = document.getElementById('timerMinutes');
+        const secondsEl = document.getElementById('timerSeconds');
+
+        if (daysEl) daysEl.innerText = days < 10 ? '0' + days : days;
+        if (hoursEl) hoursEl.innerText = hours < 10 ? '0' + hours : hours;
+        if (minutesEl) minutesEl.innerText = minutes < 10 ? '0' + minutes : minutes;
+        if (secondsEl) secondsEl.innerText = seconds < 10 ? '0' + seconds : seconds;
+    }
+};
+
+// Update timer every second
+setInterval(updateFreedomTimer, 1000);
+updateFreedomTimer(); // Initial call
 
 // Optimized scroll handler - COMBINED & DEBOUNCED
 const handleScroll = () => {
@@ -244,6 +273,7 @@ const galleryData = [
 ];
 
 let currentModalIndex = 0;
+let lastFocusedElement;
 
 window.openModal = (index) => {
     if (NO_IMAGES_MODE) {
@@ -252,6 +282,7 @@ window.openModal = (index) => {
         return;
     }
 
+    lastFocusedElement = document.activeElement;
     currentModalIndex = index;
     const modal = document.getElementById('imageModal');
     const modalImage = document.getElementById('modalImage');
@@ -265,12 +296,23 @@ window.openModal = (index) => {
 
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    
+    // Set focus to close button for accessibility
+    setTimeout(() => {
+        const closeBtn = modal.querySelector('.modal-close');
+        if (closeBtn) closeBtn.focus();
+    }, 100);
 };
 
 window.closeModal = () => {
     const modal = document.getElementById('imageModal');
     modal.classList.remove('active');
     document.body.style.overflow = 'auto';
+    
+    // Return focus to the element that opened the modal
+    if (lastFocusedElement) {
+        lastFocusedElement.focus();
+    }
 };
 
 window.navigateModal = (direction) => {
@@ -280,14 +322,34 @@ window.navigateModal = (direction) => {
     openModal(currentModalIndex);
 };
 
-// Close modal on escape key
+// Close modal on escape key and trap focus
 document.addEventListener('keydown', (e) => {
+    const modal = document.getElementById('imageModal');
+    if (!modal.classList.contains('active')) return;
+
     if (e.key === 'Escape') {
         closeModal();
     } else if (e.key === 'ArrowLeft') {
         navigateModal(-1);
     } else if (e.key === 'ArrowRight') {
         navigateModal(1);
+    } else if (e.key === 'Tab') {
+        // Focus trap
+        const focusableContent = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        const firstFocusableElement = focusableContent[0];
+        const lastFocusableElement = focusableContent[focusableContent.length - 1];
+
+        if (e.shiftKey) { // if shift key pressed for shift + tab combination
+            if (document.activeElement === firstFocusableElement) {
+                lastFocusableElement.focus();
+                e.preventDefault();
+            }
+        } else { // if tab key is pressed
+            if (document.activeElement === lastFocusableElement) {
+                firstFocusableElement.focus();
+                e.preventDefault();
+            }
+        }
     }
 });
 
@@ -419,23 +481,9 @@ if (NO_IMAGES_MODE) {
 
 // Lazy Loading Images - browser native
 
-// Last Updated Date
-const updateLastModified = () => {
-    const lastUpdated = new Date().toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long'
-    });
-
-    const footerText = document.querySelector('.footer-bottom p');
-    if (footerText) {
-        footerText.innerHTML = footerText.innerHTML.replace(
-            /Last Updated: .+$/,
-            `Last Updated: ${lastUpdated}`
-        );
-    }
-};
-
-updateLastModified();
+// Last Updated Date - Removed auto-update to prevent misleading "today" date
+// The date in the HTML should be updated manually during deployment
+// const updateLastModified = () => { ... }
 
 // Print functionality
 const addPrintStyles = () => {

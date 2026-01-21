@@ -17,6 +17,12 @@ const translations = {
         "hero.stat.events": "Major Events",
         "hero.stat.people": "Million People",
 
+        "hero.timer.title": "Time Since Freedom (August 5, 2024)",
+        "timer.days": "Days",
+        "timer.hours": "Hours",
+        "timer.minutes": "Minutes",
+        "timer.seconds": "Seconds",
+
         "news.label": "BREAKING",
         "news.item1": "Interim Government announces new commission for banking sector reform.",
         "news.item2": "Dhaka University resumes classes after 3 months of closure.",
@@ -77,6 +83,12 @@ const translations = {
         "hero.stat.days": "পরিবর্তনের দিন",
         "hero.stat.events": "প্রধান ঘটনাবলী",
         "hero.stat.people": "কোটি মানুষ",
+
+        "hero.timer.title": "স্বাধীনতার পর অতিক্রান্ত সময় (৫ আগস্ট ২০২৪)",
+        "timer.days": "দিন",
+        "timer.hours": "ঘণ্টা",
+        "timer.minutes": "মিনিট",
+        "timer.seconds": "সেকেন্ড",
 
         "news.label": "ব্রেকিং নিউজ",
         "news.item1": "ব্যাংকিং খাত সংস্কারের জন্য নতুন কমিশন ঘোষণা করল অন্তর্বর্তীকালীন সরকার।",

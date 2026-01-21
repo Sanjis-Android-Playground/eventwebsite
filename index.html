@@ -9,25 +9,13 @@
     <meta name="keywords" content="Bangladesh, recent events, news, politics, student protests, interim government">
     <meta name="author" content="Bangladesh Events Chronicle">
 
-    <!-- NO-IMAGES MODE: add ?noimg=1 to URL -->
-    <script>
-        (function () {
-            try {
-                var p = new URLSearchParams(window.location.search);
-                if (p.has('noimg')) {
-                    document.documentElement.classList.add('no-images');
-                }
-            } catch (e) { }
-        })();
-    </script>
-
     <meta property="og:title" content="Bangladesh Recent Events - Chronicle of Change">
     <meta property="og:description" content="Documenting historic changes and developments in Bangladesh">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="images/og-image.jpg">
+    <meta property="og:image" content="images/hero-bg.png">
     <title>Bangladesh Recent Events - Chronicle of Change</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/svg+xml" href="images/bd-flag.svg">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Google Fonts -->
@@ -64,7 +52,7 @@
                         <i class="fas fa-moon"></i>
                     </button>
                 </div>
-                <div class="hamburger" id="hamburger">
+                <div class="hamburger" id="hamburger" aria-expanded="false" role="button" aria-label="Toggle navigation">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -110,6 +98,30 @@
                     <p class="hero-subtitle" data-i18n="hero.subtitle">Documenting the historic changes, student
                         movements, and democratic
                         transformation that shaped Bangladesh's future</p>
+                    
+                    <!-- Freedom Timer (Moved to middle point) -->
+                    <div class="freedom-timer-container">
+                        <h3 class="timer-title" data-i18n="hero.timer.title">Time Since Freedom (August 5, 2024)</h3>
+                        <div id="freedomTimer" class="freedom-timer">
+                            <div class="timer-unit">
+                                <span class="timer-value" id="timerDays">00</span>
+                                <span class="timer-label" data-i18n="timer.days">Days</span>
+                            </div>
+                            <div class="timer-unit">
+                                <span class="timer-value" id="timerHours">00</span>
+                                <span class="timer-label" data-i18n="timer.hours">Hours</span>
+                            </div>
+                            <div class="timer-unit">
+                                <span class="timer-value" id="timerMinutes">00</span>
+                                <span class="timer-label" data-i18n="timer.minutes">Minutes</span>
+                            </div>
+                            <div class="timer-unit">
+                                <span class="timer-value" id="timerSeconds">00</span>
+                                <span class="timer-label" data-i18n="timer.seconds">Seconds</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="hero-buttons">
                         <a href="#timeline" class="cta-button primary">
                             <i class="fas fa-clock"></i> <span data-i18n="hero.cta.timeline">Explore Timeline</span>
@@ -710,13 +722,13 @@
                         </div>
                         <h3>News Sources</h3>
                         <ul>
-                            <li><a href="https://www.thedailystar.net" target="_blank" rel="noopener"><i
+                            <li><a href="https://www.thedailystar.net" target="_blank" rel="noopener noreferrer"><i
                                         class="fas fa-external-link-alt"></i> The Daily Star</a></li>
-                            <li><a href="https://www.dhakatribune.com" target="_blank" rel="noopener"><i
+                            <li><a href="https://www.dhakatribune.com" target="_blank" rel="noopener noreferrer"><i
                                         class="fas fa-external-link-alt"></i> Dhaka Tribune</a></li>
-                            <li><a href="https://www.bbc.com/news/topics/cjnwl8q4qdrt" target="_blank" rel="noopener"><i
+                            <li><a href="https://www.bbc.com/news/topics/cjnwl8q4qdrt" target="_blank" rel="noopener noreferrer"><i
                                         class="fas fa-external-link-alt"></i> BBC Bangladesh</a></li>
-                            <li><a href="https://www.aljazeera.com/tag/bangladesh/" target="_blank" rel="noopener"><i
+                            <li><a href="https://www.aljazeera.com/tag/bangladesh/" target="_blank" rel="noopener noreferrer"><i
                                         class="fas fa-external-link-alt"></i> Al Jazeera Bangladesh</a></li>
                         </ul>
                     </div>
@@ -726,11 +738,11 @@
                         </div>
                         <h3>Official Sources</h3>
                         <ul>
-                            <li><a href="https://www.bangladesh.gov.bd" target="_blank" rel="noopener"><i
+                            <li><a href="https://www.bangladesh.gov.bd" target="_blank" rel="noopener noreferrer"><i
                                         class="fas fa-external-link-alt"></i> Bangladesh Government Portal</a></li>
-                            <li><a href="https://pmo.gov.bd" target="_blank" rel="noopener"><i
+                            <li><a href="https://pmo.gov.bd" target="_blank" rel="noopener noreferrer"><i
                                         class="fas fa-external-link-alt"></i> PMO Bangladesh</a></li>
-                            <li><a href="https://www.mofa.gov.bd" target="_blank" rel="noopener"><i
+                            <li><a href="https://www.mofa.gov.bd" target="_blank" rel="noopener noreferrer"><i
                                         class="fas fa-external-link-alt"></i> Ministry of Foreign Affairs</a></li>
                         </ul>
                     </div>
@@ -740,12 +752,12 @@
                         </div>
                         <h3>Analysis & Reports</h3>
                         <ul>
-                            <li><a href="https://www.crisisgroup.org" target="_blank" rel="noopener"><i
+                            <li><a href="https://www.crisisgroup.org" target="_blank" rel="noopener noreferrer"><i
                                         class="fas fa-external-link-alt"></i> International Crisis Group</a></li>
-                            <li><a href="https://www.hrw.org/asia/bangladesh" target="_blank" rel="noopener"><i
+                            <li><a href="https://www.hrw.org/asia/bangladesh" target="_blank" rel="noopener noreferrer"><i
                                         class="fas fa-external-link-alt"></i> Human Rights Watch</a></li>
                             <li><a href="https://www.amnesty.org/en/location/asia-and-the-pacific/south-asia/bangladesh/"
-                                    target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Amnesty
+                                    target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Amnesty
                                     International</a></li>
                         </ul>
                     </div>
