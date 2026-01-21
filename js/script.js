@@ -544,4 +544,20 @@ console.log('%cWebsite enhanced with professional features', 'color: #F42A41; fo
 // Initialize all features on load
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Bangladesh Events Chronicle - All features loaded successfully');
+    
+    // Check saved UI preference
+    const savedMode = localStorage.getItem('uiMode');
+    if (savedMode === 'wiki') {
+        document.body.classList.add('wiki-mode');
+        document.getElementById('uiToggle').textContent = 'Switch to Modern Mode';
+    }
 });
+
+// UI Toggle Function
+window.toggleUIMode = () => {
+    document.body.classList.toggle('wiki-mode');
+    const isWiki = document.body.classList.contains('wiki-mode');
+    
+    localStorage.setItem('uiMode', isWiki ? 'wiki' : 'modern');
+    document.getElementById('uiToggle').textContent = isWiki ? 'Switch to Modern Mode' : 'Switch to Wiki Mode';
+};

@@ -1,0 +1,448 @@
+:root {
+    --wiki-font: 'sans-serif';
+    --wiki-heading: 'Linux Libertine', 'Georgia', 'Times', serif;
+    --wiki-link: #0645ad;
+    --wiki-bg: #ffffff;
+    --wiki-text: #202122;
+    --wiki-border: #a2a9b1;
+    --wiki-panel-bg: #f8f9fa;
+}
+
+/* Wiki Mode Styles - Activated when body has .wiki-mode class */
+body.wiki-mode {
+    background-color: #f6f6f6;
+    color: var(--wiki-text);
+    font-family: sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Reset Modern Elements */
+body.wiki-mode .particles-css,
+body.wiki-mode .hero-overlay,
+body.wiki-mode .hero-pattern,
+body.wiki-mode .scroll-indicator,
+body.wiki-mode .news-ticker-container,
+body.wiki-mode #themeToggle,
+body.wiki-mode .progress-bar {
+    display: none !important;
+}
+
+/* Layout Structure */
+body.wiki-mode main {
+    margin-left: 12em;
+    padding: 1em 1em 1.5em 1em;
+    background: #fff;
+    border: 1px solid #a7d7f9;
+    border-right-width: 0;
+    margin-top: 0;
+    min-height: 100vh;
+}
+
+/* Sidebar Navigation */
+body.wiki-mode header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 11em;
+    height: 100%;
+    z-index: 100;
+    background: transparent;
+    padding: 0;
+}
+
+body.wiki-mode .navbar {
+    position: relative;
+    display: block;
+    height: auto;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+}
+
+body.wiki-mode .container {
+    max-width: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+body.wiki-mode .logo {
+    display: block;
+    text-align: center;
+    margin-bottom: 1rem;
+    padding-top: 1rem;
+}
+
+body.wiki-mode .logo h1 {
+    font-size: 0.8rem;
+    color: #54595d;
+    margin-top: 0.5rem;
+}
+
+body.wiki-mode .logo-icon {
+    width: 135px;
+    height: 135px;
+    margin: 0 auto;
+    background: transparent;
+}
+
+body.wiki-mode .logo-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+body.wiki-mode .nav-links {
+    display: block;
+    padding-left: 1.5rem;
+}
+
+body.wiki-mode .nav-links li {
+    display: block;
+    margin: 0.25rem 0;
+}
+
+body.wiki-mode .nav-links a {
+    color: #0645ad;
+    font-size: 0.85rem;
+    text-decoration: none;
+    padding: 0;
+}
+
+body.wiki-mode .nav-links a:hover {
+    text-decoration: underline;
+    color: #0645ad;
+}
+
+body.wiki-mode .nav-links i {
+    display: none;
+}
+
+body.wiki-mode .nav-actions,
+body.wiki-mode .hamburger {
+    display: none;
+}
+
+/* Content Styling */
+body.wiki-mode .hero {
+    min-height: auto;
+    padding: 1rem 2rem;
+    display: block;
+    background: white;
+}
+
+body.wiki-mode .hero-content {
+    text-align: left;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body.wiki-mode .hero-title {
+    font-family: var(--wiki-heading);
+    color: #000;
+    font-size: 1.8rem;
+    font-weight: 400;
+    border-bottom: 1px solid #a2a9b1;
+    margin-bottom: 0.25em;
+    padding-bottom: 0.25em;
+    line-height: 1.3;
+}
+
+body.wiki-mode .hero-badge {
+    display: none;
+}
+
+body.wiki-mode .hero-subtitle {
+    font-size: 1rem;
+    color: #202122;
+    margin-bottom: 1rem;
+    font-weight: normal;
+}
+
+/* Infobox Transformation */
+body.wiki-mode .hero-stats {
+    float: right;
+    clear: right;
+    width: 300px;
+    margin: 0 0 1em 1em;
+    background: #f8f9fa;
+    border: 1px solid #a2a9b1;
+    padding: 0.5rem;
+    font-size: 88%;
+    line-height: 1.5em;
+    display: block;
+}
+
+body.wiki-mode .stat-item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #eaecf0;
+    padding: 5px 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+body.wiki-mode .stat-number {
+    font-size: 1rem;
+    color: black;
+    order: 2;
+    font-weight: bold;
+}
+
+body.wiki-mode .stat-label {
+    font-size: 0.9rem;
+    color: black;
+    order: 1;
+    text-transform: none;
+}
+
+/* Sections */
+body.wiki-mode section {
+    padding: 1rem 2rem;
+    margin: 0;
+    background: white;
+}
+
+body.wiki-mode .section-title {
+    font-family: var(--wiki-heading);
+    font-size: 1.5rem;
+    border-bottom: 1px solid #a2a9b1;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.25em;
+    color: black;
+    text-align: left;
+}
+
+/* Cards to Text Transformation */
+body.wiki-mode .overview-grid,
+body.wiki-mode .events-grid,
+body.wiki-mode .figures-grid,
+body.wiki-mode .resources-grid {
+    display: block;
+}
+
+body.wiki-mode .overview-card,
+body.wiki-mode .event-card,
+body.wiki-mode .figure-card,
+body.wiki-mode .resource-card {
+    background: white;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+    transition: none;
+    transform: none !important;
+}
+
+body.wiki-mode .overview-card h3,
+body.wiki-mode .event-card h3,
+body.wiki-mode .figure-card h3,
+body.wiki-mode .resource-card h3 {
+    font-size: 1.2rem;
+    color: black;
+    margin-bottom: 0.5rem;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+body.wiki-mode .overview-card p,
+body.wiki-mode .event-card p,
+body.wiki-mode .figure-card p {
+    color: #202122;
+    margin-bottom: 0.5rem;
+}
+
+/* Link Styling */
+body.wiki-mode a {
+    color: #0645ad;
+    text-decoration: none;
+}
+
+body.wiki-mode a:hover {
+    text-decoration: underline;
+}
+
+body.wiki-mode .event-read-more,
+body.wiki-mode .figure-link,
+body.wiki-mode .timeline-link {
+    font-size: 0.8rem;
+    display: inline-block;
+    margin-top: 0.2rem;
+}
+
+/* Timeline */
+body.wiki-mode .timeline-container::after {
+    display: none;
+}
+
+body.wiki-mode .timeline-item {
+    margin-bottom: 1.5rem;
+    width: 100%;
+    padding: 0;
+    left: 0 !important;
+    right: 0 !important;
+}
+
+body.wiki-mode .timeline-content {
+    background: white;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    text-align: left;
+}
+
+body.wiki-mode .timeline-content::after {
+    display: none;
+}
+
+body.wiki-mode .timeline-date {
+    font-weight: bold;
+    color: black;
+    margin-bottom: 0.2rem;
+    display: block;
+    position: static;
+    transform: none;
+    background: none;
+    padding: 0;
+}
+
+/* Gallery */
+body.wiki-mode .gallery-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+body.wiki-mode .gallery-item {
+    width: 200px;
+    border: 1px solid #c8ccd1;
+    background: #f8f9fa;
+    padding: 3px;
+    height: auto;
+}
+
+body.wiki-mode .gallery-image {
+    height: 150px;
+}
+
+body.wiki-mode .gallery-image img {
+    height: 100%;
+    object-fit: cover;
+}
+
+body.wiki-mode .gallery-overlay {
+    display: none;
+}
+
+body.wiki-mode .gallery-filters {
+    display: none;
+}
+
+/* Freedom Timer - Wiki Style */
+body.wiki-mode .freedom-timer-container {
+    background: #f8f9fa;
+    border: 1px solid #a2a9b1;
+    padding: 10px;
+    margin: 20px 0;
+    max-width: 400px;
+}
+
+body.wiki-mode .timer-title {
+    color: black;
+    font-size: 0.9rem;
+    text-align: center;
+    border-bottom: 1px solid #eaecf0;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+body.wiki-mode .freedom-timer {
+    gap: 1rem;
+}
+
+body.wiki-mode .timer-unit {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    min-width: auto;
+}
+
+body.wiki-mode .timer-value {
+    color: black;
+    font-size: 1.2rem;
+}
+
+body.wiki-mode .timer-label {
+    color: #555;
+}
+
+/* Footer */
+body.wiki-mode footer {
+    background: white;
+    color: black;
+    border-top: 1px solid #a2a9b1;
+    margin-left: 12em;
+    padding: 2rem;
+}
+
+body.wiki-mode .footer-bottom p {
+    color: #555;
+}
+
+body.wiki-mode .footer-section h4 {
+    color: black;
+}
+
+body.wiki-mode .footer-section a {
+    color: #0645ad;
+}
+
+/* Toggle Button */
+#uiToggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 9999;
+    padding: 8px 16px;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-size: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+body.wiki-mode #uiToggle {
+    background: #0645ad;
+}
+
+/* Fix mobile response for wiki mode */
+@media (max-width: 768px) {
+    body.wiki-mode header {
+        position: static;
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid #a2a9b1;
+    }
+    
+    body.wiki-mode main {
+        margin-left: 0;
+    }
+    
+    body.wiki-mode .hero-stats {
+        float: none;
+        width: 100%;
+        margin: 0;
+    }
+    
+    body.wiki-mode .navbar {
+        display: none; /* Hide sidebar on mobile for simplicity */
+    }
+}
