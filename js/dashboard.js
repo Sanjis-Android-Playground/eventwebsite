@@ -137,14 +137,15 @@ const ProfileManager = {
         if(btn) btn.onclick = () => {
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            this.updateUI(); // Refresh on open
+            ProfileManager.updateUI(); // Refresh on open
         };
 
         // Close Functions
         window.closeProfile = () => {
             modal.classList.remove('active');
             document.body.style.overflow = '';
-            document.getElementById('avatarSelection').classList.remove('active');
+            const avatarSel = document.getElementById('avatarSelection');
+            if(avatarSel) avatarSel.classList.remove('active');
         };
 
         if(closeBtn) closeBtn.onclick = window.closeProfile;
@@ -154,14 +155,16 @@ const ProfileManager = {
 
         // Global functions for HTML access
         window.toggleAvatarSelect = () => {
-            document.getElementById('avatarSelection').classList.toggle('active');
+            const el = document.getElementById('avatarSelection');
+            if(el) el.classList.toggle('active');
         };
 
         window.selectAvatar = (img) => {
-            this.user.avatar = img.src;
-            this.save();
-            this.updateUI();
-            document.getElementById('avatarSelection').classList.remove('active');
+            ProfileManager.user.avatar = img.src;
+            ProfileManager.save();
+            ProfileManager.updateUI();
+            const el = document.getElementById('avatarSelection');
+            if(el) el.classList.remove('active');
         };
 
         window.handleAvatarUpload = (input) => {
@@ -169,10 +172,34 @@ const ProfileManager = {
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    this.user.avatar = e.target.result;
-                    this.save();
-                    this.updateUI();
-                    document.getElementById('avatarSelection').classList.remove('active');
+                    // Resize image to prevent LocalStorage quota exceeded
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        const maxSize = 256; // Limit size
+                        let width = img.width;
+                        let height = img.height;
+                        
+                        if (width > height) {
+                            if (width > maxSize) { height *= maxSize / width; width = maxSize; }
+                        } else {
+                            if (height > maxSize) { width *= maxSize / height; height = maxSize; }
+                        }
+                        
+                        canvas.width = width;
+                        canvas.height = height;
+                        ctx.drawImage(img, 0, 0, width, height);
+                        
+                        // Save as compressed JPEG
+                        ProfileManager.user.avatar = canvas.toDataURL('image/jpeg', 0.8);
+                        ProfileManager.save();
+                        ProfileManager.updateUI();
+                        
+                        const el = document.getElementById('avatarSelection');
+                        if(el) el.classList.remove('active');
+                    };
+                    img.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
@@ -181,41 +208,55 @@ const ProfileManager = {
         window.updateProfile = () => {
             const newName = document.getElementById('usernameInput').value;
             if(newName) {
-                this.user.name = newName;
-                this.save();
-                this.updateUI();
+                ProfileManager.user.name = newName;
+                ProfileManager.save();
+                ProfileManager.updateUI();
                 alert("Profile Saved!");
             }
         };
     },
 
     save() {
-        localStorage.setItem('bdUser', JSON.stringify(this.user));
+        try {
+            localStorage.setItem('bdUser', JSON.stringify(this.user));
+        } catch (e) {
+            console.error("LocalStorage Save Failed:", e);
+            alert("Storage full! Unable to save profile image.");
+        }
     },
 
     updateUI() {
         const user = this.user;
-        document.getElementById('userName').innerText = user.name;
+        const nameEl = document.getElementById('userName');
+        if(nameEl) nameEl.innerText = user.name;
         
         // Rank Logic
         const ranks = ["Novice", "Observer", "Activist", "Leader", "Freedom Fighter", "Legend"];
         const rankIndex = Math.min(Math.floor(user.level / 5), ranks.length - 1);
-        document.getElementById('userRank').innerText = `Level ${user.level} - ${ranks[rankIndex]}`;
+        const rankEl = document.getElementById('userRank');
+        if(rankEl) rankEl.innerText = `Level ${user.level} - ${ranks[rankIndex]}`;
         
-        document.getElementById('userXP').style.width = `${(user.xp % 100)}%`;
-        document.getElementById('totalScore').innerText = user.xp; 
+        const xpEl = document.getElementById('userXP');
+        if(xpEl) xpEl.style.width = `${(user.xp % 100)}%`;
+        
+        const scoreEl = document.getElementById('totalScore');
+        if(scoreEl) scoreEl.innerText = user.xp; 
         
         // Avatar
         const avatarEl = document.getElementById('currentAvatar');
-        if (user.avatar && user.avatar !== "undefined" && user.avatar !== "") {
-            // Check if it's an image element or string
-            avatarEl.innerHTML = '';
-            const img = document.createElement('img');
-            img.src = user.avatar;
-            img.alt = "Profile Avatar";
-            avatarEl.appendChild(img);
-        } else {
-            avatarEl.innerHTML = `<i class="fas fa-user-astronaut"></i>`;
+        if (avatarEl) {
+            if (user.avatar && user.avatar.length > 10) {
+                avatarEl.innerHTML = '';
+                const img = document.createElement('img');
+                img.src = user.avatar;
+                img.alt = "Avatar";
+                img.style.width = "100%";
+                img.style.height = "100%";
+                img.style.objectFit = "cover";
+                avatarEl.appendChild(img);
+            } else {
+                avatarEl.innerHTML = `<i class="fas fa-user-astronaut"></i>`;
+            }
         }
     },
 
