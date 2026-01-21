@@ -570,37 +570,80 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchLiveNews();
 });
 
-// Fetch Live News
+// Robust News Fetcher with Cache and Fallback
 async function fetchLiveNews() {
-    const rssUrl = 'https://rss.app/feeds/t5Rb7s1j7X5g7q1a.xml'; // Using a public RSS feed for Bangladesh News
-    // Using rss2json.com to convert RSS to JSON
-    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://www.thedailystar.net/top-news/rss.xml')}`;
+    const tickerContent = document.getElementById('tickerContent');
+    if (!tickerContent) return;
 
+    // Cache Configuration
+    const CACHE_KEY = 'bd_news_cache_v2';
+    const CACHE_TIME = 1000 * 60 * 15; // 15 minutes cache
+
+    // 1. Check local cache first
     try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-
-        if (data.status === 'ok' && data.items.length > 0) {
-            const tickerContent = document.getElementById('tickerContent');
-            if (!tickerContent) return;
-
-            // Clear existing static items
-            tickerContent.innerHTML = '';
-
-            // Add new items from feed
-            data.items.slice(0, 5).forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'ticker-item';
-                // Clean HTML tags from description if present
-                const cleanTitle = item.title.replace(/<[^>]*>?/gm, '');
-                div.innerHTML = `<a href="${item.link}" target="_blank" style="color:inherit;text-decoration:none">${cleanTitle}</a>`;
-                tickerContent.appendChild(div);
-            });
+        const cached = localStorage.getItem(CACHE_KEY);
+        if (cached) {
+            const { timestamp, items } = JSON.parse(cached);
+            if (Date.now() - timestamp < CACHE_TIME) {
+                console.log('Restoring news from cache');
+                renderNews(items);
+                return;
+            }
         }
-    } catch (error) {
-        console.warn('Failed to fetch live news, falling back to static content:', error);
-        // Fallback is already in HTML, so we do nothing
+    } catch (e) { console.error('Cache error', e); }
+
+    // 2. List of News Feeds (Priority Order)
+    const feeds = [
+        // Daily Star Top News
+        'https://www.thedailystar.net/top-news/rss.xml',
+        // Google News - Bangladesh
+        'https://news.google.com/rss/search?q=Bangladesh+Politics&hl=en-US&gl=US&ceid=US:en'
+    ];
+
+    // 3. Try fetching from each source
+    for (const feed of feeds) {
+        try {
+            // Using rss2json public API
+            const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed)}`;
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+
+            if (data.status === 'ok' && data.items && data.items.length > 0) {
+                const newsItems = data.items.slice(0, 6).map(item => ({
+                    title: item.title.replace(/<\/?[^>]+(>|$)/g, ""), // Strip HTML tags
+                    link: item.link
+                }));
+
+                // Render and Cache
+                renderNews(newsItems);
+                localStorage.setItem(CACHE_KEY, JSON.stringify({
+                    timestamp: Date.now(),
+                    items: newsItems
+                }));
+                console.log(`News fetched successfully from ${feed}`);
+                return; // Exit on success
+            }
+        } catch (err) {
+            console.warn(`News fetch failed for ${feed}:`, err);
+            // Continue to next feed
+        }
     }
+    
+    console.log('All news sources failed. Keeping static fallback.');
+}
+
+function renderNews(items) {
+    const tickerContent = document.getElementById('tickerContent');
+    if (!tickerContent) return;
+    
+    tickerContent.innerHTML = ''; // Clear static content
+    
+    items.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'ticker-item';
+        div.innerHTML = `<a href="${item.link}" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">${item.title}</a>`;
+        tickerContent.appendChild(div);
+    });
 }
 
 function updateUIToggleText() {
