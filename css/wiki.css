@@ -199,31 +199,122 @@ body.wiki-mode .stat-label {
     text-transform: none;
 }
 
-/* Sections */
-body.wiki-mode section {
-    padding: 1rem 2rem;
-    margin: 0;
-    background: white;
-}
-
+/* Improved Wiki Header */
 body.wiki-mode .section-title {
-    font-family: var(--wiki-heading);
-    font-size: 1.5rem;
+    font-family: 'Linux Libertine', 'Georgia', 'Times', serif;
+    font-size: 1.8rem;
     border-bottom: 1px solid #a2a9b1;
     margin-top: 1em;
     margin-bottom: 0.5em;
     padding-bottom: 0.25em;
     color: black;
     text-align: left;
+    font-weight: normal;
 }
 
-/* Cards to Text Transformation */
-body.wiki-mode .overview-grid,
-body.wiki-mode .events-grid,
-body.wiki-mode .figures-grid,
-body.wiki-mode .resources-grid {
+/* Contents Box (Table of Contents style) */
+body.wiki-mode .hero-buttons {
+    display: inline-block;
+    background-color: #f8f9fa;
+    border: 1px solid #a2a9b1;
+    padding: 1rem;
+    margin: 1rem 0;
+    min-width: 300px;
+    display: table;
+}
+
+body.wiki-mode .hero-buttons::before {
+    content: 'Contents';
+    display: block;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+body.wiki-mode .cta-button {
+    display: block;
+    background: none;
+    color: #0645ad;
+    padding: 0.2rem 0;
+    font-size: 0.95rem;
+    text-align: left;
+    border: none;
+    box-shadow: none;
+}
+
+body.wiki-mode .cta-button i {
+    display: none;
+}
+
+body.wiki-mode .cta-button:hover {
+    text-decoration: underline;
+    transform: none;
+    background: none;
+    box-shadow: none;
+}
+
+/* Clean up Grid for Wiki Look */
+body.wiki-mode .events-grid, 
+body.wiki-mode .figures-grid, 
+body.wiki-mode .overview-grid {
     display: block;
 }
+
+/* Typography Polish */
+body.wiki-mode p {
+    margin-bottom: 0.8em;
+    text-align: justify;
+    font-size: 0.95rem;
+}
+
+body.wiki-mode ul {
+    list-style-type: disc;
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+body.wiki-mode li {
+    margin-bottom: 0.25rem;
+}
+
+/* Infobox Polish */
+body.wiki-mode .hero-stats {
+    float: right;
+    clear: right;
+    width: 300px;
+    margin: 0 0 1em 1em;
+    background: #f8f9fa;
+    border: 1px solid #a2a9b1;
+    padding: 0.2rem;
+    font-size: 90%;
+}
+
+body.wiki-mode .stat-item {
+    background: white;
+    padding: 0.5rem;
+    border: 1px solid #eaecf0;
+    margin-bottom: -1px; /* collapse borders */
+}
+
+/* Citation Style Links */
+body.wiki-mode .timeline-link::before {
+    content: '[';
+}
+body.wiki-mode .timeline-link::after {
+    content: ']';
+}
+body.wiki-mode .timeline-link {
+    font-size: 0.75rem;
+    vertical-align: super;
+    text-decoration: none;
+}
+
+/* Hide Footer Elements */
+body.wiki-mode .footer-social,
+body.wiki-mode .newsletter-form {
+    display: none;
+}
+
 
 body.wiki-mode .overview-card,
 body.wiki-mode .event-card,

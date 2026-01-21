@@ -551,6 +551,19 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('wiki-mode');
         document.getElementById('uiToggle').textContent = 'Switch to Modern Mode';
     }
+
+    // Apply wiki mode to links to persist state
+    const links = document.querySelectorAll('a[href$=".html"]');
+    links.forEach(link => {
+        link.addEventListener('click', (e) => {
+            // Only if we are currently in wiki mode
+            if (document.body.classList.contains('wiki-mode')) {
+                // We rely on localStorage which is already set, 
+                // but the target page needs to read it immediately.
+                // The target page also needs the wiki.css loaded.
+            }
+        });
+    });
 });
 
 // UI Toggle Function
