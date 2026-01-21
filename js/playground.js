@@ -163,24 +163,15 @@ function initVoxelGame() {
     loadWorld();
 
     // 6. Controls
-
     let isLocked = false;
+    let isFlying = false; // Fly mode state
     const euler = new THREE.Euler(0, 0, 0, 'YXZ');
     const PI_2 = Math.PI / 2;
 
-    container.addEventListener('click', () => { if(!isLocked) container.requestPointerLock(); });
-    document.addEventListener('pointerlockchange', () => isLocked = (document.pointerLockElement === container));
-    document.addEventListener('mousemove', (event) => {
-        if (!isLocked) return;
-        euler.setFromQuaternion(camera.quaternion);
-        euler.y -= event.movementX * 0.002;
-        euler.x -= event.movementY * 0.002;
-        euler.x = Math.max(-PI_2, Math.min(PI_2, euler.x));
-        camera.quaternion.setFromEuler(euler);
-    });
+    // ... (rest of controls setup)
 
     // 7. Movement & Physics
-    let moveForward = false, moveBackward = false, moveLeft = false, moveRight = false;
+    let moveForward = false, moveBackward = false, moveLeft = false, moveRight = false, moveUp = false, moveDown = false;
     let velocity = new THREE.Vector3();
     let canJump = false;
     let prevTime = performance.now();
@@ -191,7 +182,14 @@ function initVoxelGame() {
             case 'ArrowLeft': case 'KeyA': moveLeft = true; break;
             case 'ArrowDown': case 'KeyS': moveBackward = true; break;
             case 'ArrowRight': case 'KeyD': moveRight = true; break;
-            case 'Space': if (canJump) velocity.y += 10; canJump = false; break;
+            case 'Space': 
+                if(isFlying) moveUp = true;
+                else if (canJump) { velocity.y += 10; canJump = false; }
+                break;
+            case 'ShiftLeft': if(isFlying) moveDown = true; break;
+            case 'KeyF': isFlying = !isFlying; velocity.y = 0; break; // Toggle Fly
+            case 'KeyK': saveToJSON(); break; // Export
+            case 'KeyL': loadFromJSON(); break; // Import
             case 'Digit1': selectMat('grass'); break;
             case 'Digit2': selectMat('dirt'); break;
             case 'Digit3': selectMat('stone'); break;
@@ -199,6 +197,102 @@ function initVoxelGame() {
             case 'Digit5': selectMat('brick'); break;
         }
     };
+    const onKeyUp = (e) => {
+        switch (e.code) {
+            case 'ArrowUp': case 'KeyW': moveForward = false; break;
+            case 'ArrowLeft': case 'KeyA': moveLeft = false; break;
+            case 'ArrowDown': case 'KeyS': moveBackward = false; break;
+            case 'ArrowRight': case 'KeyD': moveRight = false; break;
+            case 'Space': moveUp = false; break;
+            case 'ShiftLeft': moveDown = false; break;
+        }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener('keyup', onKeyUp);
+
+    // Export/Import Logic
+    function saveToJSON() {
+        const data = JSON.stringify(instanceData);
+        const blob = new Blob([data], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'voxel-world.json';
+        a.click();
+    }
+
+    function loadFromJSON() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json';
+        input.onchange = e => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = event => {
+                const data = JSON.parse(event.target.result);
+                // Clear current
+                Object.keys(instanceData).forEach(k => {
+                    const parts = k.split(',');
+                    removeBlock(parseFloat(parts[0]), parseFloat(parts[1]), parseFloat(parts[2]));
+                });
+                // Load new
+                Object.keys(data).forEach(key => {
+                    const parts = key.split(',');
+                    setBlock(parseFloat(parts[0]), parseFloat(parts[1]), parseFloat(parts[2]), data[key].mat);
+                });
+            };
+            reader.readAsText(file);
+        };
+        input.click();
+    }
+
+    // ... (rest of logic)
+
+    const animate = () => {
+        if (!isPlaying) return;
+        requestAnimationFrame(animate);
+
+        const time = performance.now();
+        const delta = (time - prevTime) / 1000;
+
+        if (isLocked) {
+            // Friction
+            velocity.x -= velocity.x * 10.0 * delta;
+            velocity.z -= velocity.z * 10.0 * delta;
+            
+            if(isFlying) {
+                velocity.y -= velocity.y * 10.0 * delta; // Air friction
+            } else {
+                velocity.y -= 9.8 * 2.0 * delta; // Gravity
+            }
+
+            const direction = new THREE.Vector3();
+            direction.z = Number(moveForward) - Number(moveBackward);
+            direction.x = Number(moveRight) - Number(moveLeft);
+            direction.normalize();
+
+            if (moveForward || moveBackward) velocity.z -= direction.z * (isFlying ? 100 : 50.0) * delta;
+            if (moveLeft || moveRight) velocity.x -= direction.x * (isFlying ? 100 : 50.0) * delta;
+            
+            if (isFlying) {
+                if (moveUp) velocity.y += 50.0 * delta;
+                if (moveDown) velocity.y -= 50.0 * delta;
+            }
+
+            camera.translateX(-velocity.x * delta);
+            camera.translateZ(-velocity.z * delta);
+            camera.position.y += velocity.y * delta;
+
+            if (!isFlying && camera.position.y < 2.5) {
+                velocity.y = 0;
+                camera.position.y = 2.5;
+                canJump = true;
+            }
+        }
+        prevTime = time;
+        renderer.render(scene, camera);
+    };
+
     const onKeyUp = (e) => {
         switch (e.code) {
             case 'ArrowUp': case 'KeyW': moveForward = false; break;

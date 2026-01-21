@@ -1,0 +1,21 @@
+{
+  "name": "Bangladesh Chronicle & Arcade",
+  "short_name": "BD Chronicle",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0A0E27",
+  "theme_color": "#00D9A3",
+  "description": "Chronicle of recent events in Bangladesh and interactive game playground.",
+  "icons": [
+    {
+      "src": "images/bd-flag.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "images/bd-flag.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
