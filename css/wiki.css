@@ -212,45 +212,36 @@ body.wiki-mode .section-title {
     font-weight: normal;
 }
 
-/* Contents Box (Table of Contents style) */
+/* Restored Link Style (No fake TOC) */
 body.wiki-mode .hero-buttons {
-    display: inline-block;
-    background-color: #f8f9fa;
-    border: 1px solid #a2a9b1;
-    padding: 1rem;
+    display: block;
+    background: transparent;
+    border: none;
+    padding: 0;
     margin: 1rem 0;
-    min-width: 300px;
-    display: table;
 }
 
 body.wiki-mode .hero-buttons::before {
-    content: 'Contents';
-    display: block;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 0.5rem;
-}
-
-body.wiki-mode .cta-button {
-    display: block;
-    background: none;
-    color: #0645ad;
-    padding: 0.2rem 0;
-    font-size: 0.95rem;
-    text-align: left;
-    border: none;
-    box-shadow: none;
-}
-
-body.wiki-mode .cta-button i {
     display: none;
 }
 
+body.wiki-mode .cta-button {
+    display: inline-block;
+    background: #f8f9fa;
+    color: #0645ad;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    text-align: center;
+    border: 1px solid #a2a9b1;
+    border-radius: 2px;
+    margin-right: 10px;
+    text-decoration: none;
+}
+
 body.wiki-mode .cta-button:hover {
-    text-decoration: underline;
-    transform: none;
-    background: none;
-    box-shadow: none;
+    background: #ffffff;
+    text-decoration: none;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 /* Clean up Grid for Wiki Look */
@@ -263,8 +254,9 @@ body.wiki-mode .overview-grid {
 /* Typography Polish */
 body.wiki-mode p {
     margin-bottom: 0.8em;
-    text-align: justify;
+    text-align: left; /* Reverted justify */
     font-size: 0.95rem;
+    color: #202122;
 }
 
 body.wiki-mode ul {
@@ -277,36 +269,43 @@ body.wiki-mode li {
     margin-bottom: 0.25rem;
 }
 
-/* Infobox Polish */
+/* Infobox Polish - Cleaner */
 body.wiki-mode .hero-stats {
     float: right;
     clear: right;
-    width: 300px;
+    width: 280px;
     margin: 0 0 1em 1em;
     background: #f8f9fa;
     border: 1px solid #a2a9b1;
-    padding: 0.2rem;
+    padding: 0;
     font-size: 90%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.05);
 }
 
 body.wiki-mode .stat-item {
     background: white;
-    padding: 0.5rem;
-    border: 1px solid #eaecf0;
-    margin-bottom: -1px; /* collapse borders */
+    padding: 8px 10px;
+    border-bottom: 1px solid #eaecf0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* Citation Style Links */
-body.wiki-mode .timeline-link::before {
-    content: '[';
+body.wiki-mode .stat-item:last-child {
+    border-bottom: none;
 }
-body.wiki-mode .timeline-link::after {
-    content: ']';
-}
+
+/* Standard Links (No brackets) */
 body.wiki-mode .timeline-link {
-    font-size: 0.75rem;
-    vertical-align: super;
-    text-decoration: none;
+    font-size: 0.9rem;
+    color: #0645ad;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+body.wiki-mode .timeline-link::before,
+body.wiki-mode .timeline-link::after {
+    display: none;
 }
 
 /* Hide Footer Elements */
