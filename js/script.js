@@ -256,7 +256,7 @@ const galleryData = [
         description: 'The Metro Rail, a symbol of modern development, resumes operations as the city returns to normalcy under new leadership.'
     },
     {
-        image: 'images/shahbag-square.svg',
+        image: 'images/rally.png',
         title: 'Shahbag Square Protests',
         description: 'Historic gathering at Shahbag intersection, a symbolic location for Bangladesh\'s democratic movements.'
     },
@@ -266,7 +266,7 @@ const galleryData = [
         description: 'Formation of the new administration with advisers from various sectors focused on reforms and stability - August 8, 2024.'
     },
     {
-        image: 'images/national-pride-event.svg',
+        image: 'images/celebration.png',
         title: 'National Pride',
         description: 'Citizens wave Bangladesh flag celebrating the peaceful democratic transition and hope for the future.'
     }
