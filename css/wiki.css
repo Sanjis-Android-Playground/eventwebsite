@@ -9,9 +9,11 @@
 }
 
 /* Wiki Mode Styles - Activated when body has .wiki-mode class */
-body.wiki-mode {
-    background-color: #f6f6f6;
-    color: var(--wiki-text);
+body.wiki-mode,
+html.wiki-mode {
+    background-color: #f6f6f6 !important;
+    background-image: none !important;
+    color: #202122;
     font-family: sans-serif;
     line-height: 1.6;
     margin: 0;
@@ -22,20 +24,29 @@ body.wiki-mode {
 body.wiki-mode .particles-css,
 body.wiki-mode .hero-overlay,
 body.wiki-mode .hero-pattern,
+body.wiki-mode .hero-background,
 body.wiki-mode .scroll-indicator,
 body.wiki-mode .news-ticker-container,
 body.wiki-mode #themeToggle,
-body.wiki-mode .progress-bar {
+body.wiki-mode .progress-bar,
+body.wiki-mode .hero::before,
+body.wiki-mode .hero::after,
+body.wiki-mode section::before,
+body.wiki-mode section::after {
     display: none !important;
+    background: none !important;
+    animation: none !important;
+    opacity: 0 !important;
 }
 
 /* Layout Structure */
 body.wiki-mode main {
     margin-left: 12em;
-    padding: 1em 1em 1.5em 1em;
-    background: #fff;
+    padding: 1.5em;
+    background: #ffffff;
     border: 1px solid #a7d7f9;
     border-right-width: 0;
+    border-bottom-width: 0;
     margin-top: 0;
     min-height: 100vh;
 }
@@ -48,9 +59,37 @@ body.wiki-mode header {
     width: 11em;
     height: 100%;
     z-index: 100;
-    background: transparent;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
     padding: 0;
 }
+
+/* Ensure no dark backgrounds bleed through */
+body.wiki-mode section,
+body.wiki-mode .hero,
+body.wiki-mode .overview,
+body.wiki-mode .timeline,
+body.wiki-mode .events,
+body.wiki-mode .key-figures,
+body.wiki-mode .quick-links-section,
+body.wiki-mode .impact,
+body.wiki-mode .gallery,
+body.wiki-mode .contact,
+body.wiki-mode .resources {
+    background: transparent !important;
+    padding: 1rem 0;
+    margin: 0;
+    border: none !important;
+}
+
+body.wiki-mode .container {
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+/* ... rest of existing wiki.css ... */
 
 body.wiki-mode .navbar {
     position: relative;
