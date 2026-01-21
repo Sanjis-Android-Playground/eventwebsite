@@ -2193,7 +2193,48 @@ section {
     cursor: pointer;
 }
 
-/* Wiki Mode Overrides for Game Bar */
+.game-bar-footer {
+    padding: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.full-pg-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, var(--secondary), #818cf8);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: transform 0.2s;
+}
+
+.full-pg-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+/* Wiki Mode Overrides for Game Bar Footer */
+body.wiki-mode .game-bar-footer {
+    border-top: 1px solid #a2a9b1;
+    background: #f8f9fa;
+}
+
+body.wiki-mode .full-pg-btn {
+    background: #f8f9fa;
+    color: #0645ad;
+    border: 1px solid #a2a9b1;
+}
+
+body.wiki-mode .full-pg-btn:hover {
+    background: #e1e1e1;
+}
 body.wiki-mode .game-toggle {
     border-radius: 4px;
     background: #f8f9fa;

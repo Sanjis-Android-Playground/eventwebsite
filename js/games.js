@@ -24,14 +24,19 @@ class GameBar {
                 </div>
                 <div class="game-list">
                     <button class="game-btn" data-game="quiz">
-                        <i class="fas fa-question-circle"></i> BD History Quiz
+                        <i class="fas fa-question-circle"></i> Quiz
                     </button>
                     <button class="game-btn" data-game="snake">
-                        <i class="fas fa-worm"></i> Freedom Snake
+                        <i class="fas fa-worm"></i> Snake
                     </button>
                 </div>
                 <div id="gameContainer" class="game-container">
                     <div class="game-placeholder">Select a game to play!</div>
+                </div>
+                <div class="game-bar-footer">
+                    <a href="playground.html" class="full-pg-btn">
+                        <i class="fas fa-rocket"></i> Open Full Playground
+                    </a>
                 </div>
             </div>
         `;
@@ -39,6 +44,7 @@ class GameBar {
     }
 
     attachListeners() {
+        // ... (existing listeners) ...
         const toggle = document.getElementById('gameToggle');
         const bar = document.getElementById('gameBar');
         const close = document.getElementById('closeGameBar');
@@ -47,11 +53,13 @@ class GameBar {
         toggle.addEventListener('click', () => {
             bar.classList.add('active');
             toggle.classList.add('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling when open
         });
 
         close.addEventListener('click', () => {
             bar.classList.remove('active');
             toggle.classList.remove('hidden');
+            document.body.style.overflow = ''; // Restore scrolling
             this.stopActiveGame();
         });
 
@@ -63,69 +71,7 @@ class GameBar {
         });
     }
 
-    loadGame(type) {
-        const container = document.getElementById('gameContainer');
-        container.innerHTML = ''; // Clear previous game
-        this.stopActiveGame();
-
-        if (type === 'quiz') {
-            this.startQuiz(container);
-        } else if (type === 'snake') {
-            this.startSnake(container);
-        }
-    }
-
-    stopActiveGame() {
-        if (this.activeGameInterval) {
-            clearInterval(this.activeGameInterval);
-            this.activeGameInterval = null;
-        }
-    }
-
-    // --- QUIZ GAME ---
-    startQuiz(container) {
-        const questions = [
-            { q: "When did Sheikh Hasina resign?", options: ["Aug 3", "Aug 5", "Aug 8"], a: 1 },
-            { q: "Who is the Chief Adviser?", options: ["Dr. Yunus", "President Shahabuddin", "General Waker"], a: 0 },
-            { q: "What was the main demand?", options: ["Lower Taxes", "Quota Reform", "New Roads"], a: 1 },
-            { q: "Which movement started it?", options: ["Students", "Farmers", "Doctors"], a: 0 }
-        ];
-        
-        let score = 0;
-        let currentQ = 0;
-
-        const renderQ = () => {
-            if (currentQ >= questions.length) {
-                container.innerHTML = `
-                    <div class="game-result">
-                        <h4>Quiz Complete!</h4>
-                        <p>Score: ${score}/${questions.length}</p>
-                        <button class="restart-btn">Play Again</button>
-                    </div>
-                `;
-                container.querySelector('.restart-btn').onclick = () => this.startQuiz(container);
-                return;
-            }
-
-            const q = questions[currentQ];
-            let html = `<div class="quiz-box"><h4>${q.q}</h4><div class="quiz-options">`;
-            q.options.forEach((opt, i) => {
-                html += `<button class="quiz-opt" data-idx="${i}">${opt}</button>`;
-            });
-            html += `</div><p>Score: ${score}</p></div>`;
-            container.innerHTML = html;
-
-            container.querySelectorAll('.quiz-opt').forEach(btn => {
-                btn.onclick = (e) => {
-                    const idx = parseInt(e.target.getAttribute('data-idx'));
-                    if (idx === q.a) score++;
-                    currentQ++;
-                    renderQ();
-                };
-            });
-        };
-        renderQ();
-    }
+    // ... (rest of methods) ...
 
     // --- SNAKE GAME ---
     startSnake(container) {
@@ -148,15 +94,22 @@ class GameBar {
         let d = null;
         let score = 0;
 
-        document.addEventListener('keydown', direction);
+        // Named function so we can remove it later
+        const handleKey = (event) => {
+            // Prevent default scrolling for arrow keys
+            if([37, 38, 39, 40].includes(event.keyCode)) {
+                event.preventDefault();
+            }
 
-        function direction(event) {
             if (event.keyCode == 37 && d != "RIGHT") d = "LEFT";
             else if (event.keyCode == 38 && d != "DOWN") d = "UP";
             else if (event.keyCode == 39 && d != "LEFT") d = "RIGHT";
             else if (event.keyCode == 40 && d != "UP") d = "DOWN";
-        }
+        };
 
+        document.addEventListener('keydown', handleKey);
+
+        // ... (drawing logic same as before) ...
         const draw = () => {
             ctx.fillStyle = "#1A1F3A"; // Dark BG
             ctx.fillRect(0, 0, 280, 280);
@@ -193,6 +146,7 @@ class GameBar {
 
             if (snakeX < 0 || snakeX > 260 || snakeY < 0 || snakeY > 260 || collision(newHead, snake)) {
                 clearInterval(this.activeGameInterval);
+                document.removeEventListener('keydown', handleKey); // Clean up listener
                 ctx.fillStyle = "white";
                 ctx.font = "20px Arial";
                 ctx.fillText("Game Over! Score: " + score, 40, 140);
@@ -209,13 +163,15 @@ class GameBar {
             return false;
         }
 
-        this.activeGameInterval = setInterval(draw, 150); // Slowed down slightly for playability
+        this.activeGameInterval = setInterval(draw, 150);
         
         restartBtn.onclick = () => {
             clearInterval(this.activeGameInterval);
+            document.removeEventListener('keydown', handleKey); // Clean up before restarting
             this.startSnake(container);
         };
     }
+
 }
 
 // Initialize

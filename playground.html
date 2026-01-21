@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Playground - Bangladesh Chronicle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0F172A;
+            --card-bg: #1E293B;
+            --primary: #00D9A3;
+            --secondary: #6366F1;
+            --text: #F8FAFC;
+        }
+        body {
+            margin: 0;
+            background: var(--bg-color);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; /* Full screen app feel */
+        }
+        .playground-container {
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 280px;
+            background: rgba(15, 23, 42, 0.95);
+            border-right: 1px solid rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+        .sidebar h2 {
+            margin-bottom: 2rem;
+            color: var(--primary);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .game-menu {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .game-menu li button {
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: 1px solid transparent;
+            color: #94A3B8;
+            padding: 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .game-menu li button:hover, .game-menu li button.active {
+            background: rgba(0, 217, 163, 0.1);
+            color: var(--primary);
+            border-color: rgba(0, 217, 163, 0.3);
+        }
+        .game-menu li button i { width: 24px; }
+        
+        .main-stage {
+            flex: 1;
+            position: relative;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .back-btn {
+            margin-top: auto;
+            color: #64748B;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            transition: color 0.3s;
+        }
+        .back-btn:hover { color: white; }
+
+        /* Game Canvas Container */
+        #gameCanvasContainer {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* UI Overlays */
+        .game-ui {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            pointer-events: none;
+        }
+        .score-board {
+            font-size: 2rem;
+            font-weight: 800;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .start-screen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background: rgba(15, 23, 42, 0.9);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+        .start-btn {
+            background: var(--primary);
+            color: #0F172A;
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: transform 0.2s;
+        }
+        .start-btn:hover { transform: scale(1.05); }
+
+        /* Story Mode Text Styles */
+        .story-container {
+            max-width: 800px;
+            padding: 2rem;
+            background: rgba(0,0,0,0.8);
+            border-radius: 12px;
+            border: 1px solid #333;
+            display: none;
+        }
+        .story-text { font-size: 1.2rem; line-height: 1.6; margin-bottom: 2rem; }
+        .choices { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .choice-btn {
+            background: transparent;
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            flex: 1;
+        }
+        .choice-btn:hover { background: var(--secondary); color: white; }
+    </style>
+    <!-- Three.js CDN for Voxel Game -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div class="playground-container">
+        <div class="sidebar">
+            <h2><i class="fas fa-gamepad"></i> Arcade</h2>
+            <ul class="game-menu">
+                <li><button class="active" onclick="loadGame('voxel')"><i class="fas fa-cube"></i> Voxel World (3D)</button></li>
+                <li><button onclick="loadGame('shooter')"><i class="fas fa-crosshairs"></i> Target Practice</button></li>
+                <li><button onclick="loadGame('knife')"><i class="fas fa-khanda"></i> Knife Master</button></li>
+                <li><button onclick="loadGame('story')"><i class="fas fa-book-open"></i> Freedom Story</button></li>
+            </ul>
+            <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Website</a>
+        </div>
+        
+        <div class="main-stage" id="stage">
+            <div id="gameCanvasContainer"></div>
+            
+            <div id="uiLayer" class="game-ui">
+                <div class="score-board" id="scoreDisplay"></div>
+            </div>
+
+            <div id="startScreen" class="start-screen">
+                <h1 id="gameTitle">Welcome to Voxel World</h1>
+                <p id="gameDesc">Build your own Bangladesh in this 3D sandbox!</p>
+                <p style="color: #94A3B8; font-size: 0.9rem; margin-top: 10px;">Controls: Click to add blocks, Shift+Click to remove. Drag to rotate.</p>
+                <button class="start-btn" onclick="startGame()">Start Game</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/playground.js"></script>
+</body>
+</html>
