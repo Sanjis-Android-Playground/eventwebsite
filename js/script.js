@@ -565,7 +565,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize Search
     initSearch();
+    
+    // Initialize Live News
+    fetchLiveNews();
 });
+
+// Fetch Live News
+async function fetchLiveNews() {
+    const rssUrl = 'https://rss.app/feeds/t5Rb7s1j7X5g7q1a.xml'; // Using a public RSS feed for Bangladesh News
+    // Using rss2json.com to convert RSS to JSON
+    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://www.thedailystar.net/top-news/rss.xml')}`;
+
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (data.status === 'ok' && data.items.length > 0) {
+            const tickerContent = document.getElementById('tickerContent');
+            if (!tickerContent) return;
+
+            // Clear existing static items
+            tickerContent.innerHTML = '';
+
+            // Add new items from feed
+            data.items.slice(0, 5).forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'ticker-item';
+                // Clean HTML tags from description if present
+                const cleanTitle = item.title.replace(/<[^>]*>?/gm, '');
+                div.innerHTML = `<a href="${item.link}" target="_blank" style="color:inherit;text-decoration:none">${cleanTitle}</a>`;
+                tickerContent.appendChild(div);
+            });
+        }
+    } catch (error) {
+        console.warn('Failed to fetch live news, falling back to static content:', error);
+        // Fallback is already in HTML, so we do nothing
+    }
+}
 
 function updateUIToggleText() {
     const btn = document.getElementById('uiToggleFooter');
