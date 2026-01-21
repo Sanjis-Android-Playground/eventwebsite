@@ -28,6 +28,35 @@ function initVoxelGame() {
     sun.position.set(50, 100, 50);
     scene.add(sun);
 
+    // Save/Load System
+    function saveWorld() {
+        localStorage.setItem('voxelWorld', JSON.stringify(instanceData));
+    }
+    
+    function loadWorld() {
+        const saved = localStorage.getItem('voxelWorld');
+        if (saved) {
+            const data = JSON.parse(saved);
+            Object.keys(data).forEach(key => {
+                const parts = key.split(',');
+                setBlock(parseFloat(parts[0]), parseFloat(parts[1]), parseFloat(parts[2]), data[key].mat);
+            });
+        } else {
+            // Generate Floor (20x20) only if no save
+            for(let x=-10; x<10; x++) {
+                for(let z=-10; z<10; z++) {
+                    setBlock(x, 0, z, 'grass');
+                    if(Math.random() > 0.9) setBlock(x, 1, z, 'stone');
+                    if(Math.random() > 0.95) {
+                        setBlock(x, 1, z, 'wood');
+                        setBlock(x, 2, z, 'wood');
+                        setBlock(x, 3, z, 'grass');
+                    }
+                }
+            }
+        }
+    }
+
     // 4. Materials
     const matLibrary = {
         grass: new THREE.MeshStandardMaterial({ color: 0x5da642 }),
@@ -73,7 +102,7 @@ function initVoxelGame() {
     Object.keys(matLibrary).forEach(key => {
         const mesh = new THREE.InstancedMesh(geo, matLibrary[key], MAX_INSTANCES);
         mesh.count = 0; 
-        mesh.castShadow = true; // Re-enabled for visuals
+        mesh.castShadow = true; 
         mesh.receiveShadow = true;
         scene.add(mesh);
         meshes[key] = mesh;
@@ -89,7 +118,6 @@ function initVoxelGame() {
     const dummy = new THREE.Object3D();
 
     function setBlock(x, y, z, matKey) {
-        // ... (existing setBlock logic)
         const key = `${x},${y},${z}`;
         if (instanceData[key]) return;
 
@@ -104,10 +132,10 @@ function initVoxelGame() {
         mesh.count++;
         mesh.instanceMatrix.needsUpdate = true;
         playSound('place');
+        saveWorld(); // Save on every change
     }
 
     function removeBlock(x, y, z) {
-        // ... (existing removeBlock logic)
         const key = `${x},${y},${z}`;
         const data = instanceData[key];
         if (!data) return;
@@ -128,102 +156,14 @@ function initVoxelGame() {
         mesh.instanceMatrix.needsUpdate = true;
         delete instanceData[key];
         playSound('break');
+        saveWorld(); // Save on every change
     }
 
-    // ... (World Gen remains same)
-
-    // Highlight Logic
-    function updateHighlight() {
-        raycaster.setFromCamera(center, camera);
-        const intersectObjects = Object.values(meshes);
-        const intersects = raycaster.intersectObjects(intersectObjects);
-        
-        if (intersects.length > 0 && intersects[0].distance < 8) { // Max reach 8
-            const i = intersects[0];
-            const matrix = new THREE.Matrix4();
-            i.object.getMatrixAt(i.instanceId, matrix);
-            const pos = new THREE.Vector3().setFromMatrixPosition(matrix);
-            outlineMesh.position.copy(pos);
-            outlineMesh.visible = true;
-        } else {
-            outlineMesh.visible = false;
-        }
-    }
-
-    // ... (Controls & Physics setup)
-
-    // Animation Loop with Day/Night
-    let sunAngle = 0;
-    
-    const animate = () => {
-        if (!isPlaying) return;
-        requestAnimationFrame(animate);
-
-        const time = performance.now();
-        const delta = (time - prevTime) / 1000;
-        prevTime = time;
-
-        // Day/Night Cycle
-        sunAngle += delta * 0.1; // Slow rotation
-        sun.position.x = Math.cos(sunAngle) * 50;
-        sun.position.y = Math.sin(sunAngle) * 50;
-        sun.position.z = 20;
-        // Sky color change
-        const intensity = Math.max(0, Math.sin(sunAngle));
-        ambient.intensity = 0.2 + intensity * 0.6;
-        scene.background.setHSL(0.6, 0.5, intensity * 0.5 + 0.1);
-
-        if (isLocked) {
-            // Physics (Same as before)
-            velocity.x -= velocity.x * 10.0 * delta;
-            velocity.z -= velocity.z * 10.0 * delta;
-            velocity.y -= 9.8 * 2.0 * delta; 
-
-            const direction = new THREE.Vector3();
-            direction.z = Number(moveForward) - Number(moveBackward);
-            direction.x = Number(moveRight) - Number(moveLeft);
-            direction.normalize();
-
-            if (moveForward || moveBackward) velocity.z -= direction.z * 50.0 * delta;
-            if (moveLeft || moveRight) velocity.x -= direction.x * 50.0 * delta;
-
-            camera.translateX(-velocity.x * delta);
-            camera.translateZ(-velocity.z * delta);
-            camera.position.y += velocity.y * delta;
-
-            if (camera.position.y < 2.5) {
-                velocity.y = 0;
-                camera.position.y = 2.5;
-                canJump = true;
-                
-                // Walking Bobbing
-                if (moveForward || moveBackward || moveLeft || moveRight) {
-                    camera.position.y += Math.sin(time * 0.015) * 0.05;
-                }
-            }
-            
-            updateHighlight();
-        }
-        
-        renderer.render(scene, camera);
-    };
-    animate();
-
-
-    // Generate Floor (20x20)
-    for(let x=-10; x<10; x++) {
-        for(let z=-10; z<10; z++) {
-            setBlock(x, 0, z, 'grass');
-            if(Math.random() > 0.9) setBlock(x, 1, z, 'stone');
-            if(Math.random() > 0.95) {
-                setBlock(x, 1, z, 'wood');
-                setBlock(x, 2, z, 'wood');
-                setBlock(x, 3, z, 'grass');
-            }
-        }
-    }
+    // Initialize World
+    loadWorld();
 
     // 6. Controls
+
     let isLocked = false;
     const euler = new THREE.Euler(0, 0, 0, 'YXZ');
     const PI_2 = Math.PI / 2;
