@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1A1F3A"/>
+      <stop offset="1" stop-color="#0F1123"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="60%">
+      <stop offset="0" stop-color="rgba(244,42,65,0.4)"/>
+      <stop offset="1" stop-color="rgba(244,42,65,0)"/>
+    </radialGradient>
+  </defs>
+  
+  <rect width="1200" height="750" fill="url(#bg)"/>
+  <rect width="1200" height="750" fill="url(#glow)"/>
+  
+  <!-- Shahbag Square Motif -->
+  <!-- Abstract crowd representation -->
+  <path d="M100 650 Q 300 550 500 650 T 900 650 T 1300 650" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+  <path d="M100 680 Q 300 580 500 680 T 900 680 T 1300 680" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+  
+  <!-- Central Monument / Focal Point -->
+  <rect x="580" y="300" width="40" height="300" fill="#F42A41" opacity="0.8"/>
+  <circle cx="600" cy="280" r="30" fill="#006A4E" opacity="0.9"/>
+  
+  <!-- Placards/Signs representation -->
+  <rect x="400" y="500" width="60" height="40" fill="rgba(255,255,255,0.2)" transform="rotate(-10 430 520)"/>
+  <rect x="750" y="520" width="60" height="40" fill="rgba(255,255,255,0.2)" transform="rotate(10 780 540)"/>
+  <rect x="500" y="450" width="50" height="35" fill="rgba(255,255,255,0.15)"/>
+  
+  <!-- Label -->
+  <rect x="60" y="60" width="280" height="44" rx="22" fill="rgba(244,42,65,0.2)" stroke="#F42A41" />
+  <text x="85" y="90" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="18" font-weight="bold">SHAHBAG SQUARE</text>
+  
+  <!-- Crowd silhouettes (abstract) -->
+  <circle cx="450" cy="600" r="15" fill="rgba(255,255,255,0.3)"/>
+  <circle cx="500" cy="620" r="15" fill="rgba(255,255,255,0.3)"/>
+  <circle cx="700" cy="610" r="15" fill="rgba(255,255,255,0.3)"/>
+  <circle cx="760" cy="590" r="15" fill="rgba(255,255,255,0.3)"/>
+  
+  <text x="60" y="700" fill="rgba(255,255,255,0.4)" font-family="Arial, sans-serif" font-size="14">Historic Gathering Point</text>
+</svg>

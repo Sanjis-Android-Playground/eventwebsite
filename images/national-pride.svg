@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#006A4E"/>
+      <stop offset="1" stop-color="#004D38"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="60%" cy="40%" r="50%">
+      <stop offset="0" stop-color="rgba(244,42,65,0.9)"/>
+      <stop offset="1" stop-color="rgba(244,42,65,0.2)"/>
+    </radialGradient>
+  </defs>
+  
+  <rect width="1200" height="750" fill="url(#bg)"/>
+  
+  <!-- Bangladesh Flag Motif - Abstract/Artistic -->
+  <circle cx="650" cy="350" r="180" fill="#F42A41" opacity="0.9"/>
+  <circle cx="630" cy="330" r="160" fill="url(#sun)" opacity="0.6"/>
+  
+  <!-- Waving effect lines -->
+  <path d="M0 600 Q 300 500 600 600 T 1200 600" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="40"/>
+  <path d="M0 650 Q 300 550 600 650 T 1200 650" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="30"/>
+  
+  <!-- Confetti / Celebration Elements -->
+  <circle cx="200" cy="200" r="8" fill="#FFF" opacity="0.6"/>
+  <circle cx="300" cy="150" r="5" fill="#FFF" opacity="0.4"/>
+  <circle cx="900" cy="180" r="10" fill="#FFF" opacity="0.7"/>
+  <circle cx="1000" cy="300" r="6" fill="#FFF" opacity="0.5"/>
+  <rect x="800" y="400" width="10" height="10" fill="#FFF" opacity="0.3" transform="rotate(45 805 405)"/>
+  <rect x="400" y="300" width="8" height="8" fill="#FFF" opacity="0.3" transform="rotate(30 404 304)"/>
+
+  <!-- Label -->
+  <rect x="60" y="60" width="280" height="44" rx="22" fill="rgba(0,106,78,0.4)" stroke="#FFFFFF" stroke-width="2"/>
+  <text x="85" y="90" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="18" font-weight="bold">NATIONAL PRIDE</text>
+  
+  <text x="60" y="700" fill="rgba(255,255,255,0.6)" font-family="Arial, sans-serif" font-size="14">Celebrating Freedom & Unity</text>
+</svg>
