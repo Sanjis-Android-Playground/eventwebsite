@@ -256,6 +256,45 @@
             flex: 1;
         }
         .choice-btn:hover { background: var(--secondary); color: white; }
+
+        /* Minecraft UI */
+        #crosshair {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            pointer-events: none;
+            display: none; /* Hidden by default */
+        }
+        #hotbar {
+            position: absolute;
+            bottom: 20px; left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 5px;
+            background: rgba(0,0,0,0.5);
+            padding: 5px;
+            border-radius: 5px;
+            display: none; /* Hidden by default */
+        }
+        .slot {
+            width: 40px; height: 40px;
+            border: 2px solid #555;
+            cursor: pointer;
+        }
+        .slot.active { border-color: white; transform: scale(1.1); }
+        #mc-controls-hint {
+            position: absolute;
+            top: 10px; left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            background: rgba(0,0,0,0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            display: none;
+        }
     </style>
     <!-- Three.js CDN for Voxel Game -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -308,6 +347,16 @@
             
             <div id="uiLayer" class="game-ui">
                 <div class="score-board" id="scoreDisplay"></div>
+                <!-- Minecraft UI Elements -->
+                <div id="crosshair">+</div>
+                <div id="hotbar">
+                    <div class="slot active" data-mat="grass" style="background:#5da642"></div>
+                    <div class="slot" data-mat="dirt" style="background:#8b5a2b"></div>
+                    <div class="slot" data-mat="stone" style="background:#757575"></div>
+                    <div class="slot" data-mat="wood" style="background:#5c4033"></div>
+                    <div class="slot" data-mat="brick" style="background:#a04030"></div>
+                </div>
+                <div id="mc-controls-hint">Click to Lock Mouse | WASD to Move | Space to Jump | 1-5 to Change Block</div>
             </div>
             
             <!-- Mobile Controls Container (Dynamic) -->
