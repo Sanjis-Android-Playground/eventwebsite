@@ -31,10 +31,7 @@
 </head>
 
 <body>
-    <!-- User Profile Button -->
-    <button id="profileBtn" class="profile-float-btn" aria-label="User Profile">
-        <i class="fas fa-user-circle"></i>
-    </button>
+    <!-- Profile Button Moved to Navbar -->
 
     <!-- User Profile Modal -->
     <div id="profileModal" class="modal">
@@ -43,21 +40,42 @@
                 <i class="fas fa-times"></i>
             </button>
             <div class="profile-header">
-                <div class="profile-avatar">
-                    <i class="fas fa-user-astronaut"></i>
+                <div class="profile-avatar-container">
+                    <div class="profile-avatar" id="currentAvatar">
+                        <i class="fas fa-user-astronaut"></i>
+                    </div>
+                    <button class="edit-avatar-btn" onclick="toggleAvatarSelect()"><i class="fas fa-camera"></i></button>
                 </div>
                 <div class="profile-info">
                     <h2 id="userName">Guest User</h2>
-                    <span class="user-level">Level <span id="userLevel">1</span> Citizen</span>
+                    <span class="user-level" id="userRank">Level 1 - Novice</span>
                     <div class="xp-bar-container">
                         <div class="xp-bar" id="userXP" style="width: 0%"></div>
                     </div>
                 </div>
             </div>
+
+            <!-- Avatar Selection Panel (Hidden by default) -->
+            <div id="avatarSelection" class="avatar-selection hidden">
+                <h4>Select Avatar</h4>
+                <div class="avatar-grid">
+                    <img src="https://ui-avatars.com/api/?name=Luffy&background=ff0000&color=fff" data-src="luffy" onclick="selectAvatar(this)" alt="Luffy">
+                    <img src="https://ui-avatars.com/api/?name=Naruto&background=ff8800&color=fff" data-src="naruto" onclick="selectAvatar(this)" alt="Naruto">
+                    <img src="https://ui-avatars.com/api/?name=Gojo&background=000000&color=fff" data-src="gojo" onclick="selectAvatar(this)" alt="Gojo">
+                    <img src="https://ui-avatars.com/api/?name=Eren&background=553311&color=fff" data-src="eren" onclick="selectAvatar(this)" alt="Eren">
+                    <img src="https://ui-avatars.com/api/?name=Tanjiro&background=00ff00&color=000" data-src="tanjiro" onclick="selectAvatar(this)" alt="Tanjiro">
+                    <img src="https://ui-avatars.com/api/?name=Saitama&background=ffff00&color=000" data-src="saitama" onclick="selectAvatar(this)" alt="Saitama">
+                </div>
+                <div class="custom-upload">
+                    <label for="customAvatarInput"><i class="fas fa-upload"></i> Upload Custom</label>
+                    <input type="file" id="customAvatarInput" accept="image/*" onchange="handleAvatarUpload(this)">
+                </div>
+            </div>
+
             <div class="profile-stats">
                 <div class="p-stat">
                     <span class="p-val" id="totalScore">0</span>
-                    <span class="p-label">Arcade Score</span>
+                    <span class="p-label">Total XP</span>
                 </div>
                 <div class="p-stat">
                     <span class="p-val" id="articlesRead">0</span>
@@ -101,6 +119,9 @@
                     <li><a href="#contact" data-i18n="nav.contact"><i class="fas fa-envelope"></i> Contact</a></li>
                 </ul>
                 <div class="nav-actions">
+                    <button class="profile-nav-btn" id="profileBtn" aria-label="User Profile">
+                        <i class="fas fa-user-circle"></i>
+                    </button>
                     <button class="lang-toggle" id="langToggle" aria-label="Toggle language">
                         <i class="fas fa-language"></i>
                         <span>EN</span>

@@ -1,24 +1,20 @@
-/* Profile Floating Button */
-.profile-float-btn {
-    position: fixed;
-    top: 20px;
-    right: 80px; /* Left of Theme toggle if possible, or adjust z-index */
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: white;
+/* Profile Nav Button (In Navbar) */
+.profile-nav-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
     font-size: 1.2rem;
     cursor: pointer;
-    z-index: 2000;
-    backdrop-filter: blur(5px);
-    transition: all 0.3s;
+    padding: 0 10px;
+    transition: color 0.3s;
 }
-.profile-float-btn:hover {
-    background: var(--primary);
+.profile-nav-btn:hover {
+    color: var(--primary);
     transform: scale(1.1);
 }
+
+/* Old Floating Button Removed */
+/* .profile-float-btn { ... } */
 
 /* Profile Modal */
 #profileModal {
@@ -71,9 +67,12 @@
     gap: 1.5rem;
     margin-bottom: 2rem;
 }
+.profile-avatar-container {
+    position: relative;
+}
 .profile-avatar {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     background: var(--primary);
     color: #000;
@@ -82,7 +81,62 @@
     justify-content: center;
     font-size: 2.5rem;
     border: 3px solid rgba(255,255,255,0.2);
+    overflow: hidden;
 }
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.edit-avatar-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: var(--text-secondary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+/* Avatar Selection */
+.avatar-selection {
+    background: rgba(0,0,0,0.3);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: none;
+}
+.avatar-selection.active { display: block; animation: fadeIn 0.3s; }
+.avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin: 10px 0;
+}
+.avatar-grid img {
+    width: 100%;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.2s;
+}
+.avatar-grid img:hover { transform: scale(1.1); border-color: var(--primary); }
+
+.custom-upload { text-align: center; margin-top: 10px; }
+.custom-upload label {
+    cursor: pointer;
+    color: var(--primary);
+    font-size: 0.9rem;
+    border: 1px dashed var(--primary);
+    padding: 5px 15px;
+    border-radius: 5px;
+}
+.custom-upload input { display: none; }
+
 .profile-info h2 { margin: 0; font-size: 1.5rem; }
 .user-level { color: #aaa; font-size: 0.9rem; }
 .xp-bar-container {

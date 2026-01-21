@@ -112,14 +112,13 @@ function initCharts() {
 
 // --- PROFILE SYSTEM ---
 function initProfile() {
-    const btn = document.getElementById('profileBtn');
+    const btn = document.getElementById('profileBtn'); // New Nav Button
     const modal = document.getElementById('profileModal');
     const closeBtn = modal?.querySelector('.modal-close');
     
     // Open Profile
     if(btn) btn.onclick = () => {
         modal.classList.add('active');
-        // Prevent body scroll
         document.body.style.overflow = 'hidden';
     };
 
@@ -127,16 +126,12 @@ function initProfile() {
     window.closeProfile = () => {
         modal.classList.remove('active');
         document.body.style.overflow = '';
+        document.getElementById('avatarSelection').classList.remove('active');
     };
 
-    // Close on X button
     if(closeBtn) closeBtn.onclick = window.closeProfile;
-
-    // Close on Outside Click
     window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            window.closeProfile();
-        }
+        if (e.target === modal) window.closeProfile();
     });
     
     // Load Data
@@ -144,10 +139,37 @@ function initProfile() {
         name: 'Guest User',
         xp: 0,
         level: 1,
-        badges: []
+        badges: [],
+        avatar: null // Store avatar URL or 'type'
     };
     
     updateProfileUI(user);
+
+    window.toggleAvatarSelect = () => {
+        document.getElementById('avatarSelection').classList.toggle('active');
+    };
+
+    window.selectAvatar = (img) => {
+        user.avatar = img.src;
+        saveUser(user);
+        updateProfileUI(user);
+        document.getElementById('avatarSelection').classList.remove('active');
+    };
+
+    window.handleAvatarUpload = (input) => {
+        const file = input.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                user.avatar = e.target.result;
+                saveUser(user);
+                updateProfileUI(user);
+                document.getElementById('avatarSelection').classList.remove('active');
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     window.updateProfile = () => {
         const newName = document.getElementById('usernameInput').value;
         if(newName) {
@@ -161,12 +183,22 @@ function initProfile() {
 
 function updateProfileUI(user) {
     document.getElementById('userName').innerText = user.name;
-    document.getElementById('userLevel').innerText = user.level;
-    document.getElementById('userXP').style.width = `${(user.xp % 100)}%`;
     
-    // Calculate total score from games (if needed, pull from localStorage)
-    // For now, mockup
-    document.getElementById('totalScore').innerText = user.xp * 10; 
+    // Rank Logic
+    const ranks = ["Novice", "Observer", "Activist", "Leader", "Freedom Fighter", "Legend"];
+    const rankIndex = Math.min(Math.floor(user.level / 5), ranks.length - 1);
+    document.getElementById('userRank').innerText = `Level ${user.level} - ${ranks[rankIndex]}`;
+    
+    document.getElementById('userXP').style.width = `${(user.xp % 100)}%`;
+    document.getElementById('totalScore').innerText = user.xp; 
+    
+    // Avatar
+    const avatarEl = document.getElementById('currentAvatar');
+    if (user.avatar) {
+        avatarEl.innerHTML = `<img src="${user.avatar}" alt="Avatar">`;
+    } else {
+        avatarEl.innerHTML = `<i class="fas fa-user-astronaut"></i>`;
+    }
 }
 
 function saveUser(user) {
