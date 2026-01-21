@@ -549,7 +549,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedMode = localStorage.getItem('uiMode');
     if (savedMode === 'wiki') {
         document.body.classList.add('wiki-mode');
-        document.getElementById('uiToggle').textContent = 'Switch to Modern Mode';
+        updateUIToggleText();
     }
 
     // Apply wiki mode to links to persist state
@@ -567,88 +567,12 @@ document.addEventListener('DOMContentLoaded', () => {
     initSearch();
 });
 
-// Search System
-function initSearch() {
-    const searchInput = document.getElementById('heroSearch');
-    const searchBtn = document.getElementById('heroSearchBtn');
-    const resultsContainer = document.getElementById('searchResults');
-    
-    if (!searchInput || !resultsContainer) return;
-
-    // Index content
-    const index = [];
-    
-    // Index Events
-    document.querySelectorAll('.event-card, .timeline-content').forEach(el => {
-        const title = el.querySelector('h3')?.innerText;
-        const desc = el.querySelector('p')?.innerText;
-        if(title) {
-            index.push({
-                type: 'Event',
-                title: title,
-                desc: desc,
-                el: el
-            });
-        }
-    });
-
-    // Index Pages/Sections
-    const sections = [
-        { title: 'Timeline', desc: 'Chronological list of events', url: '#timeline' },
-        { title: 'Gallery', desc: 'Photos from the movement', url: '#gallery' },
-        { title: 'Key Figures', desc: 'Leaders like Dr. Yunus', url: '.key-figures' },
-        { title: 'Game Playground', desc: 'Play Voxel World, Snake, and more', url: 'playground.html' }
-    ];
-    sections.forEach(s => index.push({ type: 'Page', title: s.title, desc: s.desc, url: s.url }));
-
-    // Search Logic
-    const performSearch = (query) => {
-        resultsContainer.innerHTML = '';
-        if (query.length < 2) {
-            resultsContainer.classList.remove('active');
-            return;
-        }
-
-        const q = query.toLowerCase();
-        const results = index.filter(item => 
-            item.title.toLowerCase().includes(q) || 
-            (item.desc && item.desc.toLowerCase().includes(q))
-        ).slice(0, 5); // Limit to 5 results
-
-        if (results.length > 0) {
-            results.forEach(res => {
-                const div = document.createElement('a');
-                div.className = 'search-result-item';
-                div.href = res.url || '#';
-                div.innerHTML = `<strong>${res.title}</strong><small>${res.type}: ${res.desc ? res.desc.substring(0, 50) + '...' : ''}</small>`;
-                
-                div.onclick = (e) => {
-                    if(!res.url) { // It's an element on page
-                        e.preventDefault();
-                        res.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        // Highlight effect
-                        res.el.style.transition = 'box-shadow 0.3s';
-                        res.el.style.boxShadow = '0 0 0 4px var(--primary)';
-                        setTimeout(() => res.el.style.boxShadow = '', 1500);
-                    }
-                    resultsContainer.classList.remove('active');
-                };
-                resultsContainer.appendChild(div);
-            });
-        } else {
-            resultsContainer.innerHTML = '<div class="no-results">No results found</div>';
-        }
-        resultsContainer.classList.add('active');
-    };
-
-    searchInput.addEventListener('input', (e) => performSearch(e.target.value));
-    
-    // Close when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.hero-search-container')) {
-            resultsContainer.classList.remove('active');
-        }
-    });
+function updateUIToggleText() {
+    const btn = document.getElementById('uiToggleFooter');
+    if (btn) {
+        const isWiki = document.body.classList.contains('wiki-mode');
+        btn.textContent = isWiki ? 'Switch to Modern Mode' : 'Switch to Wiki Mode';
+    }
 }
 
 // UI Toggle Function
@@ -657,5 +581,5 @@ window.toggleUIMode = () => {
     const isWiki = document.body.classList.contains('wiki-mode');
     
     localStorage.setItem('uiMode', isWiki ? 'wiki' : 'modern');
-    document.getElementById('uiToggle').textContent = isWiki ? 'Switch to Modern Mode' : 'Switch to Wiki Mode';
+    updateUIToggleText();
 };

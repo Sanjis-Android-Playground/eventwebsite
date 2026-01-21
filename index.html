@@ -96,10 +96,13 @@
         </div>
     </div>
 
-    <!-- UI Switcher Button -->
-    <button id="uiToggle" onclick="toggleUIMode()">Switch to Wiki Mode</button>
-
-    <header>
+    <!-- User Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content profile-content">
+            <button class="modal-close" onclick="closeProfile()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="profile-header">
         <nav class="navbar">
             <div class="container">
                 <div class="logo">
@@ -899,6 +902,8 @@
             <div class="footer-bottom">
                 <p>&copy; 2024-2025 Bangladesh Chronicle. All rights reserved. | Last Updated: January 2025</p>
                 <div class="footer-links">
+                    <button id="uiToggleFooter" onclick="toggleUIMode()">Switch to Wiki Mode</button>
+                    <span>•</span>
                     <a href="#">Privacy Policy</a>
                     <span>•</span>
                     <a href="#">Terms of Use</a>
