@@ -114,12 +114,34 @@ function initCharts() {
 function initProfile() {
     const btn = document.getElementById('profileBtn');
     const modal = document.getElementById('profileModal');
+    const closeBtn = modal?.querySelector('.modal-close');
     
-    if(btn) btn.onclick = () => modal.classList.add('active');
+    // Open Profile
+    if(btn) btn.onclick = () => {
+        modal.classList.add('active');
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+    };
+
+    // Close Functions
+    window.closeProfile = () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    };
+
+    // Close on X button
+    if(closeBtn) closeBtn.onclick = window.closeProfile;
+
+    // Close on Outside Click
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            window.closeProfile();
+        }
+    });
     
     // Load Data
     const user = JSON.parse(localStorage.getItem('bdUser')) || {
-        name: 'Guest',
+        name: 'Guest User',
         xp: 0,
         level: 1,
         badges: []
@@ -132,6 +154,7 @@ function initProfile() {
             user.name = newName;
             saveUser(user);
             updateProfileUI(user);
+            alert("Profile Saved!");
         }
     };
 }

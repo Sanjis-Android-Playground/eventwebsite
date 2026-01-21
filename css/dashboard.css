@@ -21,12 +21,50 @@
 }
 
 /* Profile Modal */
+#profileModal {
+    z-index: 2500; /* Ensure higher than other elements */
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
 .profile-content {
     background: linear-gradient(145deg, #1a1f3a, #0f1123);
     color: white;
+    width: 90%;
     max-width: 400px;
     border: 1px solid rgba(0,217,163,0.3);
+    position: relative;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    margin: auto;
+    /* Center in flex container */
 }
+
+/* Fix Close Button */
+.profile-content .modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    z-index: 10;
+}
+
+.profile-content .modal-close:hover {
+    background: var(--danger);
+    transform: rotate(90deg);
+}
+
 .profile-header {
     display: flex;
     align-items: center;
