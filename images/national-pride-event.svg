@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#006a4e"/>
+  
+  <!-- Flag Circle -->
+  <circle cx="400" cy="300" r="150" fill="#f42a41"/>
+  
+  <!-- Sun/Rays -->
+  <path d="M400 300 L 400 0 L 450 0 Z" fill="white" opacity="0.1"/>
+  <path d="M400 300 L 800 300 L 800 350 Z" fill="white" opacity="0.1"/>
+  <path d="M400 300 L 400 600 L 350 600 Z" fill="white" opacity="0.1"/>
+  <path d="M400 300 L 0 300 L 0 250 Z" fill="white" opacity="0.1"/>
+
+  <!-- Celebratory Confetti -->
+  <circle cx="200" cy="150" r="5" fill="white" opacity="0.6"/>
+  <circle cx="600" cy="150" r="8" fill="gold" opacity="0.6"/>
+  <circle cx="100" cy="400" r="6" fill="white" opacity="0.6"/>
+  <circle cx="700" cy="500" r="7" fill="gold" opacity="0.6"/>
+  <rect x="300" y="100" width="10" height="10" fill="gold" opacity="0.5" transform="rotate(45 305 105)"/>
+  <rect x="500" y="500" width="8" height="8" fill="white" opacity="0.5" transform="rotate(30 504 504)"/>
+
+  <!-- Text -->
+  <text x="400" y="550" font-family="Arial, sans-serif" font-size="30" fill="#fff" text-anchor="middle" font-weight="bold">VICTORY</text>
+  <text x="400" y="580" font-family="Arial, sans-serif" font-size="16" fill="#eee" text-anchor="middle">National Pride</text>
+</svg>

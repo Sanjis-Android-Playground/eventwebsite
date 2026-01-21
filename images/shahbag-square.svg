@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#1a1a1a"/>
+  
+  <!-- Atmosphere -->
+  <circle cx="400" cy="100" r="300" fill="url(#glow)" opacity="0.3"/>
+  <defs>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ff0000"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Crowd -->
+  <path d="M0 600 L0 450 Q 200 400 400 450 Q 600 400 800 450 L 800 600 Z" fill="#333"/>
+  <path d="M0 600 L0 500 Q 200 480 400 500 Q 600 480 800 500 L 800 600 Z" fill="#222"/>
+
+  <!-- Signs/Placards -->
+  <rect x="150" y="380" width="40" height="30" fill="#eee" transform="rotate(-5 170 395)"/>
+  <rect x="170" y="410" width="2" height="40" fill="#888" transform="rotate(-5 170 395)"/>
+  
+  <rect x="600" y="390" width="50" height="35" fill="#eee" transform="rotate(5 625 407.5)"/>
+  <rect x="625" y="425" width="2" height="40" fill="#888" transform="rotate(5 625 407.5)"/>
+
+  <!-- Central Figure/Monument (Abstract) -->
+  <rect x="380" y="200" width="40" height="300" fill="#444"/>
+  <circle cx="400" cy="180" r="30" fill="#ff0000"/>
+
+  <!-- Text -->
+  <text x="400" y="550" font-family="Arial, sans-serif" font-size="24" fill="#fff" text-anchor="middle" letter-spacing="2">SHAHBAG SQUARE</text>
+  <text x="400" y="580" font-family="Arial, sans-serif" font-size="14" fill="#aaa" text-anchor="middle">Historic Movement</text>
+</svg>
