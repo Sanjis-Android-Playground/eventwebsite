@@ -199,77 +199,21 @@ body.wiki-mode .stat-label {
     text-transform: none;
 }
 
-/* Improved Wiki Header */
+/* Improved Wiki Header - Official Style */
 body.wiki-mode .section-title {
     font-family: 'Linux Libertine', 'Georgia', 'Times', serif;
     font-size: 1.8rem;
-    border-bottom: 1px solid #a2a9b1;
+    border-bottom: 1px solid #a2a9b1; /* Official Wiki border color */
     margin-top: 1em;
     margin-bottom: 0.5em;
     padding-bottom: 0.25em;
     color: black;
     text-align: left;
     font-weight: normal;
+    line-height: 1.3;
 }
 
-/* Restored Link Style (No fake TOC) */
-body.wiki-mode .hero-buttons {
-    display: block;
-    background: transparent;
-    border: none;
-    padding: 0;
-    margin: 1rem 0;
-}
-
-body.wiki-mode .hero-buttons::before {
-    display: none;
-}
-
-body.wiki-mode .cta-button {
-    display: inline-block;
-    background: #f8f9fa;
-    color: #0645ad;
-    padding: 6px 12px;
-    font-size: 0.9rem;
-    text-align: center;
-    border: 1px solid #a2a9b1;
-    border-radius: 2px;
-    margin-right: 10px;
-    text-decoration: none;
-}
-
-body.wiki-mode .cta-button:hover {
-    background: #ffffff;
-    text-decoration: none;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-}
-
-/* Clean up Grid for Wiki Look */
-body.wiki-mode .events-grid, 
-body.wiki-mode .figures-grid, 
-body.wiki-mode .overview-grid {
-    display: block;
-}
-
-/* Typography Polish */
-body.wiki-mode p {
-    margin-bottom: 0.8em;
-    text-align: left; /* Reverted justify */
-    font-size: 0.95rem;
-    color: #202122;
-}
-
-body.wiki-mode ul {
-    list-style-type: disc;
-    padding-left: 2rem;
-    margin-bottom: 1rem;
-}
-
-body.wiki-mode li {
-    margin-bottom: 0.25rem;
-}
-
-/* Infobox Polish - Cleaner */
+/* Infobox Polish - Cleaner & Lighter */
 body.wiki-mode .hero-stats {
     float: right;
     clear: right;
@@ -279,13 +223,13 @@ body.wiki-mode .hero-stats {
     border: 1px solid #a2a9b1;
     padding: 0;
     font-size: 90%;
-    box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+    box-shadow: none; /* Removed shadow */
 }
 
 body.wiki-mode .stat-item {
-    background: white;
-    padding: 8px 10px;
-    border-bottom: 1px solid #eaecf0;
+    background: transparent;
+    padding: 0.4rem 0.6rem;
+    border-bottom: 1px solid #eaecf0; /* Very light divider */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -295,23 +239,24 @@ body.wiki-mode .stat-item:last-child {
     border-bottom: none;
 }
 
-/* Standard Links (No brackets) */
-body.wiki-mode .timeline-link {
-    font-size: 0.9rem;
-    color: #0645ad;
-    display: inline-block;
-    margin-top: 5px;
+/* Remove any dark backgrounds or heavy borders */
+body.wiki-mode .timeline-item, 
+body.wiki-mode .event-card, 
+body.wiki-mode .overview-card {
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin-bottom: 1.5rem;
 }
 
-body.wiki-mode .timeline-link::before,
-body.wiki-mode .timeline-link::after {
-    display: none;
+body.wiki-mode .hero-title {
+    border-bottom: 1px solid #a2a9b1;
+    padding-bottom: 0.25em;
 }
 
-/* Hide Footer Elements */
-body.wiki-mode .footer-social,
-body.wiki-mode .newsletter-form {
-    display: none;
+body.wiki-mode footer {
+    border-top: 1px solid #a2a9b1;
+    background: white;
 }
 
 
