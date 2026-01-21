@@ -77,13 +77,32 @@ class GameBar {
     startSnake(container) {
         container.innerHTML = `
             <canvas id="snakeCanvas" width="280" height="280"></canvas>
-            <div class="snake-controls">Use Arrow Keys</div>
+            <div class="snake-controls-text">Use Arrow Keys</div>
+            <div class="mobile-dpad">
+                <button class="d-btn up" data-dir="UP"><i class="fas fa-chevron-up"></i></button>
+                <div class="d-row">
+                    <button class="d-btn left" data-dir="LEFT"><i class="fas fa-chevron-left"></i></button>
+                    <button class="d-btn down" data-dir="DOWN"><i class="fas fa-chevron-down"></i></button>
+                    <button class="d-btn right" data-dir="RIGHT"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
             <button class="restart-btn" style="margin-top:5px;">Restart</button>
+            <style>
+                .mobile-dpad { display: none; flex-direction: column; align-items: center; gap: 5px; margin-top: 10px; }
+                .d-row { display: flex; gap: 5px; }
+                .d-btn { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 8px; cursor: pointer; }
+                .d-btn:active { background: var(--primary); }
+                @media (max-width: 768px) {
+                    .mobile-dpad { display: flex; }
+                    .snake-controls-text { display: none; }
+                }
+            </style>
         `;
         
         const canvas = document.getElementById('snakeCanvas');
         const ctx = canvas.getContext('2d');
         const restartBtn = container.querySelector('.restart-btn');
+        const dpadBtns = container.querySelectorAll('.d-btn');
         
         const box = 20;
         let snake = [{ x: 9 * box, y: 10 * box }];
@@ -106,6 +125,26 @@ class GameBar {
             else if (event.keyCode == 39 && d != "LEFT") d = "RIGHT";
             else if (event.keyCode == 40 && d != "UP") d = "DOWN";
         };
+
+        // D-Pad Logic
+        dpadBtns.forEach(btn => {
+            btn.addEventListener('touchstart', (e) => {
+                e.preventDefault(); // Prevent double firing
+                const dir = btn.getAttribute('data-dir');
+                if (dir == "LEFT" && d != "RIGHT") d = "LEFT";
+                else if (dir == "UP" && d != "DOWN") d = "UP";
+                else if (dir == "RIGHT" && d != "LEFT") d = "RIGHT";
+                else if (dir == "DOWN" && d != "UP") d = "DOWN";
+            });
+            // Mouse click fallback
+            btn.addEventListener('mousedown', (e) => {
+                const dir = btn.getAttribute('data-dir');
+                if (dir == "LEFT" && d != "RIGHT") d = "LEFT";
+                else if (dir == "UP" && d != "DOWN") d = "UP";
+                else if (dir == "RIGHT" && d != "LEFT") d = "RIGHT";
+                else if (dir == "DOWN" && d != "UP") d = "DOWN";
+            });
+        });
 
         document.addEventListener('keydown', handleKey);
 

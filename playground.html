@@ -24,6 +24,7 @@
         .playground-container {
             display: flex;
             height: 100vh;
+            position: relative;
         }
         .sidebar {
             width: 280px;
@@ -32,8 +33,24 @@
             padding: 1.5rem;
             display: flex;
             flex-direction: column;
-            z-index: 10;
+            z-index: 20;
+            transition: transform 0.3s ease;
         }
+        
+        .sidebar-toggle {
+            display: none;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 30;
+            background: var(--card-bg);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
         .sidebar h2 {
             margin-bottom: 2rem;
             color: var(--primary);
@@ -42,24 +59,58 @@
             align-items: center;
             gap: 10px;
         }
+        /* Mobile Responsive Sidebar */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: absolute;
+                height: 100%;
+                transform: translateX(-100%);
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .sidebar-toggle {
+                display: block;
+            }
+            .main-stage {
+                width: 100%;
+            }
+        }
+
         .game-menu {
             list-style: none;
             padding: 0;
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            overflow-y: auto; /* Scroll for many games */
+            flex: 1; /* Take remaining height */
+            padding-right: 5px; /* Space for scrollbar */
         }
+        /* Custom scrollbar for menu */
+        .game-menu::-webkit-scrollbar { width: 5px; }
+        .game-menu::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 5px; }
+        
+        .game-category {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #64748B;
+            margin: 1rem 0 0.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
         .game-menu li button {
             width: 100%;
             text-align: left;
             background: transparent;
             border: 1px solid transparent;
             color: #94A3B8;
-            padding: 1rem;
+            padding: 0.8rem 1rem;
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 1rem;
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -78,6 +129,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
         }
         .back-btn {
             margin-top: auto;
@@ -97,6 +149,7 @@
             width: 100%;
             height: 100%;
             position: relative;
+            touch-action: none; /* Prevent browser zooming/scrolling */
         }
         canvas {
             display: block;
@@ -108,8 +161,10 @@
         .game-ui {
             position: absolute;
             top: 20px;
-            left: 20px;
+            right: 20px; /* Moved to right to avoid overlap with sidebar toggle */
+            left: auto;
             pointer-events: none;
+            text-align: right;
         }
         .score-board {
             font-size: 2rem;
@@ -117,6 +172,40 @@
             text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
         
+        /* Mobile Controls Overlay */
+        .mobile-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            pointer-events: none;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 15;
+        }
+        
+        .control-btn {
+            pointer-events: auto;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            transition: transform 0.1s;
+        }
+        
+        .control-btn:active, .control-btn.active {
+            background: var(--primary);
+            transform: scale(0.95);
+        }
+
         .start-screen {
             position: absolute;
             top: 50%;
@@ -128,6 +217,8 @@
             border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
+            width: 80%;
+            max-width: 500px;
         }
         .start-btn {
             background: var(--primary);
@@ -151,6 +242,7 @@
             border-radius: 12px;
             border: 1px solid #333;
             display: none;
+            margin: 1rem;
         }
         .story-text { font-size: 1.2rem; line-height: 1.6; margin-bottom: 2rem; }
         .choices { display: flex; gap: 1rem; flex-wrap: wrap; }
@@ -170,13 +262,43 @@
 </head>
 <body>
     <div class="playground-container">
-        <div class="sidebar">
+        <button id="sidebarToggle" class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+        
+        <div class="sidebar" id="sidebar">
             <h2><i class="fas fa-gamepad"></i> Arcade</h2>
             <ul class="game-menu">
+                <div class="game-category">Featured</div>
                 <li><button class="active" onclick="loadGame('voxel')"><i class="fas fa-cube"></i> Voxel World (3D)</button></li>
                 <li><button onclick="loadGame('shooter')"><i class="fas fa-crosshairs"></i> Target Practice</button></li>
                 <li><button onclick="loadGame('knife')"><i class="fas fa-khanda"></i> Knife Master</button></li>
                 <li><button onclick="loadGame('story')"><i class="fas fa-book-open"></i> Freedom Story</button></li>
+                
+                <div class="game-category">Arcade Classics</div>
+                <li><button onclick="loadGame('pong')"><i class="fas fa-table-tennis"></i> Pong</button></li>
+                <li><button onclick="loadGame('breakout')"><i class="fas fa-th"></i> Breakout</button></li>
+                <li><button onclick="loadGame('snake_classic')"><i class="fas fa-worm"></i> Snake Classic</button></li>
+                <li><button onclick="loadGame('space')"><i class="fas fa-rocket"></i> Space Defenders</button></li>
+                <li><button onclick="loadGame('flappy')"><i class="fas fa-dove"></i> Flappy Bird</button></li>
+                <li><button onclick="loadGame('dino')"><i class="fas fa-running"></i> Dino Run</button></li>
+                <li><button onclick="loadGame('pac')"><i class="fas fa-dot-circle"></i> Dot Eater</button></li>
+                
+                <div class="game-category">Puzzle & Logic</div>
+                <li><button onclick="loadGame('tetris')"><i class="fas fa-shapes"></i> Tetris</button></li>
+                <li><button onclick="loadGame('2048')"><i class="fas fa-border-all"></i> 2048</button></li>
+                <li><button onclick="loadGame('memory')"><i class="fas fa-brain"></i> Memory Match</button></li>
+                <li><button onclick="loadGame('minesweeper')"><i class="fas fa-bomb"></i> Minesweeper</button></li>
+                <li><button onclick="loadGame('sudoku')"><i class="fas fa-border-none"></i> Sudoku</button></li>
+                <li><button onclick="loadGame('tic')"><i class="fas fa-times"></i> Tic-Tac-Toe</button></li>
+                <li><button onclick="loadGame('simon')"><i class="fas fa-music"></i> Simon Says</button></li>
+
+                <div class="game-category">Casual</div>
+                <li><button onclick="loadGame('whack')"><i class="fas fa-gavel"></i> Whack-a-Mole</button></li>
+                <li><button onclick="loadGame('rps')"><i class="fas fa-hand-scissors"></i> Rock Paper Scissors</button></li>
+                <li><button onclick="loadGame('hangman')"><i class="fas fa-user-injured"></i> Hangman</button></li>
+                <li><button onclick="loadGame('wordle')"><i class="fas fa-spell-check"></i> Word Guess</button></li>
+                <li><button onclick="loadGame('math')"><i class="fas fa-calculator"></i> Math Speed</button></li>
+                <li><button onclick="loadGame('clicker')"><i class="fas fa-mouse-pointer"></i> Cookie Clicker</button></li>
+                <li><button onclick="loadGame('reaction')"><i class="fas fa-bolt"></i> Reaction Time</button></li>
             </ul>
             <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Website</a>
         </div>
@@ -187,6 +309,9 @@
             <div id="uiLayer" class="game-ui">
                 <div class="score-board" id="scoreDisplay"></div>
             </div>
+            
+            <!-- Mobile Controls Container (Dynamic) -->
+            <div id="mobileControls" class="mobile-controls"></div>
 
             <div id="startScreen" class="start-screen">
                 <h1 id="gameTitle">Welcome to Voxel World</h1>
